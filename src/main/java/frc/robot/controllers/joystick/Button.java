@@ -12,8 +12,5 @@ public class Button extends edu.wpi.first.wpilibj2.command.button.Button {
         this.button = new JoystickButton(joystick, port);
     }
 
-    @Override
-    public boolean get() {
-        return button.get();
-    }
+
 }

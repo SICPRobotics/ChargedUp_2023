@@ -51,20 +51,7 @@ public class TrajectoryGeneration extends SubsystemBase{
         System.out.println(trajectoryName);
         System.out.println(this.getTrajectory(trajectoryName).toString());
     }
-    public Command getTrajectoryCommand(DriveTrain driveTrain, String trajectoryName){
-        System.out.println(trajectoryName);
-        System.out.println(this.getTrajectory(trajectoryName).getStates());
-        return new RamseteCommand(this.getTrajectory(trajectoryName), 
-            driveTrain::getPose,
-             new RamseteController(),
-              new SimpleMotorFeedforward(Constants.DriveTrain.kinematics.S, Constants.DriveTrain.kinematics.V, Constants.DriveTrain.kinematics.A),
-               driveTrain.kinematics,
-                driveTrain::getWheelSpeeds,
-                 new PIDController(Constants.DriveTrain.kinematics.P, Constants.DriveTrain.kinematics.I, Constants.DriveTrain.kinematics.D),
-                  new PIDController(Constants.DriveTrain.kinematics.P, Constants.DriveTrain.kinematics.I, Constants.DriveTrain.kinematics.D),
-                   driveTrain::voltDrive,
-                    driveTrain);
-    }
+
 }
 
 
