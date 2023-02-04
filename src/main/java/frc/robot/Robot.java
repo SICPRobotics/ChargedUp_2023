@@ -87,7 +87,7 @@ Pigeon2 pigeon = new Pigeon2(10);
     autonomousCommand = robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {
-      autonomousCommand.schedule();
+      autonomousCommand.schedule();  //add a comment
     }
   }
 
