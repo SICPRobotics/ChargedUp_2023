@@ -33,6 +33,7 @@ import frc.robot.commands.rumble.Rumbler;
  * the DriveTrain, aka the thing that moves the robot
  */
 public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsystem{
+    private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(), 0, 0);
     
     public final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
     private final Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0); //SPI.Port.kMXP ?
@@ -44,6 +45,7 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
     private final MotorControllerGroup right = new MotorControllerGroup(frontRight, rearRight);
     private final DifferentialDrive robotDrive = new DifferentialDrive(left, right);
     private Pose2d savedPose = new Pose2d();
+    
     public DriveTrain() {
         super();
         right.setInverted(true); 
@@ -145,6 +147,7 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
     }
     
     public void periodic() {
+        updatePose();
         SmartDashboard.putNumber("TalonSRX 0 (front right) Temperature", frontRight.getTemperature());
         SmartDashboard.putNumber("TalonSRX 1 (rear right) Temperature", rearRight.getTemperature());
         SmartDashboard.putNumber("TalonSRX 2 (rear left) Temperature", rearLeft.getTemperature());
@@ -154,6 +157,7 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
         SmartDashboard.putNumber("Angular Velocity", getAngularVelocity());
         SmartDashboard.putNumber("Front Left Motor Volts", getLeftVolts());
         SmartDashboard.putNumber("Front Right Motor Volts", getRightVolts());
+        SmartDashboard.putString("Pose", getPose().toString());
         SmartDashboard.putNumber("Front Right Motor Position", getRightDistanceMeters());
         SmartDashboard.putNumber("Front Left Motor Position", getLeftDistanceMeters());
         SmartDashboard.putNumber("Front Right Motor Velocity", getRightVelocityMeters());
@@ -223,6 +227,20 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
     }
     public double getAngularVelocity(){
         return updateVelocity().omegaRadiansPerSecond;
+    }
+    public Pose2d getPose(){
+        return odometry.getPoseMeters();
+    }
+    public void setSavedPose(){
+        this.savedPose = this.getPose();
+    }
+    private void updatePose(){
+        odometry.update(new Rotation2d(getRadians()), getLeftDistanceMeters(), getRightDistanceMeters());
+    }
+    public void reset(){
+        frontLeft.setSelectedSensorPosition(0);
+        frontRight.setSelectedSensorPosition(0);
+        gyro.calibrate();
     }
     
 }

@@ -116,25 +116,25 @@ public final class RobotContainer {
         joystick.thumb.toggleWhenPressed(
             new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
        
-        operator.buttons.RB.whileHeld(new MotorCommand(cargoIntake, -0.8));
-        operator.buttons.LB.whileHeld(new MotorCommand(cargoIntake,  1));
+        operator.buttons.RB.whileTrue(new MotorCommand(cargoIntake, -0.8));
+        operator.buttons.LB.whileTrue(new MotorCommand(cargoIntake,  1));
 
-        operator.buttons.dPad.up.whileHeld(new UpArmCommand(cargoArm, pidgey));
-        operator.buttons.dPad.down.whileHeld(new DownArmCommand(cargoArm, pidgey));
+        operator.buttons.dPad.up.whileTrue(new UpArmCommand(cargoArm, pidgey));
+        operator.buttons.dPad.down.whileTrue(new DownArmCommand(cargoArm, pidgey));
         cargoArm.setDefaultCommand(new RunCommand(() -> cargoArm.setMotor(operator.sticks.left.getY() * 0.5), cargoArm));
 
-        operator.buttons.Y.whileHeld(new MotorCommand(climber,  1));
-        joystick.button(5).whileHeld(new MotorCommand(climber, 1));
-        operator.buttons.A.whileHeld(new MotorCommand(climber, -1, true));
-        joystick.button(3).whileHeld(new MotorCommand(climber, -1));
+        operator.buttons.Y.whileTrue(new MotorCommand(climber,  1));
+        joystick.button(5).whileTrue(new MotorCommand(climber, 1));
+        operator.buttons.A.whileTrue(new MotorCommand(climber, -1, true));
+        joystick.button(3).whileTrue(new MotorCommand(climber, -1));
         
-        operator.buttons.B.whileHeld(new MotorCommand(climberPivot, -0.2));
-        joystick.button(6).whileHeld(new MotorCommand(climberPivot, -0.2));
-        operator.buttons.X.whileHeld(new MotorCommand(climberPivot, 0.2));
-        joystick.button(4).whileHeld(new MotorCommand(climberPivot, 0.2));
+        operator.buttons.B.whileTrue(new MotorCommand(climberPivot, -0.2));
+        joystick.button(6).whileTrue(new MotorCommand(climberPivot, -0.2));
+        operator.buttons.X.whileTrue(new MotorCommand(climberPivot, 0.2));
+        joystick.button(4).whileTrue(new MotorCommand(climberPivot, 0.2));
         
-        operator.buttons.start.whenPressed(getCallibrationCommand());
-        operator.buttons.back.whileHeld(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
+        operator.buttons.start.onTrue(getCallibrationCommand());
+        operator.buttons.back.whileTrue(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
     
         //operator.buttons.RS.toggleWhenPressed(new AutoClimb(climber, climberPivot, pidgey));
     }
