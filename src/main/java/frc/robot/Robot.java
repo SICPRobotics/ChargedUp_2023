@@ -7,14 +7,15 @@
 
 package frc.robot;
 
-import java.nio.file.FileSystem;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.Pigeon2;
 
-import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.Pigeon2Configuration;
 
 
 
@@ -24,11 +25,27 @@ import com.ctre.phoenix.sensors.Pigeon2Configuration;
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
+  double initialPitch;
+  double initialRoll;
+  private final WPI_TalonFX m_leftDrive = new WPI_TalonFX(1);
+  private final WPI_TalonFX m_rightDrive = new WPI_TalonFX(2);
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
+  private final Joystick m_stick = new Joystick(0);
+  private final Timer m_timer = new Timer();
 
 Pigeon2 pigeon = new Pigeon2(10);
+private double deltaPitch(){
+  return (pigeon.getPitch() - initialPitch);
+}
 
+private double deltaRoll(){
+  return (pigeon.getRoll() - initialRoll);
+}
   @Override
   public void robotInit() {
+    pigeon.setYaw(0);
+    initialPitch = pigeon.getPitch();
+    initialRoll = pigeon.getRoll();
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -116,9 +133,10 @@ Pigeon2 pigeon = new Pigeon2(10);
   @Override
   public void teleopPeriodic() {
     System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
-  System.out.println("Pitch:"+pigeon.getPitch()); // prints the pitch of the Pigeon
-  System.out.println("Roll:"+pigeon.getRoll()); // prints the roll of the Pigeon
-
+  System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
+  System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
+    m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
+  
   }
 
   @Override
