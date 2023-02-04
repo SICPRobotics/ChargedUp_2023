@@ -113,8 +113,8 @@ public final class RobotContainer {
      * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
    private void configureButtonBindings() {
-        joystick.thumb.toggleWhenPressed(
-            new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
+        //joystick.thumb.toggleWhenPressed(
+        //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
        
         operator.buttons.RB.whileTrue(new MotorCommand(cargoIntake, -0.8));
         operator.buttons.LB.whileTrue(new MotorCommand(cargoIntake,  1));

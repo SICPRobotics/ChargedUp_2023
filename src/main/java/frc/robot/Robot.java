@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -28,8 +31,12 @@ public class Robot extends TimedRobot {
   double initialPitch;
   double initialRoll;
   private final WPI_TalonFX m_leftDrive = new WPI_TalonFX(1);
-  private final WPI_TalonFX m_rightDrive = new WPI_TalonFX(2);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
+  private final WPI_TalonFX m_leftslave = new WPI_TalonFX(0);
+  private final WPI_TalonFX m_rightDrive = new WPI_TalonFX(3);
+  private final WPI_TalonFX m_rightslave = new WPI_TalonFX(2);
+  private final MotorControllerGroup leftMotorControllerGroup = new MotorControllerGroup(m_leftDrive, m_leftslave);
+  private final MotorControllerGroup rightMotorControllerGroup = new MotorControllerGroup(m_rightDrive, m_rightslave);
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(leftMotorControllerGroup, rightMotorControllerGroup);
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
 
@@ -46,6 +53,7 @@ private double deltaRoll(){
     pigeon.setYaw(0);
     initialPitch = pigeon.getPitch();
     initialRoll = pigeon.getRoll();
+    leftMotorControllerGroup.setInverted(true);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -113,7 +121,7 @@ private double deltaRoll(){
    */
   @Override
   public void autonomousPeriodic() {
-
+      
   }
 
   @Override
@@ -132,11 +140,7 @@ private double deltaRoll(){
    */
   @Override
   public void teleopPeriodic() {
-    System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
-  System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
-  System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
-    m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
-  
+    
   }
 
   @Override
@@ -150,6 +154,19 @@ private double deltaRoll(){
    */
   @Override
   public void testPeriodic() {
-
+    // System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
+    System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
+    //System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
+    //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
+    double currentPitch = deltaPitch();
+    if(currentPitch <4.5 && currentPitch >-4.5){
+      m_robotDrive.arcadeDrive(0,0);
+    }
+    else if(currentPitch > 4.5){
+      m_robotDrive.arcadeDrive(-0.5, 0);
+    }
+    else if(currentPitch < -4.5){
+      m_robotDrive.arcadeDrive(0.5, 0);
+    }
   }
 }
