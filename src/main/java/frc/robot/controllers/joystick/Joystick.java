@@ -15,7 +15,7 @@ public class Joystick {
         trigger = button(1);
         thumb = button(2);
     }
-
+    
     public Button button(int port) {
         if (buttons[port] != null) {
             return buttons[port];

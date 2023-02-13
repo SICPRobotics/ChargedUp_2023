@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -26,17 +27,24 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 
 public class Robot extends TimedRobot {
-  private Command autonomousCommand;
-  private RobotContainer robotContainer;
+  //private Command autonomousCommand;
+  //private RobotContainer robotContainer;
   double initialPitch;
   double initialRoll;
-  private final WPI_TalonFX m_leftDrive = new WPI_TalonFX(1);
+  /*  private final WPI_TalonFX m_leftDrive = new WPI_TalonFX(1);
   private final WPI_TalonFX m_leftslave = new WPI_TalonFX(0);
   private final WPI_TalonFX m_rightDrive = new WPI_TalonFX(3);
   private final WPI_TalonFX m_rightslave = new WPI_TalonFX(2);
   private final MotorControllerGroup leftMotorControllerGroup = new MotorControllerGroup(m_leftDrive, m_leftslave);
   private final MotorControllerGroup rightMotorControllerGroup = new MotorControllerGroup(m_rightDrive, m_rightslave);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(leftMotorControllerGroup, rightMotorControllerGroup);
+  private final DifferentialDrive m_robotDrive = new DifferentialDrive(leftMotorControllerGroup, rightMotorControllerGroup); */
+  private final WPI_TalonFX m_leftFront = new WPI_TalonFX(0);
+  private final WPI_TalonFX m_leftBack = new WPI_TalonFX(2);
+  private final WPI_TalonFX m_rightFront = new WPI_TalonFX(1);
+  private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
+  
+  
+  private final MecanumDrive   m_robotDrive = new MecanumDrive(m_leftFront, m_leftBack, m_rightFront, m_rightBack); 
   private final Joystick m_stick = new Joystick(0);
   private final Timer m_timer = new Timer();
 
@@ -50,14 +58,16 @@ private double deltaRoll(){
 }
   @Override
   public void robotInit() {
-    pigeon.setYaw(0);
-    initialPitch = pigeon.getPitch();
-    initialRoll = pigeon.getRoll();
-    leftMotorControllerGroup.setInverted(true);
+    m_rightFront.setInverted(true);
+    m_rightBack.setInverted(true);
+   //pigeon.setYaw(0);
+  //  initialPitch = pigeon.getPitch();
+    //initialRoll = pigeon.getRoll();
+//    leftMotorControllerGroup.setInverted(true);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    robotContainer = new RobotContainer();
+    //robotContainer = new RobotContainer();
     //SmartDashboardValues.clear();
     // UsbCamera cam1 = CameraServer.startAutomaticCapture(0);
     // UsbCamera cam2 = CameraServer.startAutomaticCapture(1);
@@ -109,11 +119,11 @@ private double deltaRoll(){
   @Override
   public void autonomousInit() {
     //robotContainer.generateTrajectory(true);
-    autonomousCommand = robotContainer.getAutonomousCommand();
+//    autonomousCommand = robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
-    }
+  //  if (autonomousCommand != null) {
+    //  autonomousCommand.schedule();
+  //  }
   }
 
   /**
@@ -130,9 +140,9 @@ private double deltaRoll(){
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
+//    if (autonomousCommand != null) {
+  //    autonomousCommand.cancel();
+    //}
   }
 
   /**
@@ -140,7 +150,9 @@ private double deltaRoll(){
    */
   @Override
   public void teleopPeriodic() {
-    
+    Joystick joystick = new Joystick(0); //0 is USB port
+  //  m_robotDrive.arcadeDrive(-m_stick.getRawAxis(0), m_stick.getRawAxis(1));
+    m_robotDrive.driveCartesian(-m_stick.getY(), m_stick.getX(), m_stick.getZ());
   }
 
   @Override
@@ -160,13 +172,13 @@ private double deltaRoll(){
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){
-      m_robotDrive.arcadeDrive(0,0);
+ //     m_robotDrive.arcadeDrive(0,0);
     }
     else if(currentPitch > 4.5){
-      m_robotDrive.arcadeDrive(-0.5, 0);
+   //   m_robotDrive.arcadeDrive(-0.5, 0);
     }
     else if(currentPitch < -4.5){
-      m_robotDrive.arcadeDrive(0.5, 0);
+   //   m_robotDrive.arcadeDrive(0.5, 0);
     }
   }
 }
