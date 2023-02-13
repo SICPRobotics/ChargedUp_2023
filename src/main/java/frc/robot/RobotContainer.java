@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.drive.DriveWithJoystick;
+import frc.robot.commands.drive.MechinumDrive;
 import frc.robot.commands.MotorCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
@@ -43,8 +44,13 @@ import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ClimberPivot;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.MDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.Pidgey;
+import com.ctre.phoenix.sensors.Pigeon2;
+import frc.robot.Constants;
+import frc.robot.Constants.Gryo;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -56,6 +62,7 @@ public final class RobotContainer {
     public static final Gson gson = new Gson();
     public final Joystick joystick;
     public final DriveTrain driveTrain;
+    public final MDriveTrain mDriveTrain;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
     public final GsonSaver gsonSaver;
     public final OperatorController operator = new OperatorController(1);
@@ -64,6 +71,7 @@ public final class RobotContainer {
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
     public final Climber climber;
     public final Pidgey pidgey;
+    public final Pigeon2 pigeon2;
     private final ClimberPivot climberPivot;
 
     /**
@@ -73,6 +81,7 @@ public final class RobotContainer {
         CameraServer.startAutomaticCapture();
         Rumbler.setOperator(operator);
         driveTrain = new DriveTrain();
+        mDriveTrain = new MDriveTrain();
         joystick = new Joystick(0);
         gsonSaver = new GsonSaver();
         cargoArm = new CargoArm();
@@ -83,10 +92,20 @@ public final class RobotContainer {
         climber = new Climber();
         climberPivot = new ClimberPivot();
         pidgey = new Pidgey();
+        pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
+        //this is creating mechinum drive command need to work out ahrs part of contructor later
+
+        final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
+        
             
         driveTrain.setDefaultCommand(
             new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
+        
+        mDriveTrain.setDefaultCommand(mechdrive);
+        // this should also be uncommented after fixing command
+
+        
 
         // Configure the button bindings
         configureButtonBindings();

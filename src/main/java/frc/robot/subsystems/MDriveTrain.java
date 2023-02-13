@@ -13,21 +13,21 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
-public class MecanumDriveSub extends SubsystemBase {
-    private WPI_TalonSRX frontRightMotor, rearRightMotor;
-    private WPI_VictorSPX rearLeftMotor, frontLeftMotor;
+public class MDriveTrain extends SubsystemBase {
+    private WPI_TalonFX frontRightMotor, rearRightMotor;
+    private WPI_TalonFX rearLeftMotor, frontLeftMotor;
   
     private MecanumDrive mDrive;
-    private ShuffleboardTab tab;
   
-    public MecanumDrivetrain(ShuffleboardTab tab) {
+    public MDriveTrain() {
       //Mecanum Drive motors
-      frontLeftMotor = new WPI_VictorSPX(leftFrontVictorID);
-      rearLeftMotor = new WPI_VictorSPX(leftRearVictorID);
-      frontRightMotor = new WPI_TalonSRX(rightFrontTalonID);
-      rearRightMotor = new WPI_TalonSRX(rightRearTalonID);
+      frontLeftMotor = new WPI_TalonFX(Constants.DriveTrain.FRONT_RIGHT_MOTOR_ID);
+      rearLeftMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_RIGHT_MOTOR_ID);
+      frontRightMotor = new WPI_TalonFX(Constants.DriveTrain.FRONT_LEFT_MOTOR_ID);
+      rearRightMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_LEFT_MOTOR_ID);
   
       frontLeftMotor.setInverted(false);
       rearLeftMotor.setInverted(false);
@@ -36,32 +36,14 @@ public class MecanumDriveSub extends SubsystemBase {
   
       mDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
   
-      this.tab = tab;
-  
       configureShuffleboardData();
     }
   
     private void configureShuffleboardData() {
-      ShuffleboardLayout layout = tab.getLayout("Drivetrain Data", BuiltInLayouts.kGrid).withPosition(10, 0);
-      layout.add(this);
-      layout.add("Mecanum Drive Base", mDrive);
-      //
-      layout.addNumber("Front Left Encoder Pos", () -> getFrontLeftEncoderPosition());
-      layout.addNumber("Front Left Encoder Vel", () -> getFrontLeftEncoderVelocity());
-      //
-      layout.addNumber("Rear Left Encoder Pos", () -> getRearLeftEncoderPosition());
-      layout.addNumber("Rear Left Encoder Vel", () -> getRearLeftEncoderVelocity());
-      //
-      layout.addNumber("Front Right Encoder Pos", () -> getFrontRightEncoderPosition());
-      layout.addNumber("Front Right Encoder Vel", () -> getFrontRightEncoderVelocity());   
-      //
-      layout.addNumber("Rear Right Encoder Pos", () -> getRearRightEncoderPosition());
-      layout.addNumber("Rear Right Encoder Vel", () -> getRearRightEncoderVelocity());
   
     }
     @Override
     public void periodic() {
-      // This method will be called once per scheduler run
       mDrive.feed();
     }
   
@@ -81,12 +63,12 @@ public class MecanumDriveSub extends SubsystemBase {
     public double getRearLeftEncoderVelocity() { return rearLeftMotor.getSelectedSensorVelocity(); }
     public double getRearRightEncoderVelocity() { return rearRightMotor.getSelectedSensorVelocity(); }
   
-    // Robot orientated drive I think
-    public void driveCartesian(double xSpeed, double ySpeed, double zRotation, Rotation2d gyroAngle){
-      xSpeed = MathUtil.applyDeadband(xSpeed, SPEED_DEADBAND);
-      ySpeed = MathUtil.applyDeadband(ySpeed, SPEED_DEADBAND);
-      zRotation = MathUtil.applyDeadband(zRotation, ROTATION_DEADBAND);
+
+    public void driveCartesian(double xSpeed, double ySpeed, double zRotation){
+      xSpeed = MathUtil.applyDeadband(xSpeed, Constants.DriveTrain.SPEED_DEADBAND);
+      ySpeed = MathUtil.applyDeadband(ySpeed, Constants.DriveTrain.SPEED_DEADBAND);
+      zRotation = MathUtil.applyDeadband(zRotation, Constants.DriveTrain.ROTATION_DEADBAND);
   
-      mDrive.driveCartesian(xSpeed, ySpeed, zRotation, gyroAngle);
+      mDrive.driveCartesian(xSpeed, ySpeed, zRotation);
     }
   }

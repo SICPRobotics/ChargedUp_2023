@@ -34,6 +34,10 @@ public final class Constants {
         public static final double X_AXIS_DEADZONE_RANGE = 0.005;
         public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
         public static final double X_AXIS_DEADZONE_Y_MIN = 0.1; 
+
+        public static final double ROTATION_DEADBAND = .005;
+        public static final double STRAFING_DEADBAND = .005;
+        public static final double SPEED_DEADBAND = .005;
         
         public final class ControlSystems{
             public static final int ARCADE_DRIVE_STANDARD = 0;
@@ -71,5 +75,8 @@ public final class Constants {
         public static final double TURN_ACCEPTED_ERROR = 1000;
     }
 
+    public static class Gryo{
+        public static final int PIDGEY_MOTOR_ID = 10;
+    }
 
 }

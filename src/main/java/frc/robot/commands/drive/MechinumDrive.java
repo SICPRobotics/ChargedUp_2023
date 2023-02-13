@@ -5,36 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MecanumDrivetrain;
+import frc.robot.subsystems.MDriveTrain;
 
 
-public class DriveMecanum extends CommandBase {
+public class MechinumDrive extends CommandBase {
   /*
    * Creates a new DriveMecanum.
    */
 
-  private MecanumDrivetrain driveTrain;
+  private MDriveTrain driveTrain;
   private Supplier<Double>  x, y, z;
   private Supplier<Rotation2d> r;
 
-  public DriveMecanum(MecanumDrivetrain drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation,
-   Supplier<Rotation2d> rAngle) {
+  public MechinumDrive(MDriveTrain drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
     this.driveTrain = drivetrain;
     this.x = forward;
     this.y = strafe;
     this.z = zRotation;
-    this.r = rAngle;
   }
 
-// Called when the command is initially scheduled.
+
+
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -47,13 +47,13 @@ public class DriveMecanum extends CommandBase {
     double zRotation = z.get();
     Rotation2d gyroAngle = r.get();
     
-    driveTrain.driveCartesian(xSpeed, ySpeed, zRotation, gyroAngle);
+    driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveTrain.driveCartesian(0.0, 0.0, 0.0, r.get());	
+    driveTrain.driveCartesian(0.0, 0.0, 0.0);	
   }
 
   // Returns true when the command should end.
