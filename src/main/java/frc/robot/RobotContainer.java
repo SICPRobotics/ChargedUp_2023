@@ -99,10 +99,10 @@ public final class RobotContainer {
         final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
         
             
-        driveTrain.setDefaultCommand(
-            new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
+        //driveTrain.setDefaultCommand(
+        //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
         
-        mDriveTrain.setDefaultCommand(mechdrive);
+        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ()));
         // this should also be uncommented after fixing command
 
         

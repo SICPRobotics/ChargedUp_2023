@@ -30,15 +30,6 @@ public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   double initialPitch;
   double initialRoll;
-  private final WPI_TalonFX m_leftDrive = new WPI_TalonFX(1);
-  private final WPI_TalonFX m_leftslave = new WPI_TalonFX(0);
-  private final WPI_TalonFX m_rightDrive = new WPI_TalonFX(3);
-  private final WPI_TalonFX m_rightslave = new WPI_TalonFX(2);
-  private final MotorControllerGroup leftMotorControllerGroup = new MotorControllerGroup(m_leftDrive, m_leftslave);
-  private final MotorControllerGroup rightMotorControllerGroup = new MotorControllerGroup(m_rightDrive, m_rightslave);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(leftMotorControllerGroup, rightMotorControllerGroup);
-  private final Joystick m_stick = new Joystick(0);
-  private final Timer m_timer = new Timer();
 
 Pigeon2 pigeon = new Pigeon2(10);
 private double deltaPitch(){
@@ -50,14 +41,12 @@ private double deltaRoll(){
 }
   @Override
   public void robotInit() {
-    pigeon.setYaw(0);
-    initialPitch = pigeon.getPitch();
-    initialRoll = pigeon.getRoll();
-    leftMotorControllerGroup.setInverted(true);
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
+    System.out.print("initailizzing");
     robotContainer = new RobotContainer();
+    System.out.print("intialized");
     //SmartDashboardValues.clear();
     // UsbCamera cam1 = CameraServer.startAutomaticCapture(0);
     // UsbCamera cam2 = CameraServer.startAutomaticCapture(1);
@@ -77,6 +66,7 @@ private double deltaRoll(){
    */
   @Override
   public void robotPeriodic() {
+
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -140,7 +130,7 @@ private double deltaRoll(){
    */
   @Override
   public void teleopPeriodic() {
-    
+    System.out.print("work please work");
   }
 
   @Override
@@ -158,15 +148,6 @@ private double deltaRoll(){
     System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
     //System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
-    double currentPitch = deltaPitch();
-    if(currentPitch <4.5 && currentPitch >-4.5){
-      m_robotDrive.arcadeDrive(0,0);
-    }
-    else if(currentPitch > 4.5){
-      m_robotDrive.arcadeDrive(-0.5, 0);
-    }
-    else if(currentPitch < -4.5){
-      m_robotDrive.arcadeDrive(0.5, 0);
-    }
+
   }
 }

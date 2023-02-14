@@ -21,7 +21,6 @@ public class MechinumDrive extends CommandBase {
 
   private MDriveTrain driveTrain;
   private Supplier<Double>  x, y, z;
-  private Supplier<Rotation2d> r;
 
   public MechinumDrive(MDriveTrain drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -45,7 +44,7 @@ public class MechinumDrive extends CommandBase {
     double xSpeed = -x.get();
     double ySpeed = -y.get();
     double zRotation = z.get();
-    Rotation2d gyroAngle = r.get();
+
     
     driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
   }
