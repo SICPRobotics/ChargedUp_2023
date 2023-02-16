@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.controllers.joystick.Joystick;
 
 public class MDriveTrain extends SubsystemBase {
     private WPI_TalonFX frontRightMotor, rearRightMotor;
     private WPI_TalonFX rearLeftMotor, frontLeftMotor;
-  
+    frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
     private MecanumDrive mDrive;
   
     public MDriveTrain() {
@@ -63,11 +63,18 @@ public class MDriveTrain extends SubsystemBase {
     public double getRearLeftEncoderVelocity() { return rearLeftMotor.getSelectedSensorVelocity(); }
     public double getRearRightEncoderVelocity() { return rearRightMotor.getSelectedSensorVelocity(); }
   
-
+    
     public void driveCartesian(double xSpeed, double ySpeed, double zRotation){
       xSpeed = MathUtil.applyDeadband(xSpeed, Constants.DriveTrain.SPEED_DEADBAND);
       ySpeed = MathUtil.applyDeadband(ySpeed, Constants.DriveTrain.SPEED_DEADBAND);
       zRotation = MathUtil.applyDeadband(zRotation, Constants.DriveTrain.ROTATION_DEADBAND);
+
+
+      
+      xSpeed = xSpeed * joystick.getScale();
+      ySpeed = ySpeed * joystick.getScale();
+      zRotation = zRotation * joystick.getScale(); 
+
   
       mDrive.driveCartesian(xSpeed, ySpeed, zRotation);
     }

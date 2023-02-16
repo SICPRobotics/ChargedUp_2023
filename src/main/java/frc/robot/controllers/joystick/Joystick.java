@@ -26,18 +26,33 @@ public class Joystick {
     }
 
     public double getX() {
+        if(this.joystick.getRawAxis(Constants.Joystick.X_AXIS) < 0.1 && this.joystick.getRawAxis(Constants.Joystick.X_AXIS) > -0.1){
+            return 0;
+        }
         return this.joystick.getRawAxis(Constants.Joystick.X_AXIS);
+        
     }
 
     public double getY() {
+        if(this.joystick.getRawAxis(Constants.Joystick.Y_AXIS) < 0.1 && this.joystick.getRawAxis(Constants.Joystick.Y_AXIS) > -0.1){
+            return 0;
+        }
         return this.joystick.getRawAxis(Constants.Joystick.Y_AXIS);
+        
+    }
+    
+    public double getZ() {
+        if(this.joystick.getRawAxis(Constants.Joystick.Z_AXIS) < 0.1 && this.joystick.getRawAxis(Constants.Joystick.Z_AXIS) > -0.1){
+            return 0;
+        }
+        return this.joystick.getRawAxis(2);
+        
     }
 
-    public double getZ() {
-        return this.joystick.getRawAxis(2);
-    }
+    //we created a range for the joystick 
 
     public double getScale() {
         return ((-this.joystick.getRawAxis(Constants.Joystick.SCALE_AXIS) + 1) / 2);
     }
+
 }

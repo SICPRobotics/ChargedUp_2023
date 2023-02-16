@@ -35,9 +35,9 @@ public final class Constants {
         public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
         public static final double X_AXIS_DEADZONE_Y_MIN = 0.1; 
 
-        public static final double ROTATION_DEADBAND = .5;
-        public static final double STRAFING_DEADBAND = .5;
-        public static final double SPEED_DEADBAND = .5;
+        public static final double ROTATION_DEADBAND = .2;
+        public static final double STRAFING_DEADBAND = .2;
+        public static final double SPEED_DEADBAND = .2;
         
         public final class ControlSystems{
             public static final int ARCADE_DRIVE_STANDARD = 0;

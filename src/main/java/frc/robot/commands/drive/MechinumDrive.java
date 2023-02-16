@@ -41,10 +41,9 @@ public class MechinumDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = -x.get();
+    double xSpeed = x.get();
     double ySpeed = -y.get();
     double zRotation = z.get();
-
     
     driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
   }
