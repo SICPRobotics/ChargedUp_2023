@@ -76,7 +76,7 @@ public final class Constants {
     }
 
     public static class Gryo{
-        public static final int PIDGEY_MOTOR_ID = 10;
+        public static final int PIDGEY_MOTOR_ID = 4;
     }
 
 }

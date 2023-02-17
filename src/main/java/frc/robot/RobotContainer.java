@@ -94,7 +94,6 @@ public final class RobotContainer {
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
-        //this is creating mechinum drive command need to work out ahrs part of contructor later
 
         final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
         
@@ -103,7 +102,6 @@ public final class RobotContainer {
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
         
         mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ()));
-        // this should also be uncommented after fixing command
 
         
 

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 
 
@@ -30,8 +31,15 @@ public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   double initialPitch;
   double initialRoll;
+  double initialYaw;
+  private final WPI_TalonFX m_leftFront = new WPI_TalonFX(0);
+  private final WPI_TalonFX m_leftBack = new WPI_TalonFX(2);
+  private final WPI_TalonFX m_rightFront = new WPI_TalonFX(1);
+  private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
 
-Pigeon2 pigeon = new Pigeon2(10);
+  private final MecanumDrive   m_robotDrive = new MecanumDrive(m_leftFront, m_leftBack, m_rightFront, m_rightBack); 
+
+Pigeon2 pigeon = new Pigeon2(0);
 private double deltaPitch(){
   return (pigeon.getPitch() - initialPitch);
 }
@@ -39,6 +47,11 @@ private double deltaPitch(){
 private double deltaRoll(){
   return (pigeon.getRoll() - initialRoll);
 }
+
+private double deltaYaw(){
+  return (pigeon.getYaw() - initialYaw);
+}
+
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -130,7 +143,6 @@ private double deltaRoll(){
    */
   @Override
   public void teleopPeriodic() {
-    System.out.print("work please work");
   }
 
   @Override
@@ -144,10 +156,21 @@ private double deltaRoll(){
    */
   @Override
   public void testPeriodic() {
-    // System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
+    System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
     System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
-    //System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
+    System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
 
+    double currentPitch = deltaPitch();
+    if(currentPitch <4.5 && currentPitch >-4.5){
+      m_robotDrive.driveCartesian(0,0,0);
+    }
+    else if(currentPitch > -4.5){
+      m_robotDrive.driveCartesian(0,.1,-.1);
+    }
+    else if(currentPitch < 4.5){
+      m_robotDrive.driveCartesian(0,-.1,.1);
+    }
+    // may have to use value other than pitch based on how pidgey is mounted
   }
 }
