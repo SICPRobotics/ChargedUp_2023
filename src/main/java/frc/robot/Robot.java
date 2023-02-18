@@ -166,11 +166,12 @@ private double deltaYaw(){
       m_robotDrive.driveCartesian(0,0,0);
     }
     else if(currentPitch > -4.5){
-      m_robotDrive.driveCartesian(0,.1,-.1);
+      m_robotDrive.driveCartesian(0,.15,0);
     }
     else if(currentPitch < 4.5){
-      m_robotDrive.driveCartesian(0,-.1,.1);
+      m_robotDrive.driveCartesian(0,-.15,0);
     }
     // may have to use value other than pitch based on how pidgey is mounted
+    
   }
 }
