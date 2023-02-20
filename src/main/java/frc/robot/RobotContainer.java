@@ -9,6 +9,7 @@ package frc.robot;
 import com.google.gson.Gson;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 //simport edu.wpi.first.wpilibj.XboxController.Button;
@@ -42,9 +43,11 @@ import frc.robot.commands.MotorCommand;
 import frc.robot.controllers.joystick.Joystick;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Pinchy;
 import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MDriveTrain;
+import frc.robot.subsystems.PneumaticSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.Pidgey;
 import com.ctre.phoenix.sensors.Pigeon2;
@@ -63,6 +66,7 @@ public final class RobotContainer {
     public final Joystick joystick;
     public final DriveTrain driveTrain;
     public final MDriveTrain mDriveTrain;
+    private final DoubleSolenoid doubleSolenoid;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
     public final GsonSaver gsonSaver;
     public final OperatorController operator = new OperatorController(1);
@@ -70,6 +74,7 @@ public final class RobotContainer {
     public final CargoIntake cargoIntake;
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
     public final Climber climber;
+    public final Pinchy pinchy;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
@@ -82,6 +87,7 @@ public final class RobotContainer {
         Rumbler.setOperator(operator);
         driveTrain = new DriveTrain();
         mDriveTrain = new MDriveTrain();
+        doubleSolenoid = new DoubleSolenoid(null, 0, 1);
         joystick = new Joystick(0);
         gsonSaver = new GsonSaver();
         cargoArm = new CargoArm();
@@ -91,6 +97,7 @@ public final class RobotContainer {
         //trajectoryGeneration.addGson(gsonSaver);
         climber = new Climber();
         cranePivot = new CranePivot();
+        pinchy = new Pinchy(doubleSolenoid);
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
@@ -142,12 +149,12 @@ public final class RobotContainer {
         operator.buttons.B.whileTrue(new MotorCommand(climber, -.3));
         joystick.button(6).whileTrue(new MotorCommand(climber, .3));
         joystick.button(4).whileTrue(new MotorCommand(climber, -.3));
-
-        //operator.buttons.dPad.up.whileTrue(new PneumaticCommand(, ));
-        //operator.buttons.dPad.down.whileTrue(new PneumaticCommand(, ));
-        //joystick.button(11).whileTrue(new PneumaticCommand(, ));
-        //joystick.button(12).whileTrue(new PneumaticCommand(, ));
         
+        operator.buttons.dPad.up.whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kForward));
+        operator.buttons.dPad.up.whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kReverse));
+        joystick.button(10).whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kForward));
+        joystick.button(9).whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kReverse));
+
         operator.buttons.back.whileTrue(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
     
         //operator.buttons.RS.toggleWhenPressed(new AutoClimb(climber, climberPivot, pidgey));

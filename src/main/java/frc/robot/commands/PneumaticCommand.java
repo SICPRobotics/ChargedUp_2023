@@ -1,40 +1,27 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.rumble.Rumbler;
 import frc.robot.subsystems.PneumaticSubsystem;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class PneumaticCommand extends CommandBase {
-    private final PneumaticSubsystem PneumaticSubsystem;
-    private final double velocity;
-    private final boolean force;
-    public PneumaticCommand(PneumaticSubsystem PneumaticSubsystem, double velocity, boolean force){
-        this.PneumaticSubsystem = PneumaticSubsystem;
-        this.velocity = velocity;
-        this.force = force;
-        addRequirements(PneumaticSubsystem);
-    }
-    public PneumaticCommand(PneumaticSubsystem PneumaticSubsystem, double velocity) {
-        this(PneumaticSubsystem, velocity, false);
+    private final PneumaticSubsystem pneumaticSubsystem;
+    private final Value direction;
+
+    public PneumaticCommand(PneumaticSubsystem pneumaticSubsystem,  Value direction) {
+        this.direction = direction;
+        this.pneumaticSubsystem = pneumaticSubsystem;
+
     }
 
     @Override
-    public void initialize() {
-        this.PneumaticSubsystem.setMotor(velocity, force);
+    public void execute() {
+        pneumaticSubsystem.set(direction);
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.PneumaticSubsystem.turnOff();
-
-        if (!PneumaticSubsystem.canTurn(velocity)) {
-            Rumbler.rumble(0.1, 0.5);
-        }
-    }
-
-    @Override
-    public boolean isFinished() {
-        return !PneumaticSubsystem.canTurn(velocity);
+        pneumaticSubsystem.set(Value.kOff);
     }
 }
