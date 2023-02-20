@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.drive.MechinumDrive;
 import frc.robot.commands.MotorCommand;
+import frc.robot.commands.PneumaticCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
@@ -31,7 +32,6 @@ import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.CustomAuto;
 import frc.robot.commands.auto.OldAutoCommand;
-import frc.robot.commands.autoclimb.AutoClimb;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.arm.UpArmCommand;
 import frc.robot.commands.rumble.Rumbler;
@@ -42,7 +42,7 @@ import frc.robot.commands.MotorCommand;
 import frc.robot.controllers.joystick.Joystick;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ClimberPivot;
+import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MDriveTrain;
 import frc.robot.subsystems.MotorSubsystem;
@@ -72,7 +72,7 @@ public final class RobotContainer {
     public final Climber climber;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
-    private final ClimberPivot climberPivot;
+    public final CranePivot cranePivot;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -90,7 +90,7 @@ public final class RobotContainer {
         autoDelay = new SmartDashBoardClass<Double>("autoDelay", 0.0);
         //trajectoryGeneration.addGson(gsonSaver);
         climber = new Climber();
-        climberPivot = new ClimberPivot();
+        cranePivot = new CranePivot();
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
@@ -133,41 +133,24 @@ public final class RobotContainer {
         //joystick.thumb.toggleWhenPressed(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
        
-        operator.buttons.RB.whileTrue(new MotorCommand(cargoIntake, -0.8));
-        operator.buttons.LB.whileTrue(new MotorCommand(cargoIntake,  1));
+        operator.buttons.Y.whileTrue(new MotorCommand(cranePivot, .3));
+        operator.buttons.A.whileTrue(new MotorCommand(cranePivot, -.3));
+        joystick.button(5).whileTrue(new MotorCommand(cranePivot, .3));
+        joystick.button(3).whileTrue(new MotorCommand(cranePivot, -.3));
 
-        operator.buttons.dPad.up.whileTrue(new UpArmCommand(cargoArm, pidgey));
-        operator.buttons.dPad.down.whileTrue(new DownArmCommand(cargoArm, pidgey));
-        cargoArm.setDefaultCommand(new RunCommand(() -> cargoArm.setMotor(operator.sticks.left.getY() * 0.5), cargoArm));
+        operator.buttons.X.whileTrue(new MotorCommand(climber, .3));
+        operator.buttons.B.whileTrue(new MotorCommand(climber, -.3));
+        joystick.button(6).whileTrue(new MotorCommand(climber, .3));
+        joystick.button(4).whileTrue(new MotorCommand(climber, -.3));
 
-        operator.buttons.Y.whileTrue(new MotorCommand(climber,  1));
-        joystick.button(5).whileTrue(new MotorCommand(climber, 1));
-        operator.buttons.A.whileTrue(new MotorCommand(climber, -1, true));
-        joystick.button(3).whileTrue(new MotorCommand(climber, -1));
+        //operator.buttons.dPad.up.whileTrue(new PneumaticCommand(, ));
+        //operator.buttons.dPad.down.whileTrue(new PneumaticCommand(, ));
+        //joystick.button(11).whileTrue(new PneumaticCommand(, ));
+        //joystick.button(12).whileTrue(new PneumaticCommand(, ));
         
-        operator.buttons.B.whileTrue(new MotorCommand(climberPivot, -0.2));
-        joystick.button(6).whileTrue(new MotorCommand(climberPivot, -0.2));
-        operator.buttons.X.whileTrue(new MotorCommand(climberPivot, 0.2));
-        joystick.button(4).whileTrue(new MotorCommand(climberPivot, 0.2));
-        
-        operator.buttons.start.onTrue(getCallibrationCommand());
         operator.buttons.back.whileTrue(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
     
         //operator.buttons.RS.toggleWhenPressed(new AutoClimb(climber, climberPivot, pidgey));
-    }
-
-    public Command getCallibrationCommand() {
-        return new ParallelCommandGroup(
-            new SequentialCommandGroup(
-                new MotorCommand(climber, 1).withTimeout(0.1),
-                new ResetClimber(climber)
-            ),
-            new SequentialCommandGroup(
-                new MotorCommand(climberPivot, 0.2).withTimeout(0.2),
-                new TurnUntilStop<>(climberPivot, -0.2, 1000),
-                new ResetEncoder(climberPivot)
-            )
-        );
     }
 
     public double getY() {
@@ -216,8 +199,7 @@ public final class RobotContainer {
         }
         
         return new ParallelCommandGroup(
-            auto,
-            getCallibrationCommand()
+        
         );
     }
     

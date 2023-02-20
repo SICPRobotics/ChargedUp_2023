@@ -70,6 +70,11 @@ public final class Constants {
         public static final int PIVOT_MOTOR_ID = 6;
     }
 
+    public static class Crane{
+        public static final int CRANE_PIVOT_MOTOR_ID = 5;
+        public static final int CRANE_CLIMBER_MOTOR_ID = 6;
+    }
+
     public static class Auto{
         public static final double DIST_DRIVE_ACCEPTED_ERROR = 2000;
         public static final double TURN_ACCEPTED_ERROR = 1000;
