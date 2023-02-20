@@ -112,11 +112,11 @@ private double deltaYaw(){
   @Override
   public void autonomousInit() {
     //robotContainer.generateTrajectory(true);
-    autonomousCommand = robotContainer.getAutonomousCommand();
+    //autonomousCommand = robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
-    }
+    //if (autonomousCommand != null) {
+    //  autonomousCommand.schedule();
+    //}
   }
 
   /**
@@ -124,7 +124,7 @@ private double deltaYaw(){
    */
   @Override
   public void autonomousPeriodic() {
-      
+    m_robotDrive.driveCartesian(0,0.5,0);
   }
 
   @Override
@@ -161,6 +161,7 @@ private double deltaYaw(){
     System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
 
+    /*
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){
       m_robotDrive.driveCartesian(0,0,0);
@@ -172,6 +173,7 @@ private double deltaYaw(){
       m_robotDrive.driveCartesian(0,-.15,0);
     }
     // may have to use value other than pitch based on how pidgey is mounted
-    
+    */
+    m_robotDrive.driveCartesian(0,-0.5,0);
   }
 }
