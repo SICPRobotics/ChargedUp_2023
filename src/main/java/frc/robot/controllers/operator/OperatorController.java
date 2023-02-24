@@ -45,4 +45,5 @@ public class OperatorController extends SubsystemBaseWrapper {
         SmartDashboard.putNumber("RX", sticks.right.getX());
         SmartDashboard.putNumber("RY", sticks.right.getY());
     }
+
 }

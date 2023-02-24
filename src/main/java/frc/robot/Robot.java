@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -15,12 +17,16 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-
+import frc.robot.controllers.operator.OperatorController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 
@@ -36,6 +42,19 @@ public class Robot extends TimedRobot {
   private final WPI_TalonFX m_leftBack = new WPI_TalonFX(2);
   private final WPI_TalonFX m_rightFront = new WPI_TalonFX(1);
   private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
+  public final OperatorController operator = new OperatorController(1);
+  XboxController xboxController = new XboxController(0);
+  Trigger Test= new JoystickButton(xboxController, 1); ;
+    
+  Joystick joystick = new Joystick(1);
+  
+
+  ArrayList<String> Inputs = new ArrayList<String>();
+  ArrayList<Float> InputDurations = new ArrayList<Float>();
+  ArrayList<Float> TimeOInput = new ArrayList<Float>();
+  Timer totalTime = new Timer();
+  boolean pressing = false;
+  long start = System.nanoTime();
 
   private final MecanumDrive   m_robotDrive = new MecanumDrive(m_leftFront, m_leftBack, m_rightFront, m_rightBack); 
 
@@ -139,10 +158,16 @@ private double deltaYaw(){
   }
 
   /**
-   * This function is called periodically during operator control.
+   * This function is called periodically durting operator control.
    */
   @Override
   public void teleopPeriodic() {
+    if(pressing == false){
+      if(joystick.getRawButton(1) == true){
+        
+      }
+
+    }
   }
 
   @Override

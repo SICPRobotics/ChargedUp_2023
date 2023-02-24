@@ -1,20 +1,20 @@
 package frc.robot.controllers.operator;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class Buttons {
-    public final Button A;         
-    public final Button B;         
-    public final Button X;         
-    public final Button Y;         
-    public final Button LB; 
-    public final Button RB;
-    public final Button back;
-    public final Button start;
-    public final Button LS;
-    public final Button RS;
+    public final Trigger A;         
+    public final Trigger B;         
+    public final Trigger X;         
+    public final Trigger Y;         
+    public final Trigger LB; 
+    public final Trigger RB;
+    public final Trigger back;
+    public final Trigger start;
+    public final Trigger LS;
+    public final Trigger RS;
     public final DPad dPad;
     
     public Buttons(GenericHID controller) {
