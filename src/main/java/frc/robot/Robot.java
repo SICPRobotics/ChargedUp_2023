@@ -129,6 +129,9 @@ private double deltaYaw(){
     System.out.println(logger.getInputDurations());
     System.out.print("Input times:");
     System.out.println(logger.getTimeOInput());
+    System.out.println("");
+    System.out.println("");
+    System.out.println("");
   }
 
   @Override
