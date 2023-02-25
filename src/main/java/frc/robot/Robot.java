@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Logging.Logger;
 import frc.robot.controllers.operator.OperatorController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -44,16 +45,17 @@ public class Robot extends TimedRobot {
   private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
   public final OperatorController operator = new OperatorController(1);
   XboxController xboxController = new XboxController(0);
-  Trigger Test= new JoystickButton(xboxController, 1); ;
-    
+  Logger logger = new Logger(xboxController);
   Joystick joystick = new Joystick(1);
   
 
   ArrayList<String> Inputs = new ArrayList<String>();
-  ArrayList<Float> InputDurations = new ArrayList<Float>();
-  ArrayList<Float> TimeOInput = new ArrayList<Float>();
+  ArrayList<Long> InputDurations = new ArrayList<Long>();
+  ArrayList<Long> TimeOInput = new ArrayList<Long>();
+
   Timer totalTime = new Timer();
   boolean pressing = false;
+  long pressstart = 0;
   long start = System.nanoTime();
 
   private final MecanumDrive   m_robotDrive = new MecanumDrive(m_leftFront, m_leftBack, m_rightFront, m_rightBack); 
@@ -162,12 +164,7 @@ private double deltaYaw(){
    */
   @Override
   public void teleopPeriodic() {
-    if(pressing == false){
-      if(joystick.getRawButton(1) == true){
-        
-      }
-
-    }
+    logger.CheckInputs();
   }
 
   @Override
