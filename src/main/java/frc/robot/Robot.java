@@ -14,7 +14,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -33,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 
+
 public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
@@ -44,6 +47,7 @@ public class Robot extends TimedRobot {
   private final WPI_TalonFX m_rightFront = new WPI_TalonFX(1);
   private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
   public final OperatorController operator = new OperatorController(1);
+  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(0);
   Logger logger = new Logger(xboxController);
   Joystick joystick = new Joystick(1);
@@ -119,11 +123,17 @@ private double deltaYaw(){
    */
   @Override
   public void disabledInit() {
+    System.out.print("Inputs:");
+    System.out.println(logger.getInputs());
+    System.out.print("Input Durations:");
+    System.out.println(logger.getInputDurations());
+    System.out.print("Input times:");
+    System.out.println(logger.getTimeOInput());
   }
 
   @Override
   public void disabledPeriodic() {
-
+    
   }
 
   /**
@@ -182,7 +192,7 @@ private double deltaYaw(){
     System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
     System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
-
+    pcmCompressor.enableDigital();
     
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){

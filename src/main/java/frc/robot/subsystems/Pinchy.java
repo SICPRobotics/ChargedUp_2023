@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
-public class Pinchy extends SubsystemBase implements PneumaticSubsystem{
+public class Pinchy extends SubsystemBase implements DoubleSolenoidSubsystem{
   private final DoubleSolenoid doubleSolenoid;
 
   public Pinchy(DoubleSolenoid doubleSolenoid) {

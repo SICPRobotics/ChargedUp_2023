@@ -9,8 +9,10 @@ package frc.robot;
 import com.google.gson.Gson;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 //simport edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.drive.MechinumDrive;
 import frc.robot.commands.MotorCommand;
-import frc.robot.commands.PneumaticCommand;
+import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
@@ -47,7 +49,7 @@ import frc.robot.subsystems.Pinchy;
 import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MDriveTrain;
-import frc.robot.subsystems.PneumaticSubsystem;
+import frc.robot.subsystems.DoubleSolenoidSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.Pidgey;
 import com.ctre.phoenix.sensors.Pigeon2;
@@ -78,6 +80,7 @@ public final class RobotContainer {
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
+    
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -87,7 +90,7 @@ public final class RobotContainer {
         Rumbler.setOperator(operator);
         driveTrain = new DriveTrain();
         mDriveTrain = new MDriveTrain();
-        doubleSolenoid = new DoubleSolenoid(null, 0, 1);
+        doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         joystick = new Joystick(0);
         gsonSaver = new GsonSaver();
         cargoArm = new CargoArm();
@@ -150,10 +153,10 @@ public final class RobotContainer {
         joystick.button(6).whileTrue(new MotorCommand(climber, .3));
         joystick.button(4).whileTrue(new MotorCommand(climber, -.3));
         
-        operator.buttons.dPad.up.whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kForward));
-        operator.buttons.dPad.up.whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kReverse));
-        joystick.button(10).whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kForward));
-        joystick.button(9).whileTrue(new PneumaticCommand(pinchy, DoubleSolenoid.Value.kReverse));
+        operator.buttons.dPad.up.whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kForward));
+        operator.buttons.dPad.up.whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kReverse));
+        joystick.button(10).whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kForward));
+        joystick.button(9).whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kReverse));
 
         operator.buttons.back.whileTrue(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
     
