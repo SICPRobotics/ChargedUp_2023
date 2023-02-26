@@ -13,6 +13,7 @@ public class AutoConverter {
     Joystick joystick = new Joystick(0);
     public int cycle = 0;
     MDriveTrain mDriveTrain = new MDriveTrain();
+    int lasttime;
     public AutoConverter(ArrayList Inputs, ArrayList InputDurations, ArrayList TimeOInput){
         this.Inputs = Inputs;
         this.InputDurations = InputDurations;
@@ -21,35 +22,36 @@ public class AutoConverter {
     public void convert(ArrayList Inputs, ArrayList InputDurations, ArrayList TimeOInput){
         while(cycle < TimeOInput.size()){
             inputToCommand(Inputs.get(cycle).toString());
-            System.out.println("if(time <" + TimeOInput.get(cycle) + "){"); 
+            System.out.println("if(time <" + TimeOInput.get(cycle + 1) + "&& time > " + TimeOInput.get(cycle) + "){"); 
             System.out.println("    this." + inputToCommand(Inputs.get(cycle).toString()));
             System.out.println("}");
+            cycle = cycle + 1;
 
         }
     }
     public String inputToCommand(String value){
-        if(value == "A"){
+        if(value.equals("A")){
             return("Climber.setmotor(.5);");
         }
-        if(value == "Y"){
+        if(value.equals("Y")){
             return("Climber.setMotor(-.5);");
         }
-        if(value == "X"){
+        if(value.equals("X")){
             return("CranePivot.setMotor(.5);");
         }
-        if(value == "B"){
+        if(value.equals("B")){
             return("CranePivot.setMotor(-.5);");
         }
-        if(value == "DUp"){
+        if(value.equals("DUp")){
             return("mDriveTrain.driveUp();");
         }
-        if(value == "DDown"){
+        if(value.equals("DDown")){
             return("mDriveTrain.driveDown();");
         }
-        if(value == "DRight"){
+        if(value.equals("DRight")){
             return("mDriveTrain.driveRight();");
         }
-        if(value == "DLeft"){
+        if(value.equals("DLeft")){
             return("mDriveTrain.driveLeft();");
         }
         return ("temp return");
