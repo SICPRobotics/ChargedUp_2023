@@ -71,8 +71,8 @@ public final class Constants {
     }
 
     public static class Crane{
-        public static final int CRANE_PIVOT_MOTOR_ID = 5;
-        public static final int CRANE_CLIMBER_MOTOR_ID = 6;
+        public static final int CRANE_PIVOT_MOTOR_ID = 8;
+        public static final int CRANE_CLIMBER_MOTOR_ID = 5;
     }
 
     public static class Auto{

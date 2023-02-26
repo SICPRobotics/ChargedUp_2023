@@ -49,19 +49,14 @@ public class Robot extends TimedRobot {
   private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
   public final OperatorController operator = new OperatorController(1);
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-  XboxController xboxController = new XboxController(0);
+  XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
-  Joystick joystick = new Joystick(1);
   
 
   ArrayList<String> Inputs = new ArrayList<String>();
   ArrayList<Long> InputDurations = new ArrayList<Long>();
   ArrayList<Long> TimeOInput = new ArrayList<Long>();
 
-  Timer totalTime = new Timer();
-  boolean pressing = false;
-  long pressstart = 0;
-  long start = System.nanoTime();
 
   private final MDriveTrain mDriveTrain = new MDriveTrain(); 
 
@@ -180,6 +175,7 @@ private double deltaYaw(){
   public void teleopPeriodic() {
     logger.CheckInputs();
 
+    /* 
     if(xboxController.getPOV() == -1){
       mDriveTrain.stop();
     }
@@ -195,21 +191,7 @@ private double deltaYaw(){
     if(xboxController.getPOV() == 270){
       mDriveTrain.driveLeft();
     }
-
-/* 
-    else if (buttonName.equals("DUp")) {
-      currentPress = xboxController.getPOV() == 0;
-  }
-  else if (buttonName.equals("DRight")) {
-      currentPress = xboxController.getPOV() == 90;
-  }
-  else if (buttonName.equals("DDown")) {
-      currentPress = xboxController.getPOV() == 180;
-  }
-  else if (buttonName.equals("DLeft")) {
-      currentPress = xboxController.getPOV() == 270;
-  }
-*/
+    */
 
   }
 
@@ -229,6 +211,8 @@ private double deltaYaw(){
     System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
     pcmCompressor.enableDigital();
+
+    /* 
     
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){
@@ -241,6 +225,6 @@ private double deltaYaw(){
       mDriveTrain.driveCartesian(0,-.15,0);
     }
     // may have to use value other than pitch based on how pidgey is mounted
-    
+    */
   }
 }

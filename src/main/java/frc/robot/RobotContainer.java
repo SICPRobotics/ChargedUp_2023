@@ -72,6 +72,7 @@ public final class RobotContainer {
     public final DriveTrain driveTrain;
     public final MDriveTrain mDriveTrain;
     private final DoubleSolenoid doubleSolenoid;
+    private final DoubleSolenoid doubleSolenoid2;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
     public final GsonSaver gsonSaver;
     public final OperatorController operator = new OperatorController(1);
@@ -80,6 +81,7 @@ public final class RobotContainer {
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
     public final CraneExtender craneExtender;
     public final Pinchy pinchy;
+    public final Pinchy pinchy2;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
@@ -94,6 +96,7 @@ public final class RobotContainer {
         driveTrain = new DriveTrain();
         mDriveTrain = new MDriveTrain();
         doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+        doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
         joystick = new Joystick(0);
         gsonSaver = new GsonSaver();
         cargoArm = new CargoArm();
@@ -104,6 +107,7 @@ public final class RobotContainer {
         craneExtender = new CraneExtender();
         cranePivot = new CranePivot();
         pinchy = new Pinchy(doubleSolenoid);
+        pinchy2 = new Pinchy(doubleSolenoid2);
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
@@ -148,8 +152,12 @@ public final class RobotContainer {
        
 
 
-        operator.buttons.RS.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kForward));
-        operator.buttons.LS.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
+        operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kForward));
+        operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
+        operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
+        operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
+        operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, .4));
+        operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -.4));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
         
@@ -158,25 +166,25 @@ public final class RobotContainer {
 
     public double getY() {
         double joystickY = joystick.getY();
-        //double operatorY = -operator.sticks.right.getY();
-       // System.out.println("Joystick: " + joystickY + " Operator: " + operatorY);
+        double operatorY = -operator.sticks.right.getY();
+        System.out.println("Joystick: " + joystickY + " Operator: " + operatorY);
 
-        //if (Math.abs(joystickY) > Math.abs(operatorY)) {
+        if (Math.abs(joystickY) > Math.abs(operatorY)) {
             return joystickY;
-        //} else {
-        //    return operatorY;
-        //}
+        } else {
+            return operatorY;
+        }
     }
 
     public double getX() {
         double joystickX = joystick.getX();
-        //double operatorX = operator.sticks.right.getX();
+        double operatorX = operator.sticks.right.getX();
 
-        //if (Math.abs(joystickX) > Math.abs(operatorX)) {
+        if (Math.abs(joystickX) > Math.abs(operatorX)) {
             return joystickX;
-        //} else {
-        //    return operatorX;
-        //}
+        } else {
+            return operatorX;
+        }
     }
 
     // public void trajectory(TrajectoryGeneration trajectoryGeneration, DriveTrain driveTrain, Pose2d ){

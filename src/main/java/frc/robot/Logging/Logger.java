@@ -102,8 +102,8 @@ public class Logger {
                 if (pressStart != null) {
                     InputDurations.add(currentTime - pressStart);
                     startTimes.remove(buttonName);
+                    pressing = false;
                 }
-                pressing = false;
             }
           }
       }
