@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Logging.Logger;
 import frc.robot.controllers.operator.OperatorController;
+import frc.robot.subsystems.MDriveTrain;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -62,7 +63,7 @@ public class Robot extends TimedRobot {
   long pressstart = 0;
   long start = System.nanoTime();
 
-  private final MecanumDrive   m_robotDrive = new MecanumDrive(m_leftFront, m_leftBack, m_rightFront, m_rightBack); 
+  private final MDriveTrain mDriveTrain = new MDriveTrain(); 
 
 Pigeon2 pigeon = new Pigeon2(0);
 private double deltaPitch(){
@@ -178,7 +179,38 @@ private double deltaYaw(){
   @Override
   public void teleopPeriodic() {
     logger.CheckInputs();
-    
+
+    if(xboxController.getPOV() == -1){
+      mDriveTrain.stop();
+    }
+    if(xboxController.getPOV() == 0){
+      mDriveTrain.driveForwards();
+    }
+    if(xboxController.getPOV() == 90){
+      mDriveTrain.driverRight();
+    }
+    if(xboxController.getPOV() == 180){
+      mDriveTrain.driveBackwards();
+    }
+    if(xboxController.getPOV() == 270){
+      mDriveTrain.driveLeft();
+    }
+
+/* 
+    else if (buttonName.equals("DUp")) {
+      currentPress = xboxController.getPOV() == 0;
+  }
+  else if (buttonName.equals("DRight")) {
+      currentPress = xboxController.getPOV() == 90;
+  }
+  else if (buttonName.equals("DDown")) {
+      currentPress = xboxController.getPOV() == 180;
+  }
+  else if (buttonName.equals("DLeft")) {
+      currentPress = xboxController.getPOV() == 270;
+  }
+*/
+
   }
 
   @Override
@@ -200,13 +232,13 @@ private double deltaYaw(){
     
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){
-      m_robotDrive.driveCartesian(0,0,0);
+      mDriveTrain.driveCartesian(0,0,0);
     }
     else if(currentPitch > -4.5){
-      m_robotDrive.driveCartesian(0,.15,0);
+      mDriveTrain.driveCartesian(0,.15,0);
     }
     else if(currentPitch < 4.5){
-      m_robotDrive.driveCartesian(0,-.15,0);
+      mDriveTrain.driveCartesian(0,-.15,0);
     }
     // may have to use value other than pitch based on how pidgey is mounted
     

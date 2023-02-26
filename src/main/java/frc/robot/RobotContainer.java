@@ -153,30 +153,30 @@ public final class RobotContainer {
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
         
-        
+
     }
 
     public double getY() {
         double joystickY = joystick.getY();
-        double operatorY = -operator.sticks.right.getY();
+        //double operatorY = -operator.sticks.right.getY();
        // System.out.println("Joystick: " + joystickY + " Operator: " + operatorY);
 
-        if (Math.abs(joystickY) > Math.abs(operatorY)) {
+        //if (Math.abs(joystickY) > Math.abs(operatorY)) {
             return joystickY;
-        } else {
-            return operatorY;
-        }
+        //} else {
+        //    return operatorY;
+        //}
     }
 
     public double getX() {
         double joystickX = joystick.getX();
-        double operatorX = operator.sticks.right.getX();
+        //double operatorX = operator.sticks.right.getX();
 
-        if (Math.abs(joystickX) > Math.abs(operatorX)) {
+        //if (Math.abs(joystickX) > Math.abs(operatorX)) {
             return joystickX;
-        } else {
-            return operatorX;
-        }
+        //} else {
+        //    return operatorX;
+        //}
     }
 
     // public void trajectory(TrajectoryGeneration trajectoryGeneration, DriveTrain driveTrain, Pose2d ){
