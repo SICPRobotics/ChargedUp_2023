@@ -112,7 +112,7 @@ public final class RobotContainer {
         pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
 
 
-        final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
+        //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
         
             
         //driveTrain.setDefaultCommand(
@@ -156,8 +156,8 @@ public final class RobotContainer {
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
         operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
-        operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, .4));
-        operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -.4));
+        operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, .8));
+        operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -.8));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
         

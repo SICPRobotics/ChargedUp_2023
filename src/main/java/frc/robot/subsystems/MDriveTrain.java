@@ -72,11 +72,11 @@ public class MDriveTrain extends SubsystemBase {
 
       
       xSpeed = xSpeed * joystick.getScale();
-      xSpeed = xSpeed * Math.abs(xSpeed) + .1;
+      xSpeed = xSpeed * Math.abs(xSpeed);
       ySpeed = ySpeed * joystick.getScale();
-      ySpeed = ySpeed *Math.abs(ySpeed) + .1;
+      ySpeed = ySpeed *Math.abs(ySpeed);
       zRotation = zRotation * joystick.getScale(); 
-      zRotation = zRotation *Math.abs(zRotation) + .1;
+      zRotation = zRotation *Math.abs(zRotation);
 
   
       mDrive.driveCartesian(xSpeed, ySpeed, zRotation);
