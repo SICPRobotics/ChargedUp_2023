@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
 import frc.robot.SubsystemBaseWrapper;
 
-public class Climber extends SubsystemBaseWrapper implements MotorSubsystem, EncoderSubsystem {
+public class CraneExtender extends SubsystemBaseWrapper implements MotorSubsystem, EncoderSubsystem {
     
     private final WPI_TalonFX climberMotor;
 
     public boolean override = false;
 
-    public Climber(){
+    public CraneExtender(){
         this.climberMotor = new WPI_TalonFX(Constants.Crane.CRANE_CLIMBER_MOTOR_ID);
         climberMotor.setNeutralMode(NeutralMode.Brake);
         resetEncoder();

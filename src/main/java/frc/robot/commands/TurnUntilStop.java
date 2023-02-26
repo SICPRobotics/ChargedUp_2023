@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.rumble.Rumbler;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.CraneExtender;
 import frc.robot.subsystems.EncoderSubsystem;
 import frc.robot.subsystems.MotorSubsystem;
 

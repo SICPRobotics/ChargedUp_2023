@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 //simport edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,6 +32,7 @@ import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
+import frc.robot.commands.Crane.CraneUpCommand;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.CustomAuto;
@@ -44,7 +46,7 @@ import frc.robot.subsystems.CargoArm;
 import frc.robot.commands.MotorCommand;
 import frc.robot.controllers.joystick.Joystick;
 import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.CraneExtender;
 import frc.robot.subsystems.Pinchy;
 import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.DriveTrain;
@@ -54,6 +56,7 @@ import frc.robot.subsystems.MotorSubsystem;
 import frc.robot.subsystems.Pidgey;
 import com.ctre.phoenix.sensors.Pigeon2;
 import frc.robot.Constants;
+import frc.robot.Constants.Crane;
 import frc.robot.Constants.Gryo;
 
 /**
@@ -75,7 +78,7 @@ public final class RobotContainer {
     public final CargoArm cargoArm;
     public final CargoIntake cargoIntake;
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
-    public final Climber climber;
+    public final CraneExtender craneExtender;
     public final Pinchy pinchy;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
@@ -98,7 +101,7 @@ public final class RobotContainer {
         autoVersion = new SmartDashBoardClass<Double>("autoVersion", 0.0);
         autoDelay = new SmartDashBoardClass<Double>("autoDelay", 0.0);
         //trajectoryGeneration.addGson(gsonSaver);
-        climber = new Climber();
+        craneExtender = new CraneExtender();
         cranePivot = new CranePivot();
         pinchy = new Pinchy(doubleSolenoid);
         pidgey = new Pidgey();
@@ -143,24 +146,14 @@ public final class RobotContainer {
         //joystick.thumb.toggleWhenPressed(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
        
-        operator.buttons.Y.whileTrue(new MotorCommand(cranePivot, .3));
-        operator.buttons.A.whileTrue(new MotorCommand(cranePivot, -.3));
-        joystick.button(5).whileTrue(new MotorCommand(cranePivot, .3));
-        joystick.button(3).whileTrue(new MotorCommand(cranePivot, -.3));
 
-        operator.buttons.X.whileTrue(new MotorCommand(climber, .3));
-        operator.buttons.B.whileTrue(new MotorCommand(climber, -.3));
-        joystick.button(6).whileTrue(new MotorCommand(climber, .3));
-        joystick.button(4).whileTrue(new MotorCommand(climber, -.3));
+
+        operator.buttons.RS.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kForward));
+        operator.buttons.LS.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
+        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
         
-        operator.buttons.dPad.up.whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kForward));
-        operator.buttons.dPad.up.whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kReverse));
-        joystick.button(10).whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kForward));
-        joystick.button(9).whileTrue(new DoubleSolenoidCommand(pinchy, DoubleSolenoid.Value.kReverse));
-
-        operator.buttons.back.whileTrue(new FunctionalCommand(() -> climber.override = true, () -> {}, (b) -> climber.override = false, () -> false));
-    
-        //operator.buttons.RS.toggleWhenPressed(new AutoClimb(climber, climberPivot, pidgey));
+        
     }
 
     public double getY() {

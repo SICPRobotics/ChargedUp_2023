@@ -24,7 +24,9 @@ public class CraneUpCommand extends CommandBase{
     }
     @Override
     public void execute(){
-    
+        while(pigeon2.getPitch() < 60){
+            cranePivot.setMotor(.3);
+        }
     }
     @Override
     public void end(boolean interrupted){

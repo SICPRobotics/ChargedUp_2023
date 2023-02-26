@@ -178,6 +178,7 @@ private double deltaYaw(){
   @Override
   public void teleopPeriodic() {
     logger.CheckInputs();
+    
   }
 
   @Override
