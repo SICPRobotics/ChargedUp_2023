@@ -156,8 +156,8 @@ public final class RobotContainer {
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
         operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
-        operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, .8));
-        operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -.8));
+        operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, 1));
+        operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
         

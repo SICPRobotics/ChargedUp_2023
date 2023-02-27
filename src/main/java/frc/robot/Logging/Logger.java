@@ -93,14 +93,14 @@ public class Logger {
         if (currentPress != pressing) {
             if (currentPress) {
                 Inputs.add(buttonName);
-                TimeOInput.add(currentTime - start);
+                TimeOInput.add((currentTime - start)/1000000000);
                 startTimes.put(buttonName, currentTime);
                 pressing = true;
             } 
             else {
                 Long pressStart = startTimes.get(buttonName);
                 if (pressStart != null) {
-                    InputDurations.add(currentTime - pressStart);
+                    InputDurations.add((currentTime - pressStart)/1000000000);
                     startTimes.remove(buttonName);
                     pressing = false;
                 }
@@ -118,5 +118,11 @@ public class Logger {
     
     public List<Long> getInputDurations() {
         return InputDurations;
+    }
+    public void Clear(){
+        Inputs.removeAll(Inputs);
+        TimeOInput.removeAll(TimeOInput);
+        InputDurations.removeAll(InputDurations);
+        start = System.nanoTime();
     }
   }

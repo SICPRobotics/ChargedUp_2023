@@ -8,6 +8,7 @@
 package frc.robot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
@@ -51,11 +52,11 @@ public class Robot extends TimedRobot {
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
-  
+  AutoConverter converter = new AutoConverter();
 
-  ArrayList<String> Inputs = new ArrayList<String>();
-  ArrayList<Long> InputDurations = new ArrayList<Long>();
-  ArrayList<Long> TimeOInput = new ArrayList<Long>();
+  List<String> Inputs = new ArrayList<String>();
+  List<Long> InputDurations = new ArrayList<Long>();
+  List<Long> TimeOInput = new ArrayList<Long>();
 
 
   private final MDriveTrain mDriveTrain = new MDriveTrain(); 
@@ -121,13 +122,19 @@ private double deltaYaw(){
   public void disabledInit() {
     System.out.print("Inputs:");
     System.out.println(logger.getInputs());
+    Inputs = logger.getInputs();
     System.out.print("Input Durations:");
     System.out.println(logger.getInputDurations());
+    InputDurations = logger.getInputDurations();
     System.out.print("Input times:");
     System.out.println(logger.getTimeOInput());
+    TimeOInput = logger.getTimeOInput();
     System.out.println("");
     System.out.println("");
     System.out.println("");
+    converter.convert(Inputs, InputDurations, TimeOInput);
+    logger.Clear();
+    
   }
 
   @Override
@@ -166,6 +173,7 @@ private double deltaYaw(){
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    logger.Clear();
   }
 
   /**

@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.Climber;
@@ -14,16 +15,14 @@ public class AutoConverter {
     public int cycle = 0;
     MDriveTrain mDriveTrain = new MDriveTrain();
     int lasttime;
-    public AutoConverter(ArrayList Inputs, ArrayList InputDurations, ArrayList TimeOInput){
-        this.Inputs = Inputs;
-        this.InputDurations = InputDurations;
-        this.TimeOInput = TimeOInput;
+    public AutoConverter(){
+
     }
-    public void convert(ArrayList Inputs, ArrayList InputDurations, ArrayList TimeOInput){
-        while(cycle < TimeOInput.size()){
-            inputToCommand(Inputs.get(cycle).toString());
-            System.out.println("if(time <" + TimeOInput.get(cycle + 1) + "&& time > " + TimeOInput.get(cycle) + "){"); 
-            System.out.println("    this." + inputToCommand(Inputs.get(cycle).toString()));
+    public void convert(List<String> inputs2, List<Long> inputDurations2, List<Long> timeOInput2){
+        while(cycle < timeOInput2.size()){
+            inputToCommand(inputs2.get(cycle).toString());
+            System.out.println("if(time <" + timeOInput2.get(cycle + 1) + "&& time > " + timeOInput2.get(cycle) + "){"); 
+            System.out.println("    this." + inputToCommand(inputs2.get(cycle).toString()));
             System.out.println("}");
             cycle = cycle + 1;
 
