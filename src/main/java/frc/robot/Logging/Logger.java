@@ -10,20 +10,20 @@ import edu.wpi.first.wpilibj.XboxController;
 public class Logger {
     private XboxController xboxController;
     private boolean pressing;
-    private long start;
-    private long pressstart;
+    private Float start;
+    private Float pressstart;
     private List<String> Inputs;
-    private List<Long> TimeOInput;
-    private List<Long> InputDurations;
-    private Map<String, Long> startTimes = new HashMap<>();
+    private List<Float> TimeOInput;
+    private List<Float> InputDurations;
+    private Map<String, Float> startTimes = new HashMap<>();
     
     public Logger(XboxController xboxController) {
         this.xboxController = xboxController;
         this.pressing = false;
-        this.start = System.nanoTime();
+        this.start = (float) (System.nanoTime()/1000000000);
         this.Inputs = new ArrayList<String>();
-        this.TimeOInput = new ArrayList<Long>();
-        this.InputDurations = new ArrayList<Long>();
+        this.TimeOInput = new ArrayList<Float>();
+        this.InputDurations = new ArrayList<Float>();
     }
     
     public void CheckInputs() {
@@ -47,7 +47,7 @@ public class Logger {
       
     private void checkbutton(String buttonName) {
         boolean currentPress = false;
-        long currentTime = System.nanoTime();
+        Float currentTime = (float) System.nanoTime()/1000000000;
       
         if (buttonName.equals("A")) {
             currentPress = xboxController.getAButton();
@@ -98,7 +98,7 @@ public class Logger {
                 pressing = true;
             } 
             else {
-                Long pressStart = startTimes.get(buttonName);
+                Float pressStart = startTimes.get(buttonName);
                 if (pressStart != null) {
                     InputDurations.add((currentTime - pressStart)/1000000000);
                     startTimes.remove(buttonName);
@@ -112,17 +112,17 @@ public class Logger {
         return Inputs;
     }
     
-    public List<Long> getTimeOInput() {
+    public List<Float> getTimeOInput() {
         return TimeOInput;
     }
     
-    public List<Long> getInputDurations() {
+    public List<Float> getInputDurations() {
         return InputDurations;
     }
     public void Clear(){
         Inputs.removeAll(Inputs);
         TimeOInput.removeAll(TimeOInput);
         InputDurations.removeAll(InputDurations);
-        start = System.nanoTime();
+        start = (float) System.nanoTime();
     }
   }

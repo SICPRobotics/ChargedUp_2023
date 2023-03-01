@@ -52,12 +52,12 @@ public class Robot extends TimedRobot {
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
-  AutoConverter converter = new AutoConverter();
 
   List<String> Inputs = new ArrayList<String>();
-  List<Long> InputDurations = new ArrayList<Long>();
-  List<Long> TimeOInput = new ArrayList<Long>();
+  List<Float> InputDurations = new ArrayList<Float>();
+  List<Float> TimeOInput = new ArrayList<Float>();
 
+  AutoConverter converter = new AutoConverter(Inputs, InputDurations, TimeOInput);
 
   private final MDriveTrain mDriveTrain = new MDriveTrain(); 
 
