@@ -43,6 +43,7 @@ public class AutoConverter {
             cycle = cycle + 1;
       }
     }
+
     public float stopTime(){
       return(timeOInput.get(cycle) + inputDurations.get(cycle));
     }
@@ -93,10 +94,10 @@ public class AutoConverter {
     public String inputToCommand(String value){
       // returns the coralating command to the button input change this to match button bindings
         if(value.equals("A")){
-            return("Climber.setmotor(.5);");
+            return("Crane.setmotor(.5);");
         }
         if(value.equals("Y")){
-            return("Climber.setMotor(-.5);");
+            return("Crane.setMotor(-.5);");
         }
         if(value.equals("X")){
             return("CranePivot.setMotor(.5);");

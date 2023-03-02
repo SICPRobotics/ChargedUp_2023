@@ -53,11 +53,11 @@ public class Robot extends TimedRobot {
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
 
-  List<String> Inputs = new ArrayList<String>();
-  List<Float> InputDurations = new ArrayList<Float>();
-  List<Float> TimeOInput = new ArrayList<Float>();
+  List<String> inputs = new ArrayList<String>();
+  List<Float> inputDurations = new ArrayList<Float>();
+  List<Float> timeOInput = new ArrayList<Float>();
 
-  AutoConverter converter = new AutoConverter(Inputs, InputDurations, TimeOInput);
+  AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
 
   private final MDriveTrain mDriveTrain = new MDriveTrain(); 
 
@@ -122,17 +122,21 @@ private double deltaYaw(){
   public void disabledInit() {
     System.out.print("Inputs:");
     System.out.println(logger.getInputs());
-    Inputs = logger.getInputs();
+    inputs = logger.getInputs();
     System.out.print("Input Durations:");
     System.out.println(logger.getInputDurations());
-    InputDurations = logger.getInputDurations();
+    inputDurations = logger.getInputDurations();
     System.out.print("Input times:");
     System.out.println(logger.getTimeOInput());
-    TimeOInput = logger.getTimeOInput();
+    timeOInput = logger.getTimeOInput();
     System.out.println("");
     System.out.println("");
     System.out.println("");
-    converter.convert(Inputs, InputDurations, TimeOInput);
+    converter.convert(inputs, inputDurations, timeOInput);
+    
+    inputs.clear();
+    inputDurations.clear();
+    timeOInput.clear();
     logger.Clear();
     
   }
