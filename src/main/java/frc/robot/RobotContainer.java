@@ -109,7 +109,7 @@ public final class RobotContainer {
         pinchy = new Pinchy(doubleSolenoid);
         pinchy2 = new Pinchy(doubleSolenoid2);
         pidgey = new Pidgey();
-        pigeon2 = new Pigeon2(Gryo.PIDGEY_MOTOR_ID);
+        pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -118,7 +118,7 @@ public final class RobotContainer {
         //driveTrain.setDefaultCommand(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
         
-        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ()));
+        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJX(), () -> getJY(), () -> joystick.getZ()));
 
         
 
@@ -158,10 +158,20 @@ public final class RobotContainer {
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
         operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, 1));
         operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
-        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * 0.5), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.5), craneExtender));
+        operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
+        operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
+        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.25), cranePivot));
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.75), craneExtender));
         
 
+    }
+
+    public double getJX(){
+        return joystick.getX();
+    }
+
+    public double getJY(){
+        return joystick.getY();
     }
 
     public double getY() {

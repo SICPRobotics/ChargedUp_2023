@@ -66,16 +66,16 @@ public class AutoConverter {
     public String inputToStop(String value){
       //turns off correcting motor change this to match button bindings
       if(value.equals("A")){
-            return("Climber.setmotor(0);");
+            return("craneExtender.setmotor(0);");
         }
         if(value.equals("Y")){
-            return("Climber.setMotor(0);");
+            return("craneExtender.setMotor(0);");
         }
         if(value.equals("X")){
-            return("CranePivot.setMotor(0);");
+            return("cranePivot.setMotor(0);");
         }
         if(value.equals("B")){
-            return("CranePivot.setMotor(0);");
+            return("cranePivot.setMotor(0);");
         }
         if(value.equals("DUp")){
             return("mDriveTrain.stop();");
@@ -94,16 +94,16 @@ public class AutoConverter {
     public String inputToCommand(String value){
       // returns the coralating command to the button input change this to match button bindings
         if(value.equals("A")){
-            return("Crane.setmotor(.5);");
+            return("craneExtender.setmotor(-1);");
         }
         if(value.equals("Y")){
-            return("Crane.setMotor(-.5);");
+            return("craneExtender.setMotor(1);");
         }
         if(value.equals("X")){
-            return("CranePivot.setMotor(.5);");
+            return("cranePivot.setMotor(1);");
         }
         if(value.equals("B")){
-            return("CranePivot.setMotor(-.5);");
+            return("cranePivot.setMotor(-1);");
         }
         if(value.equals("DUp")){
             return("mDriveTrain.driveUp();");

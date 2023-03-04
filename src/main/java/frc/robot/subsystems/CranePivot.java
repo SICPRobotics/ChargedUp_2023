@@ -17,7 +17,7 @@ public class CranePivot extends SubsystemBaseWrapper implements MotorSubsystem, 
 
     public CranePivot(){
         // change out value of pivot id once plugged in
-        this.pivotMotor = new TalonFX(Constants.Climber.PIVOT_MOTOR_ID);
+        this.pivotMotor = new TalonFX(Constants.Crane.CRANE_PIVOT_MOTOR_ID);
         this.pivotMotor.setNeutralMode(NeutralMode.Brake);
     }
 

@@ -29,10 +29,10 @@ public class MDriveTrain extends SubsystemBase {
       frontRightMotor = new WPI_TalonFX(Constants.DriveTrain.FRONT_LEFT_MOTOR_ID);
       rearRightMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_LEFT_MOTOR_ID);
   
-      frontLeftMotor.setInverted(false);
+      frontLeftMotor.setInverted(true);
       rearLeftMotor.setInverted(false);
       frontRightMotor.setInverted(true);
-      rearRightMotor.setInverted(true);
+      rearRightMotor.setInverted(false);
   
       mDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
   

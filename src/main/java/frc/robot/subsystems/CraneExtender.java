@@ -17,7 +17,7 @@ public class CraneExtender extends SubsystemBaseWrapper implements MotorSubsyste
     public boolean override = false;
 
     public CraneExtender(){
-        this.climberMotor = new WPI_TalonFX(Constants.Crane.CRANE_CLIMBER_MOTOR_ID);
+        this.climberMotor = new WPI_TalonFX(Constants.Crane.CRANE_EXTENDER_MOTOR_ID);
         climberMotor.setNeutralMode(NeutralMode.Brake);
         resetEncoder();
     }

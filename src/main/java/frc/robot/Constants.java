@@ -25,10 +25,10 @@ public final class Constants {
     }
 
     public final class DriveTrain {
-        public static final int FRONT_RIGHT_MOTOR_ID = 0;
-        public static final int FRONT_LEFT_MOTOR_ID = 2;
-        public static final int REAR_RIGHT_MOTOR_ID = 1;
-        public static final int REAR_LEFT_MOTOR_ID = 3;
+        public static final int FRONT_RIGHT_MOTOR_ID = 1;
+        public static final int FRONT_LEFT_MOTOR_ID = 7;
+        public static final int REAR_RIGHT_MOTOR_ID = 3;
+        public static final int REAR_LEFT_MOTOR_ID = 2;
         public static final int WHEEL_Diameter_INCHES = 6;
         public static final double COUNTS_PER_ROTAION = 4096;
         public static final double X_AXIS_DEADZONE_RANGE = 0.005;
@@ -71,8 +71,8 @@ public final class Constants {
     }
 
     public static class Crane{
-        public static final int CRANE_PIVOT_MOTOR_ID = 8;
-        public static final int CRANE_CLIMBER_MOTOR_ID = 5;
+        public static final int CRANE_PIVOT_MOTOR_ID = 0;
+        public static final int CRANE_EXTENDER_MOTOR_ID = 5;
     }
 
     public static class Auto{
@@ -81,7 +81,8 @@ public final class Constants {
     }
 
     public static class Gryo{
-        public static final int PIDGEY_MOTOR_ID = 4;
+        public static final int PIDGEY_ID = 4;
+        public static final int PIDGEY2_ID = 99;
     }
 
 }

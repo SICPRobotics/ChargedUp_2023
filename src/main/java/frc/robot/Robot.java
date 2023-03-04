@@ -101,7 +101,6 @@ private double deltaYaw(){
    */
   @Override
   public void robotPeriodic() {
-
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -170,6 +169,7 @@ private double deltaYaw(){
 
   @Override
   public final void teleopInit() {
+    pcmCompressor.enableDigital();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
