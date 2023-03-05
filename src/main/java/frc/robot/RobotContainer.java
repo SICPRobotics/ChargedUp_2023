@@ -94,7 +94,8 @@ public final class RobotContainer {
     public RobotContainer() {
         CameraServer.startAutomaticCapture();
         Rumbler.setOperator(operator);
-        driveTrain = new DriveTrain();
+//        driveTrain = new DriveTrain();
+        driveTrain =null;
         mDriveTrain = new MDriveTrain();
         doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
@@ -216,9 +217,9 @@ public final class RobotContainer {
         SmartDashboard.setPersistent(key);
 
         if (SmartDashboard.getBoolean("useCustomAuto", false)) {
-            auto = new CustomAuto(this);
+       //     auto = new CustomAuto(this);
         } else {
-            auto = new OldAutoCommand(driveTrain, cargoArm, cargoIntake, this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
+         //   auto = new OldAutoCommand(driveTrain, cargoArm, cargoIntake, this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
         }
         
         return new ParallelCommandGroup(

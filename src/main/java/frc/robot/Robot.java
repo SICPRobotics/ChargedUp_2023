@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
   double initialPitch;
   double initialRoll;
   double initialYaw;
-  
+
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
