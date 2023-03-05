@@ -44,11 +44,7 @@ public class Robot extends TimedRobot {
   double initialPitch;
   double initialRoll;
   double initialYaw;
-  private final WPI_TalonFX m_leftFront = new WPI_TalonFX(0);
-  private final WPI_TalonFX m_leftBack = new WPI_TalonFX(2);
-  private final WPI_TalonFX m_rightFront = new WPI_TalonFX(1);
-  private final WPI_TalonFX m_rightBack = new WPI_TalonFX(3);
-  public final OperatorController operator = new OperatorController(1);
+  
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
@@ -58,8 +54,7 @@ public class Robot extends TimedRobot {
   List<Float> timeOInput = new ArrayList<Float>();
 
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
-
-  private final MDriveTrain mDriveTrain = new MDriveTrain(); 
+ 
 
 Pigeon2 pigeon = new Pigeon2(0);
 private double deltaPitch(){

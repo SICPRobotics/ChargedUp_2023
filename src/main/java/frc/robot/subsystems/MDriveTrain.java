@@ -42,10 +42,12 @@ public class MDriveTrain extends SubsystemBase {
     private void configureShuffleboardData() {
   
     }
+    /* 
     @Override
     public void periodic() {
       mDrive.feed();
     }
+    */
   
     public void resetEncoderPositions() {
       frontLeftMotor.setSelectedSensorPosition(0);
@@ -83,8 +85,8 @@ public class MDriveTrain extends SubsystemBase {
     }
 
     public double sliderMin(double scale){
-      if(scale == 0){
-        scale = .1;
+      if(scale < .20){
+        scale = .20;
       }
       return(scale);
     }
