@@ -58,6 +58,7 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import frc.robot.Constants;
 import frc.robot.Constants.Crane;
 import frc.robot.Constants.Gryo;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -117,8 +118,9 @@ public final class RobotContainer {
             
         //driveTrain.setDefaultCommand(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
-        
+
         mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJX(), () -> getJY(), () -> joystick.getZ()));
+
 
         
 
@@ -160,8 +162,8 @@ public final class RobotContainer {
         operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
-        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.25), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * 0.75), craneExtender));
+        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * -0.75), craneExtender));
         
 
     }

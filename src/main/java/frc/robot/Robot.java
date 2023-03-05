@@ -119,6 +119,8 @@ private double deltaYaw(){
    */
   @Override
   public void disabledInit() {
+
+    
     System.out.print("Inputs:");
     System.out.println(logger.getInputs());
     inputs = logger.getInputs();
@@ -131,7 +133,7 @@ private double deltaYaw(){
     System.out.println("");
     System.out.println("");
     System.out.println("");
-    converter.convert(inputs, inputDurations, timeOInput);
+    //converter.convert(inputs, inputDurations, timeOInput);
     
     inputs.clear();
     inputDurations.clear();

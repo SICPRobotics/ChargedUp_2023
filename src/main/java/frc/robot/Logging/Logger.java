@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class Logger {
@@ -15,12 +16,14 @@ public class Logger {
     private List<String> Inputs;
     private List<Float> TimeOInput;
     private List<Float> InputDurations;
+    public float currentTime;
+    public Timer timer = new Timer();
     private Map<String, Float> startTimes = new HashMap<>();
     
     public Logger(XboxController xboxController) {
         this.xboxController = xboxController;
         this.pressing = false;
-        this.start = (float) (System.nanoTime()/1000000000);
+        this.start = (float) (System.nanoTime());
         this.Inputs = new ArrayList<String>();
         this.TimeOInput = new ArrayList<Float>();
         this.InputDurations = new ArrayList<Float>();
@@ -47,7 +50,7 @@ public class Logger {
       
     private void checkbutton(String buttonName) {
         boolean currentPress = false;
-        Float currentTime = (float) System.nanoTime()/1000000000;
+        currentTime = (float) System.nanoTime();
       
         if (buttonName.equals("A")) {
             currentPress = xboxController.getAButton();

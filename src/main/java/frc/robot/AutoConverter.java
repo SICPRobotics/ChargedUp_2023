@@ -26,6 +26,9 @@ public class AutoConverter {
         this.timeOInput = timeOInput;
     }
     public void convert(List<String> inputs, List<Float> inputDurations, List<Float> timeOInput){
+        this.inputs = inputs;
+        this.inputDurations = inputDurations;
+        this.timeOInput = timeOInput;
         while(cycle < timeOInput.size()){
             inputToCommand(inputs.get(cycle).toString());
             //will turn on motor after correct amount of time has elapsed
@@ -43,7 +46,6 @@ public class AutoConverter {
             cycle = cycle + 1;
       }
     }
-
     public float stopTime(){
       return(timeOInput.get(cycle) + inputDurations.get(cycle));
     }
@@ -66,16 +68,16 @@ public class AutoConverter {
     public String inputToStop(String value){
       //turns off correcting motor change this to match button bindings
       if(value.equals("A")){
-            return("craneExtender.setmotor(0);");
+            return("Climber.setmotor(0);");
         }
         if(value.equals("Y")){
-            return("craneExtender.setMotor(0);");
+            return("Climber.setMotor(0);");
         }
         if(value.equals("X")){
-            return("cranePivot.setMotor(0);");
+            return("CranePivot.setMotor(0);");
         }
         if(value.equals("B")){
-            return("cranePivot.setMotor(0);");
+            return("CranePivot.setMotor(0);");
         }
         if(value.equals("DUp")){
             return("mDriveTrain.stop();");
@@ -94,16 +96,16 @@ public class AutoConverter {
     public String inputToCommand(String value){
       // returns the coralating command to the button input change this to match button bindings
         if(value.equals("A")){
-            return("craneExtender.setmotor(-1);");
+            return("Climber.setmotor(.5);");
         }
         if(value.equals("Y")){
-            return("craneExtender.setMotor(1);");
+            return("Climber.setMotor(-.5);");
         }
         if(value.equals("X")){
-            return("cranePivot.setMotor(1);");
+            return("CranePivot.setMotor(.5);");
         }
         if(value.equals("B")){
-            return("cranePivot.setMotor(-1);");
+            return("CranePivot.setMotor(-.5);");
         }
         if(value.equals("DUp")){
             return("mDriveTrain.driveUp();");
