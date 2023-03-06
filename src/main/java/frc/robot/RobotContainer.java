@@ -32,7 +32,7 @@ import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
-import frc.robot.commands.Crane.CraneUpCommand;
+import frc.robot.commands.Crane.CraneCB;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.CustomAuto;
@@ -70,7 +70,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 public final class RobotContainer {
     public static final Gson gson = new Gson();
     public final Joystick joystick;
-    public final DriveTrain driveTrain;
+    //public final DriveTrain driveTrain;
     public final MDriveTrain mDriveTrain;
     private final DoubleSolenoid doubleSolenoid;
     private final DoubleSolenoid doubleSolenoid2;
@@ -95,7 +95,7 @@ public final class RobotContainer {
         CameraServer.startAutomaticCapture();
         Rumbler.setOperator(operator);
 //        driveTrain = new DriveTrain();
-        driveTrain =null;
+        //driveTrain =null;
         mDriveTrain = new MDriveTrain();
         doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
@@ -164,7 +164,7 @@ public final class RobotContainer {
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * -0.75), craneExtender));
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * -0.85), craneExtender));
         
 
     }

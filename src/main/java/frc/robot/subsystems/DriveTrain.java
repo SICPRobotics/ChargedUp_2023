@@ -53,21 +53,17 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
         gyro.calibrate();
 
         frontRight.configFactoryDefault();
-        frontRight.setNeutralMode(NeutralMode.Brake);
 
         rearRight.configFactoryDefault();
         rearRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 30);
         rearRight.setSelectedSensorPosition(0);
-        rearRight.setNeutralMode(NeutralMode.Brake);
 
         //right = new SpeedControllerGroup(frontRight, rearRight);
         frontLeft.configFactoryDefault();
-        frontLeft.setNeutralMode(NeutralMode.Brake);
 
         rearLeft.configFactoryDefault();
         rearLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 30);
         rearLeft.setSelectedSensorPosition(0); // LEFT IS WRONG DIRECTION BY DEFAULT
-        rearLeft.setNeutralMode(NeutralMode.Brake);
 
         /**
          * Encoder values:

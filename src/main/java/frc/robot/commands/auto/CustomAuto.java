@@ -39,7 +39,7 @@ public class CustomAuto extends CommandBase {
 
     public CustomAuto(RobotContainer container) {
         this.robot = container;
-        addRequirements(robot.driveTrain, robot.cargoArm, robot.cargoIntake);
+        //addRequirements(robot.driveTrain, robot.cargoArm, robot.cargoIntake);
     }
 
     @Override
@@ -100,6 +100,7 @@ public class CustomAuto extends CommandBase {
         Runnable end = () -> {};
         BooleanSupplier isFinished = () -> this.timer.get() > duration;
 
+        /* 
         if (type.equals("diffDrive")) {
             double left = instruction.get("left").getAsDouble();
             double right = instruction.get("right").getAsDouble();
@@ -131,6 +132,7 @@ public class CustomAuto extends CommandBase {
                 System.out.println("Unknown direction " + direction);
             }
         }
+        */
 
 
         final var exec = execute;

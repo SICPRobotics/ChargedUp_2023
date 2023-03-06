@@ -29,8 +29,10 @@ public class AutoConverter {
         this.inputs = inputs;
         this.inputDurations = inputDurations;
         this.timeOInput = timeOInput;
+        if(inputs.size() == 0){
+            return;
+        }
         while(cycle < timeOInput.size()){
-            inputToCommand(inputs.get(cycle).toString());
             //will turn on motor after correct amount of time has elapsed
             // change this so it uses input duration instead of timeOInput2.get(cycle + 1)
             System.out.println("if(time <" + stopTime() + "&& time > " + timeOInput.get(cycle) + "){"); 
@@ -45,6 +47,17 @@ public class AutoConverter {
             
             cycle = cycle + 1;
       }
+      inputs.clear();
+      inputDurations.clear();
+      timeOInput.clear();
+      this.inputs.clear();
+      this.inputDurations.clear();
+      this.timeOInput.clear();
+      cycle = 0;
+      cycle2 = 0;
+      runs = 0;
+      checked = "z";
+
     }
     public float stopTime(){
       return(timeOInput.get(cycle) + inputDurations.get(cycle));

@@ -122,7 +122,7 @@ public class Logger {
     public List<Float> getInputDurations() {
         return InputDurations;
     }
-    public void Clear(){
+    public void emptyLog(){
         Inputs.removeAll(Inputs);
         TimeOInput.removeAll(TimeOInput);
         InputDurations.removeAll(InputDurations);
