@@ -120,7 +120,7 @@ public final class RobotContainer {
         //driveTrain.setDefaultCommand(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
 
-        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getZ()));
+        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> joystick.getY(), () -> joystick.getX(), () -> joystick.getZ()));
 
 
         

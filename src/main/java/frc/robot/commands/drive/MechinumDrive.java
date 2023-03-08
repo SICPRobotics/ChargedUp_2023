@@ -43,7 +43,7 @@ public class MechinumDrive extends CommandBase {
   public void execute() {
     double xSpeed = -x.get();
     double ySpeed = -y.get();
-    double zRotation = z.get();
+    double zRotation = -z.get();
     
     driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
   }

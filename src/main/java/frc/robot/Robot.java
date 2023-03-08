@@ -129,7 +129,7 @@ private double deltaYaw(){
     System.out.println("");
     System.out.println("");
 
-    //converter.convert(inputs, inputDurations, timeOInput);
+    converter.convert(inputs, inputDurations, timeOInput);
     
     inputs.clear();
     inputDurations.clear();

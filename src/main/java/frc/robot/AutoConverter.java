@@ -74,6 +74,7 @@ public class AutoConverter {
           //will stop turning off the motor before it needs to be turn on again 
           return(timeOInput.get(cycle2));
         }
+        cycle2 = cycle2 + 1;
       }
       // will the turn the motor off indefinitly if its not needed again
       return(99);
@@ -104,7 +105,13 @@ public class AutoConverter {
         if(value.equals("DLeft")){
             return("mDriveTrain.stop();");
         }
-      return("temp return");
+        if(value.equals("RB")){
+            return("pinchy.out()");
+        }
+        if(value.equals("LB")){
+            return("pinchy.out()");
+        }
+      return("invalid input");
     }
     public String inputToCommand(String value){
       // returns the coralating command to the button input change this to match button bindings
@@ -122,7 +129,7 @@ public class AutoConverter {
         }
         if(value.equals("DUp")){
             return("mDriveTrain.driveUp();");
-        }
+        } 
         if(value.equals("DDown")){
             return("mDriveTrain.driveDown();");
         }
@@ -132,6 +139,12 @@ public class AutoConverter {
         if(value.equals("DLeft")){
             return("mDriveTrain.driveLeft();");
         }
-        return ("temp return");
+        if(value.equals("RB")){
+            return("pinchy.out()");
+        }
+        if(value.equals("LB")){
+            return("pinchy.in()");
+        }
+        return ("invalid input");
     }
 }

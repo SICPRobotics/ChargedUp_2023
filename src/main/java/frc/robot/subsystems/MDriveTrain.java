@@ -30,8 +30,8 @@ public class MDriveTrain extends SubsystemBase {
       rearRightMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_LEFT_MOTOR_ID);
   
       frontLeftMotor.setInverted(true);
-      rearLeftMotor.setInverted(false);
-      frontRightMotor.setInverted(true);
+      rearLeftMotor.setInverted(true);
+      frontRightMotor.setInverted(false);
       rearRightMotor.setInverted(false);
   
       mDrive = new MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
@@ -85,9 +85,6 @@ public class MDriveTrain extends SubsystemBase {
     }
 
     public double sliderMin(double scale){
-      if(scale < .20){
-        scale = .20;
-      }
       return(scale);
     }
 
