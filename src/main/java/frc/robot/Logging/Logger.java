@@ -28,7 +28,8 @@ public class Logger {
         this.TimeOInput = new ArrayList<Float>();
         this.InputDurations = new ArrayList<Float>();
     }
-    
+
+    //called constanlty to check for button inputs
     public void CheckInputs() {
         checkbutton("A");
         checkbutton("B");
@@ -92,7 +93,7 @@ public class Logger {
             currentPress = xboxController.getPOV() == 270;
         }
 
-
+        //beutiful logic checks if button if being press/held logs which button is pressed when it is pressed and for how long
         if (currentPress != pressing) {
             if (currentPress) {
                 Inputs.add(buttonName);
@@ -111,6 +112,7 @@ public class Logger {
           }
       }
     
+    //can be called to access logs
     public List<String> getInputs() {
         return Inputs;
     }
@@ -122,6 +124,8 @@ public class Logger {
     public List<Float> getInputDurations() {
         return InputDurations;
     }
+
+    //called after creating the auto will clear logs to be used again
     public void emptyLog(){
         Inputs.removeAll(Inputs);
         TimeOInput.removeAll(TimeOInput);

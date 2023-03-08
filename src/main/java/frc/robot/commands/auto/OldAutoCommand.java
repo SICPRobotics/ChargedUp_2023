@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CargoArm;
 import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.CraneExtender;
+import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.MDriveTrain;
 
 public class OldAutoCommand extends CommandBase{
-    private final DriveTrain driveTrain;
-    private final CargoArm arm; 
-    private CargoIntake intake;
+    private final MDriveTrain mDriveTrain;
+    private final CraneExtender craneExtender; 
+    private CranePivot cranePivot;
     private Timer timer;
     private final int version;
     private final double waitTime;
@@ -19,27 +22,21 @@ public class OldAutoCommand extends CommandBase{
    *
    * @param subsystem The subsystem used by this command.
    */
-  public OldAutoCommand(DriveTrain driveTrain, CargoArm arm, CargoIntake intake, int verison, double waitTime){
-    this.driveTrain = driveTrain;
-    this.arm = arm;
-    this.intake = intake;
+  public OldAutoCommand(MDriveTrain mDriveTrain, CraneExtender craneExtender, CranePivot cranePivot, int verison, double waitTime){
+    this.mDriveTrain = mDriveTrain;
+    this.craneExtender = craneExtender;
+    this.cranePivot = cranePivot;
     this.timer = new Timer();
     this.version = verison;
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveTrain, arm, intake);
+    addRequirements(mDriveTrain, craneExtender, cranePivot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
       this.timer.start();
-    //   if(version == 0 || version == 2){
-    //       this.driveTrain.cheesyDrive(0.2, 0);
-    //   }
-        if(version == 1){
-            this.intake.setMotor(0.8);
-        }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,41 +44,7 @@ public class OldAutoCommand extends CommandBase{
   public void execute() {
         double time = this.timer.get();
         if(version == 0){
-            // Waits then spits out
-            if(time > this.waitTime && time < (this.waitTime + 5)){
-                this.driveTrain.cheesyDrive(0.4, 0);
-            }
-            else if(time > (this.waitTime + 5)){
-                this.intake.setMotor(1);
-            }
-            
-        }
-        else if(version == 2){
-            // Spit out ball & back up
-            if(time < 2){
-                this.intake.setMotor(1);
-            }
-            else if(time > 2 && time < 3){
-                this.intake.setMotor(-1);
-            }
-            else if(time > 3 && time < 5){
-                this.intake.setMotor(1);
-            }
-            else if(time > 5 && time < 9){
-                this.intake.setMotor(0);
-                this.driveTrain.cheesyDrive(-0.5, 0);
-            }
-            else{
-                this.driveTrain.cheesyDrive(0, 0);
-            }
-        }
-        else if (version == 3){
-            // Just back up
-            if (time < 5) {
-                this.driveTrain.cheesyDrive(-0.5, 0);
-            } else {
-                driveTrain.cheesyDrive(0, 0);
-            }
+            mDriveTrain.driveBackwards();
         }
     
   }
@@ -90,9 +53,9 @@ public class OldAutoCommand extends CommandBase{
   @Override
   public void end(boolean interrupted) {
       this.timer.reset();
-      this.arm.turnOff();
-      this.driveTrain.cheesyDrive(0, 0);
-      this.intake.turnOff();
+      this.cranePivot.turnOff();
+      this.mDriveTrain.stop();
+      this.craneExtender.turnOff();
   }
 
   // Returns true when the command should end.

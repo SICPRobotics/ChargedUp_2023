@@ -207,24 +207,7 @@ public final class RobotContainer {
     // }
     // * @return the command to run in autonomous
     public Command getAutonomousCommand() {
-        Command auto;
-        String key = "useCustomAuto";
-
-        if (!SmartDashboard.containsKey(key)) {
-            SmartDashboard.putBoolean(key, false);
-        }
-
-        SmartDashboard.setPersistent(key);
-
-        if (SmartDashboard.getBoolean("useCustomAuto", false)) {
-       //     auto = new CustomAuto(this);
-        } else {
-         //   auto = new OldAutoCommand(driveTrain, cargoArm, cargoIntake, this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
-        }
-        
-        return new ParallelCommandGroup(
-        
-        );
+        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot, this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
     }
     
 }

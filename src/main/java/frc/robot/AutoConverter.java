@@ -19,12 +19,14 @@ public class AutoConverter {
     int lasttime;
     boolean TwoInput = false;
    
-// make active bollean set true until the timer reaches a certain point set false by default 
+    //takes in inputs obtained from logs
     public AutoConverter(List<String> inputs, List<Float> inputDurations, List<Float> timeOInput){
         this.inputs = inputs;
         this.inputDurations = inputDurations;
         this.timeOInput = timeOInput;
     }
+
+    //called after disableing the bot before clearing logs
     public void convert(List<String> inputs, List<Float> inputDurations, List<Float> timeOInput){
         this.inputs = inputs;
         this.inputDurations = inputDurations;
@@ -34,7 +36,6 @@ public class AutoConverter {
         }
         while(cycle < timeOInput.size()){
             //will turn on motor after correct amount of time has elapsed
-            // change this so it uses input duration instead of timeOInput2.get(cycle + 1)
             System.out.println("if(time <" + stopTime() + "&& time > " + timeOInput.get(cycle) + "){"); 
             System.out.println("    this." + inputToCommand(inputs.get(cycle).toString()));
             System.out.println("}");
@@ -47,6 +48,7 @@ public class AutoConverter {
             
             cycle = cycle + 1;
       }
+      //resets class to be reused after disabling
       inputs.clear();
       inputDurations.clear();
       timeOInput.clear();
@@ -59,10 +61,13 @@ public class AutoConverter {
       checked = "z";
 
     }
+
+    //finds when an input should stop being made
     public float stopTime(){
       return(timeOInput.get(cycle) + inputDurations.get(cycle));
     }
 
+    //figures out when a motor will (if ever) be needed again
     public float endStop(){
       cycle2 = runs;
       runs = runs + 1;
@@ -145,6 +150,8 @@ public class AutoConverter {
         if(value.equals("LB")){
             return("pinchy.in()");
         }
+
+        //returns if the input value hasn't been set up on controler
         return ("invalid input");
     }
 }
