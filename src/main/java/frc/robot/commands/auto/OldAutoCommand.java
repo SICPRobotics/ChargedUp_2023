@@ -36,15 +36,24 @@ public class OldAutoCommand extends CommandBase{
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      this.timer.start();
+      this.timer.start();   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
         double time = this.timer.get();
+        
         if(version == 0){
-            mDriveTrain.driveBackwards();
+            if(time <2.3652434&& time > 1.044906){ 
+                    this.mDriveTrain.driveLeft(); 
+                 } 
+                 if(time <5.25444136&& time > 3.6581893){ 
+                 this.mDriveTrain.driveRight(); 
+                 } 
+                if(time >6.5444136&& time < 99.0 ){ 
+                   this.mDriveTrain.stop(); 
+                }                 
         }
     
   }

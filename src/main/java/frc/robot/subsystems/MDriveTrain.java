@@ -91,7 +91,7 @@ public class MDriveTrain extends SubsystemBase {
     public void driveLeft(){
       mDrive.driveCartesian(-.3, 0, 0);
     }
-    public void driverRight(){
+    public void driveRight(){
       mDrive.driveCartesian(.3, 0, 0);
     }
     public void driveForwards(){
