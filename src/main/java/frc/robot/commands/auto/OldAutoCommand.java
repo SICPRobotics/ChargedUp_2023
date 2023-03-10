@@ -16,6 +16,7 @@ public class OldAutoCommand extends CommandBase{
     private Timer timer;
     private final int version;
     private final double waitTime;
+    private final float starttime = System.nanoTime()/1000000000;
 
   /**
    * Creates a new ExampleCommand.
@@ -36,22 +37,21 @@ public class OldAutoCommand extends CommandBase{
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      this.timer.start();   
+      
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        double time = this.timer.get();
-        
+        float time = System.nanoTime()/1000000000 - starttime;
         if(version == 0){
             if(time <2.3652434&& time > 1.044906){ 
                     this.mDriveTrain.driveLeft(); 
                  } 
-                 if(time <6.75444136&& time > 3.6581893){ 
+                 if(time <5.75444136&& time > 3.6581893){ 
                  this.mDriveTrain.driveRight(); 
                  } 
-                if(time >8.5444136&& time < 99.0 ){ 
+                if(time >7.5444136&& time < 99.0 ){ 
                    this.mDriveTrain.stop(); 
                 }                 
         }

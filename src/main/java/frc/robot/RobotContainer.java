@@ -87,6 +87,7 @@ public final class RobotContainer {
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
+    public final BrakeMode brakeMode;
     
 
     /**
@@ -113,6 +114,7 @@ public final class RobotContainer {
         pinchy2 = new Pinchy(doubleSolenoid2);
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
+        brakeMode = new BrakeMode(mDriveTrain);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -164,6 +166,7 @@ public final class RobotContainer {
         operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
+        operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * -0.85), craneExtender));
         

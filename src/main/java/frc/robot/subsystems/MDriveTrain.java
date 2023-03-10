@@ -17,8 +17,8 @@ import frc.robot.Constants;
 import frc.robot.controllers.joystick.Joystick;
 
 public class MDriveTrain extends SubsystemBase {
-    private WPI_TalonFX frontRightMotor, rearRightMotor;
-    private WPI_TalonFX rearLeftMotor, frontLeftMotor;
+    public WPI_TalonFX frontRightMotor, rearRightMotor;
+    public WPI_TalonFX rearLeftMotor, frontLeftMotor;
     frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
     private MecanumDrive mDrive;
   
@@ -78,7 +78,7 @@ public class MDriveTrain extends SubsystemBase {
       ySpeed = ySpeed * sliderMin(joystick.getScale());
       ySpeed = ySpeed *Math.abs(ySpeed);
       zRotation = zRotation * sliderMin(joystick.getScale());
-      zRotation = zRotation *Math.abs(zRotation) * .8;
+      zRotation = zRotation *Math.abs(zRotation) * .5;
 
   
       mDrive.driveCartesian(xSpeed, ySpeed, zRotation);
