@@ -52,7 +52,7 @@ public class MechinumDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     
-    //driveTrain.driveCartesian(0.0, 0.0, 0.0);	
+    //driveTvfsrain.driveCartesian(0.0, 0.0, 0.0);	
   }
 
   // Returns true when the command should end.

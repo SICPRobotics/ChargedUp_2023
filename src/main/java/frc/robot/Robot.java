@@ -16,6 +16,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -48,6 +49,8 @@ public class Robot extends TimedRobot {
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
   Logger logger = new Logger(xboxController);
+
+  
 
   List<String> inputs = new ArrayList<String>();
   List<Float> inputDurations = new ArrayList<Float>();
@@ -183,6 +186,7 @@ private double deltaYaw(){
    */
   @Override
   public void teleopPeriodic() {
+
     logger.CheckInputs();
 
     /* 
@@ -221,6 +225,7 @@ private double deltaYaw(){
     System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
     pcmCompressor.enableDigital();
+
 
     /* 
     
