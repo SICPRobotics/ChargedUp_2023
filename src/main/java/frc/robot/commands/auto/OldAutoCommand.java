@@ -48,9 +48,11 @@ public class OldAutoCommand extends CommandBase{
             if(time <2.3652434&& time > 1.044906){ 
                     this.mDriveTrain.driveLeft(); 
                  } 
+                 
                  if(time <5.75444136&& time > 3.6581893){ 
                  this.mDriveTrain.driveRight(); 
                  } 
+                 
                 if(time >7.5444136&& time < 99.0 ){ 
                    this.mDriveTrain.stop(); 
                 }                 
@@ -59,6 +61,7 @@ public class OldAutoCommand extends CommandBase{
   }
 
   // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
       this.timer.reset();

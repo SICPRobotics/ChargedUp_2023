@@ -4,6 +4,7 @@ import static frc.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.MathUtil;
@@ -28,6 +29,11 @@ public class MDriveTrain extends SubsystemBase {
       rearLeftMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_RIGHT_MOTOR_ID);
       frontRightMotor = new WPI_TalonFX(Constants.DriveTrain.FRONT_LEFT_MOTOR_ID);
       rearRightMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_LEFT_MOTOR_ID);
+
+      frontLeftMotor.setNeutralMode(NeutralMode.Brake);
+      rearLeftMotor.setNeutralMode(NeutralMode.Brake);
+      frontRightMotor.setNeutralMode(NeutralMode.Brake);
+      rearRightMotor.setNeutralMode(NeutralMode.Brake);
   
       frontLeftMotor.setInverted(true);
       rearLeftMotor.setInverted(true);

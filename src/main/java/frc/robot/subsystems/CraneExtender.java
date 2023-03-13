@@ -14,14 +14,13 @@ public class CraneExtender extends SubsystemBaseWrapper implements MotorSubsyste
     
     private final WPI_TalonFX climberMotor;
 
-    public boolean override = false;
-    private static final int maxEncoderHeight = 392_000;
 
     public CraneExtender(){
         this.climberMotor = new WPI_TalonFX(Constants.Crane.CRANE_EXTENDER_MOTOR_ID);
         climberMotor.setNeutralMode(NeutralMode.Brake);
-        resetEncoder();
+
     }
+
 
     @Override
     public void setMotor(double velocity) {
@@ -29,25 +28,8 @@ public class CraneExtender extends SubsystemBaseWrapper implements MotorSubsyste
     }
 
     public void setMotor(double velocity, boolean force){
-        if (velocity == 0 || force || canTurn(velocity)) {
             this.climberMotor.set(velocity);
-        }
-    }
-
-    @Override
-    public boolean canTurn(double direction) {
         
-        //return true;
-        if (override) {
-            return true;
-        }
-        
-        if (direction > 0) {
-            return getEncoderPosition() < maxEncoderHeight;
-        } else {
-            return true;
-            //return getEncoderPosition() > 0;
-        }
     }
 
     @Override

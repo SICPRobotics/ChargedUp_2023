@@ -36,6 +36,7 @@ import frc.robot.commands.TurnUntilStop;
 import frc.robot.commands.Crane.CraneCB;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
+import frc.robot.commands.auto.AutoBalence;
 import frc.robot.commands.auto.CustomAuto;
 import frc.robot.commands.auto.OldAutoCommand;
 import frc.robot.commands.drive.DriveWithJoystick;
@@ -167,10 +168,9 @@ public final class RobotContainer {
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
         operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
+        operator.buttons.LS.toggleOnTrue(new AutoBalence(mDriveTrain));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY() * -0.85), craneExtender));
-        
-
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY()), craneExtender));
     }
 
     public double getJX(){

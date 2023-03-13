@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class BrakeMode extends CommandBase {
     private WPI_TalonFX frontRightMotor, rearRightMotor;
     private WPI_TalonFX rearLeftMotor, frontLeftMotor;
-    public static boolean broked = false;
+    public static boolean broked = true;
     public BrakeMode(MDriveTrain mDriveTrain) {
         System.out.println("brakemode contstructed");
         frontLeftMotor = mDriveTrain.frontLeftMotor;
