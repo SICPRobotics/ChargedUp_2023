@@ -126,6 +126,7 @@ public final class RobotContainer {
         //driveTrain.setDefaultCommand(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
 
+        //check for autolveeling being true in mechdrive commadn
         mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
 
 
