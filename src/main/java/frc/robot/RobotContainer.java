@@ -89,8 +89,9 @@ public final class RobotContainer {
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
     public final BrakeMode brakeMode;
+    public final AutoBalence autoBalence;
     
-
+ 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -116,6 +117,7 @@ public final class RobotContainer {
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
         brakeMode = new BrakeMode(mDriveTrain);
+        autoBalence = new AutoBalence(mDriveTrain);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -124,7 +126,7 @@ public final class RobotContainer {
         //driveTrain.setDefaultCommand(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
 
-        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> joystick.getY(), () -> joystick.getX(), () -> joystick.getZ()));
+        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
 
 
         
@@ -174,12 +176,20 @@ public final class RobotContainer {
     }
 
     public double getJX(){
+        if(autoBalence.autoLeveling == true){
+
+        }
         return joystick.getX();
     }
 
     public double getJY(){
         return joystick.getY();
     }
+
+    public double getJZ(){
+        return joystick.getZ();
+    }
+
 
     public double getY() {
         double joystickY = joystick.getY();

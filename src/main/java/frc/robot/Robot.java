@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Logging.Logger;
+import frc.robot.commands.auto.AutoBalence;
 import frc.robot.controllers.operator.OperatorController;
 import frc.robot.subsystems.MDriveTrain;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -212,6 +213,9 @@ private double deltaYaw(){
   @Override
   public final void testInit() {
     // Cancels all running commands at the start of test mode.
+    initialPitch = pigeon.getPitch();
+    initialRoll = pigeon.getRoll();
+    initialYaw = pigeon.getYaw();
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -220,7 +224,7 @@ private double deltaYaw(){
    */
   @Override
   public void testPeriodic() {
-    System.out.println("Yaw:"+pigeon.getYaw()); // prints the yaw of the Pigeon
+    System.out.println("Yaw:"+deltaYaw()); // prints the yaw of the Pigeon
     System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
     System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
     //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
