@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
   double initialPitch;
   double initialRoll;
   double initialYaw;
+  double initialX;
 
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
@@ -58,20 +60,14 @@ public class Robot extends TimedRobot {
   List<Float> timeOInput = new ArrayList<Float>();
 
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
+
+  private ADIS16470_IMU adis16470_IMU = new ADIS16470_IMU();
+
+  
  
 
 Pigeon2 pigeon = new Pigeon2(0);
-private double deltaPitch(){
-  return (pigeon.getPitch() - initialPitch);
-}
 
-private double deltaRoll(){
-  return (pigeon.getRoll() - initialRoll);
-}
-
-private double deltaYaw(){
-  return (pigeon.getYaw() - initialYaw);
-}
 
   @Override
   public void robotInit() {
@@ -216,6 +212,7 @@ private double deltaYaw(){
     initialPitch = pigeon.getPitch();
     initialRoll = pigeon.getRoll();
     initialYaw = pigeon.getYaw();
+    initialX = adis16470_IMU.getXComplementaryAngle();
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -224,15 +221,13 @@ private double deltaYaw(){
    */
   @Override
   public void testPeriodic() {
-    System.out.println("Yaw:"+deltaYaw()); // prints the yaw of the Pigeon
-    System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
-    System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
-    //m_robotDrive.arcadeDrive(m_stick.getY(), -m_stick.getX());
-    pcmCompressor.enableDigital();
+    
+    System.out.println(deltaPitch());
+    System.out.println(deltaX());
+
 
 
     /* 
-    
     double currentPitch = deltaPitch();
     if(currentPitch <4.5 && currentPitch >-4.5){
       mDriveTrain.driveCartesian(0,0,0);
@@ -245,5 +240,19 @@ private double deltaYaw(){
     }
     // may have to use value other than pitch based on how pidgey is mounted
     */
+  }
+  private double deltaX(){
+    return (adis16470_IMU.getXComplementaryAngle() - initialX);
+  }
+  private double deltaPitch(){
+    return (pigeon.getPitch() - initialPitch);
+  }
+  
+  private double deltaRoll(){
+    return (pigeon.getRoll() - initialRoll);
+  }
+  
+  private double deltaYaw(){
+    return (pigeon.getYaw() - initialYaw);
   }
 }

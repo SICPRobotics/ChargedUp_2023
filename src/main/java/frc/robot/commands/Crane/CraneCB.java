@@ -21,13 +21,12 @@ public class CraneCB extends CommandBase {
     //going to name the crane commands Crane + C for cone or B for ball + B for bottom or M for middle or T for top
 
     private final CranePivot cranePivot;
-    private final Pigeon2 pidgey;
+    private Pigeon2 pidgey = new Pigeon2(0);
     //negitive pivot side for negitive pitch values
     private int pivotSide = 0;
 
-    public CraneCB (CranePivot cranePivot, Pigeon2 pidgey) {
+    public CraneCB (CranePivot cranePivot) {
         this.cranePivot = cranePivot;
-        this.pidgey = pidgey;
 
         addRequirements(cranePivot);
     }

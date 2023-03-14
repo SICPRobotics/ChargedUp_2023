@@ -2,8 +2,9 @@ package frc.robot.controllers.operator.buttons;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-public class DPadButton extends Button {
+public class DPadButton extends Trigger {
 
     GenericHID controller;
     Direction direction;

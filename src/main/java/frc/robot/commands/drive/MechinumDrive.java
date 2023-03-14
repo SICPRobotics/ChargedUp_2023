@@ -10,6 +10,7 @@ package frc.robot.commands.drive;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.MDriveTrain;
 
@@ -21,6 +22,7 @@ public class MechinumDrive extends CommandBase {
 
   private MDriveTrain driveTrain;
   private Supplier<Double>  x, y, z;
+  private XboxController xboxController = new XboxController(1);
 
   public MechinumDrive(MDriveTrain drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -45,7 +47,10 @@ public class MechinumDrive extends CommandBase {
     double ySpeed = -y.get();
     double zRotation = -z.get();
     
-    driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
+    if(xboxController.getStartButton() == false){
+      driveTrain.driveCartesian(xSpeed, ySpeed, zRotation);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
