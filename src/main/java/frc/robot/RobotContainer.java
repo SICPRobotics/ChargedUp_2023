@@ -127,7 +127,8 @@ public final class RobotContainer {
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, false));
 
         //check for autolveeling being true in mechdrive commadn
-        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
+
+        
 
 
         
@@ -170,16 +171,19 @@ public final class RobotContainer {
         operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
-        operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
-        operator.buttons.LS.toggleOnTrue(new AutoBalence(mDriveTrain));
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY()), craneExtender));
+
+        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
+        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .3, () -> 0.0, () -> 0.0));
+        operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.3, () -> 0.0, () -> 0.0));
+        operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.3, () -> 0.0));
+        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .3, () -> 0.0));
+        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain));
+        //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }
 
     public double getJX(){
-        if(autoBalence.autoLeveling == true){
-
-        }
         return joystick.getX();
     }
 

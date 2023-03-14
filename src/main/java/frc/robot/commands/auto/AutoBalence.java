@@ -19,7 +19,9 @@ public class AutoBalence extends CommandBase {
     double initialRoll;
     double initialYaw;
     public static boolean autoLeveling = false;
+
     private Pigeon2 pigeon = new Pigeon2(0);
+
     XboxController xboxController = new XboxController(1);
     public AutoBalence(MDriveTrain mDriveTrain) {
         this.mDriveTrain = mDriveTrain;
@@ -46,13 +48,13 @@ public class AutoBalence extends CommandBase {
 
 
         if(currentPitch <4.5 && currentPitch >-4.5){
-            mDriveTrain.driveCartesian(0,0,0);
+            mDriveTrain.stop();;
         }
-        else if(currentPitch < -4.5){
-            mDriveTrain.driveCartesian(0,.3,0);
+        else if(currentPitch > -4.5){
+            mDriveTrain.driveForwards();
         }
-        else if(currentPitch > 4.5){
-            mDriveTrain.driveCartesian(0,-.3,0);
+        else if(currentPitch < 4.5){
+            mDriveTrain.driveBackwards();
         }
     }
 
