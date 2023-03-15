@@ -46,6 +46,7 @@ public class AutoBalence extends CommandBase {
     @Override
     public void execute(){
         double currentPitch = deltaX();
+        System.out.println("DeltaX" + deltaX());
          
         if(currentPitch < 8 && currentPitch > -8){
             mDriveTrain.stop();

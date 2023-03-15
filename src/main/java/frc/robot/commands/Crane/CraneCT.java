@@ -21,12 +21,14 @@ public class CraneCT extends CommandBase {
     //going to name the crane commands Crane + C for cone or B for ball + B for bottom or M for middle or T for top
 
     private final CranePivot cranePivot;
+    private final  double positionZero;
     private Pigeon2 pidgey = new Pigeon2(0);
     //negitive pivot side for negitive pitch values
     private int pivotSide = 0;
 
     public CraneCT (CranePivot cranePivot) {
         this.cranePivot = cranePivot;
+        positionZero = pidgey.getPitch() - 15;
         
 
         addRequirements(cranePivot);
@@ -46,6 +48,7 @@ public class CraneCT extends CommandBase {
     public void execute() {
         //example angles change to match with reality later
         System.out.println("craneCT testing");
+        System.out.println("position zero  = " + positionZero);
         System.out.println("pitch  = " + pidgey.getPitch());
         System.out.println("yaw  = " + pidgey.getYaw());
         System.out.println("roll  = " + pidgey.getRoll());
@@ -72,4 +75,16 @@ public class CraneCT extends CommandBase {
         //change this later
         return (pidgey.getPitch() == 0);
     }
+
+    private double deltaPitch(){
+        return (pidgey.getPitch() - positionZero);
+      }
+      
+      private double deltaRoll(){
+        return (pidgey.getRoll() - positionZero);
+      }
+      
+      private double deltaYaw(){
+        return (pidgey.getYaw() - positionZero);
+      }
 }

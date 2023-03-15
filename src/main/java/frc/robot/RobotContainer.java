@@ -171,10 +171,15 @@ public final class RobotContainer {
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
         operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
+        operator.buttons.A.whileTrue(new CraneCT(cranePivot));
+
+        /* 
         operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, 1));
         operator.buttons.A.whileTrue(new MotorCommand(craneExtender, -1));
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
+        */
+
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY()), craneExtender));
 
@@ -185,7 +190,6 @@ public final class RobotContainer {
         operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .3, () -> 0.0));
         operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain, adis16470_IMU));
 
-        joystick.button(7).whileTrue(new CraneCT(cranePivot));
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }
 
