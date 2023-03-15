@@ -61,8 +61,6 @@ public class Robot extends TimedRobot {
 
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
 
-  private ADIS16470_IMU adis16470_IMU = new ADIS16470_IMU();
-
   
  
 
@@ -212,7 +210,6 @@ Pigeon2 pigeon = new Pigeon2(0);
     initialPitch = pigeon.getPitch();
     initialRoll = pigeon.getRoll();
     initialYaw = pigeon.getYaw();
-    initialX = adis16470_IMU.getXComplementaryAngle();
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -223,7 +220,6 @@ Pigeon2 pigeon = new Pigeon2(0);
   public void testPeriodic() {
     
     System.out.println(deltaPitch());
-    System.out.println(deltaX());
 
 
 
@@ -240,9 +236,6 @@ Pigeon2 pigeon = new Pigeon2(0);
     }
     // may have to use value other than pitch based on how pidgey is mounted
     */
-  }
-  private double deltaX(){
-    return (adis16470_IMU.getXComplementaryAngle() - initialX);
   }
   private double deltaPitch(){
     return (pigeon.getPitch() - initialPitch);

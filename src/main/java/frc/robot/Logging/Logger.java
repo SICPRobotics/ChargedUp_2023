@@ -47,6 +47,7 @@ public class Logger {
         checkbutton("DRight");
         checkbutton("DLeft");
         checkbutton("DDown");
+        checkbutton("Start");
       }
       
     private void checkbutton(String buttonName) {
@@ -91,6 +92,9 @@ public class Logger {
         }
         else if (buttonName.equals("DLeft")) {
             currentPress = xboxController.getPOV() == 270;
+        }
+        else if (buttonName.equals("Start")) {
+            currentPress = xboxController.getStartButton();
         }
 
         //beutiful logic checks if button if being press/held logs which button is pressed when it is pressed and for how long

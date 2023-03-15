@@ -9,12 +9,14 @@ package frc.robot;
 import com.google.gson.Gson;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.simulation.JoystickSim;
 //simport edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,7 +35,7 @@ import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
-import frc.robot.commands.Crane.CraneCB;
+import frc.robot.commands.Crane.CraneCT;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.AutoBalence;
@@ -90,6 +92,7 @@ public final class RobotContainer {
     public final CranePivot cranePivot;
     public final BrakeMode brakeMode;
     public final AutoBalence autoBalence;
+    public final ADIS16470_IMU adis16470_IMU;
     
  
     /**
@@ -117,7 +120,8 @@ public final class RobotContainer {
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
         brakeMode = new BrakeMode(mDriveTrain);
-        autoBalence = new AutoBalence(mDriveTrain);
+        adis16470_IMU = new ADIS16470_IMU();
+        autoBalence = new AutoBalence(mDriveTrain, adis16470_IMU);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -179,7 +183,9 @@ public final class RobotContainer {
         operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.3, () -> 0.0, () -> 0.0));
         operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.3, () -> 0.0));
         operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .3, () -> 0.0));
-        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain));
+        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain, adis16470_IMU));
+
+        joystick.button(7).whileTrue(new CraneCT(cranePivot));
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }
 

@@ -15,19 +15,22 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class AutoBalence extends CommandBase {
     private MDriveTrain mDriveTrain;
+    private ADIS16470_IMU adis16470_IMU;
     public static boolean broked = false;
     double initialPitch;
     double initialRoll;
     double initialYaw;
-    double initialX;
+    static double initialX;
     public static boolean autoLeveling = false;
 
     private Pigeon2 pigeon = new Pigeon2(0);
-    private ADIS16470_IMU adis16470_IMU = new ADIS16470_IMU();
+    //private ADIS16470_IMU adis16470_IMU = new ADIS16470_IMU();
 
     XboxController xboxController = new XboxController(1);
-    public AutoBalence(MDriveTrain mDriveTrain) {
+    public AutoBalence(MDriveTrain mDriveTrain, ADIS16470_IMU adis16470_IMU) {
         this.mDriveTrain = mDriveTrain;
+        this.adis16470_IMU = adis16470_IMU;
+        initialX = adis16470_IMU.getXComplementaryAngle();
     }
 
     @Override
@@ -37,30 +40,23 @@ public class AutoBalence extends CommandBase {
         initialPitch = pigeon.getPitch();
         initialRoll = pigeon.getRoll();
         initialYaw = pigeon.getYaw();
-        initialX = adis16470_IMU.getXComplementaryAngle();
         autoLeveling = true;
     }
 
     @Override
     public void execute(){
         double currentPitch = deltaX();
-        System.out.println("AutoLevel testing");
-        System.out.println("Current Pitch" + currentPitch);
-        System.out.println("Yaw:"+deltaYaw()); // prints the yaw of the Pigeon
-        System.out.println("Pitch:"+deltaPitch()); // prints the pitch of the Pigeon
-        System.out.println("PitchX:"+deltaX());
-        System.out.println("Roll:"+deltaRoll()); // prints the roll of the Pigeon
-
-
-        if(currentPitch <4.5 && currentPitch >-4.5){
+         
+        if(currentPitch < 8 && currentPitch > -8){
             mDriveTrain.stop();
         }
-        else if(currentPitch < -4.5){
-            mDriveTrain.driveForwards();
-        }
-        else if(currentPitch > 4.5){
+        else if(currentPitch < -8){
             mDriveTrain.driveBackwards();
         }
+        else if(currentPitch > 8){
+            mDriveTrain.driveForwards();
+        }
+        
     }
 
     @Override
@@ -70,20 +66,5 @@ public class AutoBalence extends CommandBase {
 
     private double deltaX(){
         return (adis16470_IMU.getXComplementaryAngle() - initialX);
-      }
-
-    private double deltaPitch(){
-        return (pigeon.getPitch() - initialPitch);
-      }
-      
-      private double deltaRoll(){
-        return (pigeon.getRoll() - initialRoll);
-      }
-      
-      private double deltaYaw(){
-        return (pigeon.getYaw() - initialYaw);
-      }
-
-    
-      
+    }
 }

@@ -84,6 +84,7 @@ public class AutoConverter {
       // will the turn the motor off indefinitly if its not needed again
       return(99);
     }
+    
     public String inputToStop(String value){
       //turns off correcting motor change this to match button bindings
       if(value.equals("A")){
@@ -116,8 +117,12 @@ public class AutoConverter {
         if(value.equals("LB")){
             return("pinchy.out()");
         }
+        if(value.equals("Start")){
+            return("temp autolevel stop");
+        }
       return("invalid input");
     }
+
     public String inputToCommand(String value){
       // returns the coralating command to the button input change this to match button bindings
         if(value.equals("A")){
@@ -149,6 +154,9 @@ public class AutoConverter {
         }
         if(value.equals("LB")){
             return("pinchy.in()");
+        }
+        if(value.equals("Start")){
+            return("temp autolevel start");
         }
 
         //returns if the input value hasn't been set up on controler
