@@ -35,7 +35,7 @@ import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
-import frc.robot.commands.Crane.CraneCT;
+import frc.robot.commands.Crane.CraneCM;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.AutoBalence;
@@ -171,7 +171,10 @@ public final class RobotContainer {
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
         operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
         operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
-        operator.buttons.A.whileTrue(new CraneCT(cranePivot));
+
+        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
+        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(-operator.sticks.right.getY()), craneExtender));
+        operator.buttons.A.whileTrue(new CraneCM(cranePivot, craneExtender));
 
         /* 
         operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, 1));
@@ -179,9 +182,6 @@ public final class RobotContainer {
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
         */
-
-        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(operator.sticks.right.getY()), craneExtender));
 
         mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
         operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .3, () -> 0.0, () -> 0.0));

@@ -22,7 +22,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
 
-public class CraneCT extends CommandBase {
+public class CraneCM extends CommandBase {
     //going to name the crane commands "Crane + C for cone or B for ball + B for bottom or M for middle or T for top"
 
     private final CranePivot cranePivot;
@@ -33,7 +33,7 @@ public class CraneCT extends CommandBase {
     private double encoderZero;
 
 
-   public CraneCT (CranePivot cranePivot, CraneExtender craneExtender) {
+   public CraneCM (CranePivot cranePivot, CraneExtender craneExtender) {
         encoderZero = cranePivot.getEncoderPosition() + 22000;
         System.out.println("encoder starting position = " + encoderZero);
         this.cranePivot = cranePivot;

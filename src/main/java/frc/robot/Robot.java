@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Logging.Logger;
 import frc.robot.commands.auto.AutoBalence;
 import frc.robot.controllers.operator.OperatorController;
+import frc.robot.subsystems.CraneExtender;
+import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.MDriveTrain;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -61,10 +63,10 @@ public class Robot extends TimedRobot {
 
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
 
-  
- 
+  CraneExtender craneExtender = new CraneExtender();
+  CranePivot cranePivot = new CranePivot();
 
-Pigeon2 pigeon = new Pigeon2(0);
+  Pigeon2 pigeon = new Pigeon2(0);
 
 
   @Override
@@ -165,6 +167,7 @@ Pigeon2 pigeon = new Pigeon2(0);
 
   @Override
   public final void teleopInit() {
+
     pcmCompressor.enableDigital();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
@@ -175,6 +178,7 @@ Pigeon2 pigeon = new Pigeon2(0);
     }
     logger.emptyLog();
   }
+  //425975
 
   /**
    * This function is called periodically durting operator control.
@@ -182,6 +186,11 @@ Pigeon2 pigeon = new Pigeon2(0);
   @Override
   public void teleopPeriodic() {
 
+    //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
+    //System.out.println("pitch " + pigeon.getPitch());
+
+    System.out.println("cranepivot = " + (cranePivot.getEncoderPosition() + 22000));
+    System.out.println("craneExtender = " +craneExtender.getEncoderPosition());
     logger.CheckInputs();
 
     /* 
@@ -207,6 +216,8 @@ Pigeon2 pigeon = new Pigeon2(0);
   @Override
   public final void testInit() {
     // Cancels all running commands at the start of test mode.
+    cranePivot.resetEncoder();
+    craneExtender.resetEncoder();
     initialPitch = pigeon.getPitch();
     initialRoll = pigeon.getRoll();
     initialYaw = pigeon.getYaw();
