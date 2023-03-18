@@ -35,7 +35,10 @@ import frc.robot.commands.DoubleSolenoidCommand;
 import frc.robot.commands.ResetClimber;
 import frc.robot.commands.ResetEncoder;
 import frc.robot.commands.TurnUntilStop;
+import frc.robot.commands.Crane.CraneBM;
+import frc.robot.commands.Crane.CraneBT;
 import frc.robot.commands.Crane.CraneCM;
+import frc.robot.commands.Crane.SubStation;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
 import frc.robot.commands.auto.AutoBalence;
@@ -175,6 +178,15 @@ public final class RobotContainer {
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(-operator.sticks.right.getY()), craneExtender));
         operator.buttons.A.whileTrue(new CraneCM(cranePivot, craneExtender));
+        operator.buttons.Y.whileTrue(new SubStation(cranePivot, craneExtender));
+        operator.buttons.X.whileTrue(new CraneBM(cranePivot, craneExtender));
+        //the top ball (CraneBT) is a total guess right now gear box broke before testing the angles
+        operator.buttons.B.whileTrue(new CraneBT(cranePivot, craneExtender));
+
+        //a botton cone
+        //y substation (top cone to unreliable)
+        // x middle cude
+        // b top cube
 
         /* 
         operator.buttons.Y.whileTrue(new MotorCommand(craneExtender, 1));

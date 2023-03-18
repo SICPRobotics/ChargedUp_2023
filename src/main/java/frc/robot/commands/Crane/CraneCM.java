@@ -56,40 +56,23 @@ public class CraneCM extends CommandBase {
 
     @Override
     public void execute() {
-
-        System.out.println("Pivot position" + currentPivotPosition());
-        System.out.println("Extender position" + currentExtenderPosition());
-
         // pivot side = 1 is front o f robot 
-        if(pivotSide == 1){
-            System.out.println("front of Robot");
+        System.out.println("Exexuting to CM");
+        System.out.println("back of Robot");
                 
-            if(currentPivotPosition() < 21000){
-               
-                cranePivot.setMotor(.1);
-            }
-            if(currentPivotPosition() > 22000){
-               // System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(-.1);
-            }
+        if(currentPivotPosition() > -18000){
+            //System.out.println("pitch  = " + pidgey.getRoll());
+            cranePivot.setMotor(-.1);
         }
-        else if(pivotSide == -1){
-            System.out.println("back of Robot");
-                
-            if(currentPivotPosition() > -21000){
-                //System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(-.1);
-            }
-            if(currentPivotPosition() < -22000 ){
-               // System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(0.1);
-            }
+        if(currentPivotPosition() < -18000 ){
+           // System.out.println("pitch  = " + pidgey.getRoll());
+            cranePivot.setMotor(0.1);
         }
-
-        if(currentExtenderPosition() > -400000){
+            
+        if(currentExtenderPosition() > -80000){
             craneExtender.setMotor(-.75);
         }
-        else if(currentExtenderPosition() < -400000){
+        else if(currentExtenderPosition() < -1100000){
             craneExtender.setMotor(.75);
         }
     }
@@ -102,12 +85,12 @@ public class CraneCM extends CommandBase {
     @Override
     public boolean isFinished() {
         //change this later
-        return (pidgey.getPitch() == 0);
+        return(false);
         
     }
 
     public double currentPivotPosition(){
-        return(cranePivot.getEncoderPosition() + 22000);
+        return(cranePivot.getEncoderPosition() + 15000);
     }
     public double currentExtenderPosition(){
         return(craneExtender.getEncoderPosition());

@@ -22,7 +22,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
 
-public class CraneCT extends CommandBase {
+public class SubStation extends CommandBase {
     //going to name the crane commands "Crane + C for cone or B for ball + B for bottom or M for middle or T for top"
 
     private final CranePivot cranePivot;
@@ -33,7 +33,7 @@ public class CraneCT extends CommandBase {
     private double encoderZero;
 
 
-   public CraneCT (CranePivot cranePivot, CraneExtender craneExtender) {
+   public SubStation (CranePivot cranePivot, CraneExtender craneExtender) {
         encoderZero = cranePivot.getEncoderPosition() + 22000;
         System.out.println("encoder starting position = " + encoderZero);
         this.cranePivot = cranePivot;
@@ -45,53 +45,33 @@ public class CraneCT extends CommandBase {
     }
 
     @Override
-    public void initialize() {
-        if(currentPivotPosition() > 0){
-            pivotSide = 1;
-        }
-        else{
-            pivotSide = -1;
-        }
+    public void initialize(){
     }
 
     @Override
     public void execute() {
-
-        System.out.println("Pivot position" + currentPivotPosition());
-        System.out.println("Extender position" + currentExtenderPosition());
-
         // pivot side = 1 is front o f robot 
-        if(pivotSide == 1){
-            System.out.println("front of Robot");
+        System.out.println("Exexuting to substation");
+        
+
                 
-            if(currentPivotPosition() < 21000){
-               
-                cranePivot.setMotor(.1);
-            }
-            if(currentPivotPosition() > 22000){
-               // System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(-.1);
-            }
+        if(currentPivotPosition() < 25000){ 
+            cranePivot.setMotor(.1);
         }
-        else if(pivotSide == -1){
-            System.out.println("back of Robot");
-                
-            if(currentPivotPosition() > -21000){
-                //System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(-.1);
-            }
-            if(currentPivotPosition() < -22000 ){
-               // System.out.println("pitch  = " + pidgey.getRoll());
-                cranePivot.setMotor(0.1);
-            }
+        if(currentPivotPosition() > 25000){
+            cranePivot.setMotor(-.1);
         }
 
-        if(currentExtenderPosition() > -400000){
+
+
+        if(currentExtenderPosition() > -29000){
             craneExtender.setMotor(-.75);
         }
-        else if(currentExtenderPosition() < -400000){
+        else if(currentExtenderPosition() < -290000){
             craneExtender.setMotor(.75);
         }
+        
+
     }
 
     @Override
@@ -102,12 +82,12 @@ public class CraneCT extends CommandBase {
     @Override
     public boolean isFinished() {
         //change this later
-        return (pidgey.getPitch() == 0);
+        return(false);
         
     }
 
     public double currentPivotPosition(){
-        return(cranePivot.getEncoderPosition() + 22000);
+        return(cranePivot.getEncoderPosition() + 15000);
     }
     public double currentExtenderPosition(){
         return(craneExtender.getEncoderPosition());
