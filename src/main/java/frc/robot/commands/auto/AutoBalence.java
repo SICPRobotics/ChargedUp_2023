@@ -24,13 +24,11 @@ public class AutoBalence extends CommandBase {
     public static boolean autoLeveling = false;
 
     private Pigeon2 pigeon = new Pigeon2(0);
-    //private ADIS16470_IMU adis16470_IMU = new ADIS16470_IMU();
 
     XboxController xboxController = new XboxController(1);
-    public AutoBalence(MDriveTrain mDriveTrain, ADIS16470_IMU adis16470_IMU) {
+    public AutoBalence(MDriveTrain mDriveTrain) {
         this.mDriveTrain = mDriveTrain;
-        this.adis16470_IMU = adis16470_IMU;
-        initialX = adis16470_IMU.getXComplementaryAngle();
+        initialX = pigeon.getPitch();
     }
 
     @Override
@@ -40,6 +38,7 @@ public class AutoBalence extends CommandBase {
         initialPitch = pigeon.getPitch();
         initialRoll = pigeon.getRoll();
         initialYaw = pigeon.getYaw();
+        initialX = pigeon.getPitch();
         autoLeveling = true;
     }
 
@@ -49,7 +48,7 @@ public class AutoBalence extends CommandBase {
         System.out.println("DeltaX" + deltaX());
          
         if(currentPitch < 8 && currentPitch > -8){
-            mDriveTrain.stop();
+            //mDriveTrain.stop();
         }
         else if(currentPitch < -8){
             mDriveTrain.driveBackwards();
@@ -66,6 +65,6 @@ public class AutoBalence extends CommandBase {
     }
 
     private double deltaX(){
-        return (adis16470_IMU.getXComplementaryAngle() - initialX);
+        return (pigeon.getPitch() - initialX);
     }
 }

@@ -38,6 +38,7 @@ public class MechinumDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("mechdrive started");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

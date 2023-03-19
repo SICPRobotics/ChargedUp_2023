@@ -189,32 +189,37 @@ public class Robot extends TimedRobot {
     //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
     //System.out.println("pitch " + pigeon.getPitch());
 
-    System.out.println("Crane Pivot = " + (cranePivot.getEncoderPosition() + 15000));
-    System.out.println("Crane Extender = " + craneExtender.getEncoderPosition());
+    //System.out.println("Crane Pivot = " + (cranePivot.getEncoderPosition() + 15000));
+    //System.out.println("Crane Extender = " + craneExtender.getEncoderPosition());
 
     logger.CheckInputs();
-}
-
-
-    
 
     /* 
     if(xboxController.getPOV() == -1){
       mDriveTrain.stop();
     }
     if(xboxController.getPOV() == 0){
-      mDriveTrain.driveForwards();
+      mDriveTrain.driveForwardsFast();
     }
     if(xboxController.getPOV() == 90){
-      mDriveTrain.driverRight();
+      mDriveTrain.driveRightFast();
     }
     if(xboxController.getPOV() == 180){
-      mDriveTrain.driveBackwards();
+      mDriveTrain.driveBackwardsFast();
     }
     if(xboxController.getPOV() == 270){
-      mDriveTrain.driveLeft();
+      mDriveTrain.driveLeftFast();
     }
     */
+    
+}
+
+
+    
+
+    
+    
+    
 
   
 

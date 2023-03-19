@@ -57,6 +57,21 @@ public class OldAutoCommand extends CommandBase{
                    this.mDriveTrain.stop(); 
                 }                 
         }
+        if(version == 1){
+          if(time <1.5197799&& time > 0.9399173){ 
+                 this.mDriveTrain.driveBackwardsFast(); 
+             } 
+          if(time >1.5197799&& time < 3.50 ){ 
+              this.mDriveTrain.driveForwardsFast(); 
+            } 
+          if(time <20.579744&& time > 3.498497){ 
+              this.mDriveTrain.autoLevel();
+            } 
+          if(time >20.579744&& time < 99.0 ){ 
+                this.mDriveTrain.autoLevel();
+            } 
+            
+        }
     
   }
 

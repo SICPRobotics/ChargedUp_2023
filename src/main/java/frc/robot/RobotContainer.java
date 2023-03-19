@@ -124,7 +124,7 @@ public final class RobotContainer {
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
         brakeMode = new BrakeMode(mDriveTrain);
         adis16470_IMU = new ADIS16470_IMU();
-        autoBalence = new AutoBalence(mDriveTrain, adis16470_IMU);
+        autoBalence = new AutoBalence(mDriveTrain);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -196,11 +196,11 @@ public final class RobotContainer {
         */
 
         mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
-        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .3, () -> 0.0, () -> 0.0));
-        operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.3, () -> 0.0, () -> 0.0));
-        operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.3, () -> 0.0));
-        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .3, () -> 0.0));
-        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain, adis16470_IMU));
+        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .8, () -> 0.0, () -> 0.0));
+        operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.8, () -> 0.0, () -> 0.0));
+        operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.8, () -> 0.0));
+        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .8, () -> 0.0));
+        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain));
 
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }
@@ -248,7 +248,7 @@ public final class RobotContainer {
     // }
     // * @return the command to run in autonomous
     public Command getAutonomousCommand() {
-        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot, this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
+        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot, 1, this.autoDelay.getValue().doubleValue());
     }
     
 }
