@@ -189,8 +189,8 @@ public class Robot extends TimedRobot {
     //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
     //System.out.println("pitch " + pigeon.getPitch());
 
-    //System.out.println("Crane Pivot = " + (cranePivot.getEncoderPosition() + 15000));
-    //System.out.println("Crane Extender = " + craneExtender.getEncoderPosition());
+    System.out.println("Crane Pivot = " + (cranePivot.getEncoderPosition() + 15000));
+    System.out.println("Crane Extender = " + craneExtender.getEncoderPosition());
 
     logger.CheckInputs();
 

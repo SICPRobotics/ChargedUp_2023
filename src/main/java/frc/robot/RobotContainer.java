@@ -248,7 +248,7 @@ public final class RobotContainer {
     // }
     // * @return the command to run in autonomous
     public Command getAutonomousCommand() {
-        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot, 1, this.autoDelay.getValue().doubleValue());
+        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot,  this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
     }
     
 }

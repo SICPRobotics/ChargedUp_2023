@@ -46,11 +46,11 @@ public class OldAutoCommand extends CommandBase{
         float time = System.nanoTime()/1000000000 - starttime;
         if(version == 0){
             if(time <2.3652434&& time > 1.044906){ 
-                    this.mDriveTrain.driveLeft(); 
+                    this.mDriveTrain.driveBackwardsFast(); 
                  } 
                  
                  if(time <5.75444136&& time > 3.6581893){ 
-                 this.mDriveTrain.driveRight(); 
+                 this.mDriveTrain.driveForwardsFast(); 
                  } 
                  
                 if(time >7.5444136&& time < 99.0 ){ 
@@ -58,18 +58,16 @@ public class OldAutoCommand extends CommandBase{
                 }                 
         }
         if(version == 1){
-          if(time <1.5197799&& time > 0.9399173){ 
-                 this.mDriveTrain.driveBackwardsFast(); 
-             } 
-          if(time >1.5197799&& time < 3.50 ){ 
+          if(time < 1.50 && time > 0.75){ 
+              this.mDriveTrain.driveBackwardsFast(); 
+            } 
+          if(time > 1.5 && time < 3.0 ){ 
               this.mDriveTrain.driveForwardsFast(); 
             } 
-          if(time <20.579744&& time > 3.498497){ 
+          if(time < 15 && time > 3.0){ 
               this.mDriveTrain.autoLevel();
             } 
-          if(time >20.579744&& time < 99.0 ){ 
-                this.mDriveTrain.autoLevel();
-            } 
+
             
         }
     

@@ -55,16 +55,16 @@ public class SubStation extends CommandBase {
         
 
                 
-        if(currentPivotPosition() < 25000){ 
+        if(currentPivotPosition() < 28000){ 
             cranePivot.setMotor(.1);
         }
-        if(currentPivotPosition() > 25000){
+        if(currentPivotPosition() > 28000){
             cranePivot.setMotor(-.1);
         }
 
 
 
-        if(currentExtenderPosition() > -29000){
+        if(currentExtenderPosition() > -31000){
             craneExtender.setMotor(-.75);
         }
         else if(currentExtenderPosition() < -290000){
