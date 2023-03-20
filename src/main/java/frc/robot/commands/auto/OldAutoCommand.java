@@ -1,5 +1,7 @@
 package frc.robot.commands.auto;
 
+import com.ctre.phoenix.sensors.Pigeon2;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CargoArm;
@@ -17,6 +19,8 @@ public class OldAutoCommand extends CommandBase{
     private final int version;
     private final double waitTime;
     private final float starttime = System.nanoTime()/1000000000;
+    private final Pigeon2 pigeon2 = new Pigeon2(0);
+    private double initialYaw;
 
   /**
    * Creates a new ExampleCommand.
@@ -32,6 +36,7 @@ public class OldAutoCommand extends CommandBase{
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(mDriveTrain, craneExtender, cranePivot);
+    initialYaw = pigeon2.getYaw();
   }
 
   // Called when the command is initially scheduled.
@@ -47,16 +52,30 @@ public class OldAutoCommand extends CommandBase{
         if(version == 0){
             if(time <2.3652434&& time > 1.044906){ 
                     this.mDriveTrain.driveBackwardsFast(); 
-                 } 
+            } 
+            if(time < 15 && time > 2.35){
+              if(getDeltaYaw() > 7){
+                this.mDriveTrain.turnLeft(.3);
+              }
+              else if(getDeltaYaw() < -7){
+                this.mDriveTrain.turnRight(.3);
+              }
+              else if(getDeltaYaw() > 3){
+                this.mDriveTrain.turnLeft(.05);
+              }
+              else if(getDeltaYaw() < -3){
+                this.mDriveTrain.turnRight(.05);
+              }
+            }
+            if(time <5.75444136&& time > 3.6581893){ 
+              this.mDriveTrain.driveForwardsFast(); 
+            } 
                  
-                 if(time <5.75444136&& time > 3.6581893){ 
-                 this.mDriveTrain.driveForwardsFast(); 
-                 } 
-                 
-                if(time >7.5444136&& time < 99.0 ){ 
-                   this.mDriveTrain.stop(); 
-                }                 
+            if(time >7.5444136&& time < 99.0 ){ 
+              this.mDriveTrain.stop(); 
+            }                 
         }
+
         if(version == 1){
           if(time < 1.50 && time > 0.75){ 
               this.mDriveTrain.driveBackwardsFast(); 
@@ -87,5 +106,10 @@ public class OldAutoCommand extends CommandBase{
   @Override
   public boolean isFinished() {
     return this.timer.get() > 15;
+  }
+
+
+  private double getDeltaYaw(){
+    return(pigeon2.getYaw() - initialYaw);
   }
 }

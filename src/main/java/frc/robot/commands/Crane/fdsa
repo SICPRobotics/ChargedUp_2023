@@ -1,0 +1,15 @@
+if(currentPivotPosition() > 0){
+            //System.out.println("pitch  = " + pidgey.getRoll());
+            cranePivot.setMotor(-.15);
+        }
+        if(currentPivotPosition() < 0 ){
+           // System.out.println("pitch  = " + pidgey.getRoll());
+            cranePivot.setMotor(0.15);
+        }
+            
+        if(currentExtenderPosition() > -10000){
+            craneExtender.setMotor(.0);
+        }
+        else if(currentExtenderPosition() < -10000){
+            craneExtender.setMotor(.45);
+        }

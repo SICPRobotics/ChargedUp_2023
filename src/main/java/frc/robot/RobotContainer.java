@@ -38,6 +38,7 @@ import frc.robot.commands.TurnUntilStop;
 import frc.robot.commands.Crane.CraneBM;
 import frc.robot.commands.Crane.CraneBT;
 import frc.robot.commands.Crane.CraneCM;
+import frc.robot.commands.Crane.CraneUp;
 import frc.robot.commands.Crane.SubStation;
 import frc.robot.commands.arm.DownArmCommand;
 import frc.robot.commands.arm.SimpleArmCommand;
@@ -177,11 +178,13 @@ public final class RobotContainer {
 
         cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
         craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(-operator.sticks.right.getY()), craneExtender));
+        operator.buttons.back.whileTrue(new CraneUp(cranePivot, craneExtender));
         operator.buttons.A.whileTrue(new CraneCM(cranePivot, craneExtender));
         operator.buttons.Y.whileTrue(new SubStation(cranePivot, craneExtender));
         operator.buttons.X.whileTrue(new CraneBM(cranePivot, craneExtender));
         //the top ball (CraneBT) is a total guess right now gear box broke before testing the angles
         operator.buttons.B.whileTrue(new CraneBT(cranePivot, craneExtender));
+
 
         //a botton cone
         //y substation (top cone to unreliable)
@@ -200,7 +203,7 @@ public final class RobotContainer {
         operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.8, () -> 0.0, () -> 0.0));
         operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.8, () -> 0.0));
         operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .8, () -> 0.0));
-        operator.buttons.start.whileTrue(new AutoBalence(mDriveTrain));
+        operator.buttons.back.whileTrue(new AutoBalence(mDriveTrain));
 
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }

@@ -146,11 +146,11 @@ public class MDriveTrain extends SubsystemBase {
     public void driveLeft(){
       mDrive.driveCartesian(0, .13, 0);
     }
-    public void turnLeft(){
-      mDrive.driveCartesian(0, 0, -.3);
+    public void turnLeft(double speed){
+      mDrive.driveCartesian(0, 0, -speed);
     }
-    public void turnRight(){
-      mDrive.driveCartesian(0, 0, .3);
+    public void turnRight(double speed){
+      mDrive.driveCartesian(0, 0, speed);
     }
     public void stop(){
       mDrive.driveCartesian(0,0,0);

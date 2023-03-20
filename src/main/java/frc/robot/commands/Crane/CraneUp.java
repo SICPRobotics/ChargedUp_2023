@@ -22,7 +22,7 @@ import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
 
 
-public class CraneBT extends CommandBase {
+public class CraneUp extends CommandBase {
     //going to name the crane commands "Crane + C for cone or B for ball + B for bottom or M for middle or T for top"
 
     private final CranePivot cranePivot;
@@ -33,7 +33,7 @@ public class CraneBT extends CommandBase {
     private double encoderZero;
 
 
-   public CraneBT (CranePivot cranePivot, CraneExtender craneExtender) {
+   public CraneUp (CranePivot cranePivot, CraneExtender craneExtender) {
         encoderZero = cranePivot.getEncoderPosition() + 22000;
         System.out.println("encoder starting position = " + encoderZero);
         this.cranePivot = cranePivot;
@@ -56,26 +56,20 @@ public class CraneBT extends CommandBase {
 
     @Override
     public void execute() {
-        // pivot side = 1 is front o f robot 
-        System.out.println("Exexuting to CM");
-        System.out.println("back of Robot");
-                
-        if(currentPivotPosition() > -18500){
+        if(currentPivotPosition() > 0){
             //System.out.println("pitch  = " + pidgey.getRoll());
-            cranePivot.setMotor(-.1);
+            cranePivot.setMotor(-.15);
         }
-        if(currentPivotPosition() < -18500 ){
+        if(currentPivotPosition() < 0 ){
            // System.out.println("pitch  = " + pidgey.getRoll());
-            cranePivot.setMotor(0.1);
+            cranePivot.setMotor(0.15);
         }
-
-
             
-        if(currentExtenderPosition() > -170000){
-            craneExtender.setMotor(-.75);
+        if(currentExtenderPosition() > -10000){
+            craneExtender.setMotor(.01);
         }
-        else if(currentExtenderPosition() < -1100000){
-            craneExtender.setMotor(.75);
+        else if(currentExtenderPosition() < -10000){
+            craneExtender.setMotor(.45);
         }
     }
 
