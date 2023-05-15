@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.drive.MechinumDrive;
+import frc.robot.commands.drive.SwerveWithJoystick;
 import frc.robot.commands.MotorCommand;
 import frc.robot.commands.BrakeMode;
 import frc.robot.commands.DoubleSolenoidCommand;
@@ -67,6 +68,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.Crane;
 import frc.robot.Constants.Gryo;
 import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.subsystems.SDriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -97,6 +99,7 @@ public final class RobotContainer {
     public final BrakeMode brakeMode;
     public final AutoBalence autoBalence;
     public final ADIS16470_IMU adis16470_IMU;
+    public final SDriveTrain sDriveTrain;
     
  
     /**
@@ -126,6 +129,11 @@ public final class RobotContainer {
         brakeMode = new BrakeMode(mDriveTrain);
         adis16470_IMU = new ADIS16470_IMU();
         autoBalence = new AutoBalence(mDriveTrain);
+        sDriveTrain = new SDriveTrain(pidgey);
+
+        sDriveTrain.setDefaultCommand(
+            new SwerveWithJoystick(sDriveTrain, this::getX, this::getY, joystick::getZ, joystick::getScale, false));
+        
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -169,6 +177,8 @@ public final class RobotContainer {
         //joystick.thumb.toggleWhenPressed(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
        
+        joystick.thumb.toggleOnTrue(
+            new SwerveWithJoystick(sDriveTrain, this::getX, this::getY, joystick::getZ, joystick::getScale, true));
 
 
         operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kForward));

@@ -280,4 +280,58 @@ public class WillowMath {
     public static double deadZoneValue(double value, double absDeadZone){
         return Math.abs(value) >= absDeadZone ? value : 0;
     }
+    public static double[] selectionSort(double[] array) {
+        for (int i = 0; i < array.length; i++) {
+            double min = array[i];
+            int minId = i;
+            for (int j = i+1; j < array.length; j++) {
+                if (array[j] < min) {
+                    min = array[j];
+                    minId = j;
+                }
+            }
+            // swapping
+            double temp = array[i];
+            array[i] = min;
+            array[minId] = temp;
+        }
+        return array;
+    }
+    public static double[] sort(double[] d){
+        while(!sorted(d)){
+            for(int i = 0; i < d.length - 1; i++){
+                if(d[i] > d[i + 1]){
+                    double s = d[i];
+                    d[i] = d[i + 1];
+                    d[i + 1] = s;
+                }
+            }
+        }
+        return d;
+    }
+    public static boolean sorted(double[] d){
+        for(int i = 0; i < d.length - 1; i++){
+            if(d[i] > d[i + 1]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static double max(double[] values){
+        return sort(values)[values.length - 1];
+    }
+    public static double min(double[] values){
+        return sort(values)[0];
+    }
+    public static double[] abs(double[] values){
+        for(int a = 0; a < values.length; a++){
+            values[a] = Math.abs(values[a]);
+        }
+        return values;
+    }
+
+
 }
+
