@@ -9,6 +9,7 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.commands.MotorCommand;
 import frc.robot.commands.TurnUntilStop;
 import frc.robot.commands.TurnUntilValue;
@@ -86,7 +87,7 @@ public class CraneUp extends CommandBase {
     }
 
     public double currentPivotPosition(){
-        return(cranePivot.getEncoderPosition() + 15000);
+        return(cranePivot.getEncoderPosition() + Constants.Crane.POSITION_FROM_ZERO);
     }
     public double currentExtenderPosition(){
         return(craneExtender.getEncoderPosition());

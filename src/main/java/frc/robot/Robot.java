@@ -189,9 +189,6 @@ public class Robot extends TimedRobot {
     //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
     //System.out.println("pitch " + pigeon.getPitch());
 
-    System.out.println("Crane Pivot = " + (cranePivot.getEncoderPosition() + 15000));
-    System.out.println("Crane Extender = " + craneExtender.getEncoderPosition());
-
     logger.CheckInputs();
 
     /* 
@@ -225,7 +222,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public final void testInit() {
-    // Cancels all running commands at the start of test mode.
+    // Cancels all running commands at the , of test mode.
     cranePivot.resetEncoder();
     craneExtender.resetEncoder();
     initialPitch = pigeon.getPitch();

@@ -76,15 +76,20 @@ public class OldAutoCommand extends CommandBase{
             }                 
         }
 
+
+        
         if(version == 1){
+          if(time < .75){
+            initialYaw = pigeon2.getYaw();
+          }
           if(time < 1.50 && time > 0.75){ 
               this.mDriveTrain.driveBackwardsFast(); 
             } 
-          if(time > 1.5 && time < 3.0 ){ 
+          if(time > 1.5 && time < 3.22){ 
               this.mDriveTrain.driveForwardsFast(); 
             } 
-          if(time < 15 && time > 3.0){ 
-              this.mDriveTrain.autoLevel();
+          if(time < 999 && time > 3.22){ 
+              this.mDriveTrain.autoLevel(initialYaw);
             } 
 
             

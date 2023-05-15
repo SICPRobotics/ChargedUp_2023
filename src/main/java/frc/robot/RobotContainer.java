@@ -202,7 +202,7 @@ public final class RobotContainer {
         operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .8, () -> 0.0, () -> 0.0));
         operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.8, () -> 0.0, () -> 0.0));
         operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.8, () -> 0.0));
-        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .8, () -> 0.0));
+        operator.buttons.dPad.right.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .8, () -> 0.0));
         operator.buttons.back.whileTrue(new AutoBalence(mDriveTrain));
 
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));

@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
 
+import javax.lang.model.util.ElementScanner14;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.sensors.Pigeon2;
@@ -24,6 +26,10 @@ public class MDriveTrain extends SubsystemBase {
     frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
     private Pigeon2 pigeon2 = new Pigeon2(0);
     private MecanumDrive mDrive;
+    boolean lastMoveForwards = true;
+    int TimeInDeadZone = 0;
+    boolean inDeadZoneLastTime = true;
+
   
     public MDriveTrain() {
       //Mecanum Drive motors
@@ -96,36 +102,79 @@ public class MDriveTrain extends SubsystemBase {
       return(scale);
     }
     double initalX;
+    double initalYaw;
 
     private double deltaX(){
       return (pigeon2.getPitch() - initalX);
     }
 
     boolean once = false;
-    public void autoLevel(){
+    public void autoLevel(double initalYaw){
+      this.initalYaw = initalYaw;
       if(once = false){
         initalX = pigeon2.getPitch();
         once = true;
       }
-      double currentPitch = deltaX();
-        System.out.println("DeltaX" + deltaX());
+        double currentPitch = deltaX();
+
+        System.out.println("DeltaX" + deltaX() + "DeltaYaw " + getDeltaYaw(initalYaw));
+        double turn = 0;
+
+        if(getDeltaYaw(initalYaw) > 7){
+          turn = -.1;
+        }
+        else if(getDeltaYaw(initalYaw) < -7){
+          turn = .1;
+        }
+        else if(getDeltaYaw(initalYaw) > 3){
+          turn = -.05;
+        }
+        else if(getDeltaYaw(initalYaw) < -3){
+          turn = .05;
+        }
          
-        if(currentPitch < 8 && currentPitch > -8){
-            //mDriveTrain.stop();
+        if(currentPitch < -8.5){
+          mDrive.driveCartesian(-.12, 0, turn);
+          inDeadZoneLastTime = false;
+          lastMoveForwards = false;
+
+          //mDrive.driveCartesian(-.17, 0, turn);
+          //System.out.print("leveling forwards turn:"+turn);
+          
         }
-        else if(currentPitch < -8){
-            driveBackwards();
+        else if(currentPitch > 8.5){
+          mDrive.driveCartesian(.12, 0, turn);
+          inDeadZoneLastTime = false;
+          lastMoveForwards = true;
+          //mDrive.driveCartesian(.17, 0, turn);
+          //System.out.print("leveling backwards turn:"+turn);
         }
-        else if(currentPitch > 8){
-            driveForwards();
+        
+        else{
+          if (inDeadZoneLastTime == false){
+            TimeInDeadZone = 0;
+          }
+          inDeadZoneLastTime = true;
+          if(TimeInDeadZone < 3){
+            if(lastMoveForwards == true){
+              mDrive.driveCartesian(-.05, 0, 0);
+            }
+            else{
+              mDrive.driveCartesian(.05, 0, 0);
+            }
+
+          }
+          TimeInDeadZone += 1;
+          
         }
+        
     }
 
     public void driveBackwardsFast(){
       mDrive.driveCartesian(-.4, 0, 0);
     }
     public void driveForwardsFast(){
-      mDrive.driveCartesian(.55, 0, 0);
+      mDrive.driveCartesian(.4, 0, 0);
     }
     public void driveRightFast(){
       mDrive.driveCartesian(0, -.4, 0);
@@ -135,10 +184,10 @@ public class MDriveTrain extends SubsystemBase {
     }
 
     public void driveBackwards(){
-      mDrive.driveCartesian(-.13, 0, 0);
+      mDrive.driveCartesian(-.15, 0, 0);
     }
     public void driveForwards(){
-      mDrive.driveCartesian(.13, 0, 0);
+      mDrive.driveCartesian(.15, 0, 0);
     }
     public void driveRight(){
       mDrive.driveCartesian(0, -.13, 0);
@@ -154,6 +203,9 @@ public class MDriveTrain extends SubsystemBase {
     }
     public void stop(){
       mDrive.driveCartesian(0,0,0);
+    }
+    private double getDeltaYaw(double startingyaw){
+      return(pigeon2.getYaw() - initalYaw);
     }
   }
 

@@ -72,7 +72,8 @@ public final class Constants {
 
     public static class Crane{
         public static final int CRANE_PIVOT_MOTOR_ID = 0;
-        public static final int CRANE_EXTENDER_MOTOR_ID = 5;
+        public static final int CRANE_EXTENDER_MOTOR_ID = 6;
+        public static final double POSITION_FROM_ZERO = 17000;
     }
 
     public static class Auto{

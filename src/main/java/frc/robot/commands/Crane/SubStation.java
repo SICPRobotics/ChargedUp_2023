@@ -16,6 +16,7 @@ import frc.robot.subsystems.CraneExtender;
 import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.EncoderSubsystem;
 import frc.robot.subsystems.Pidgey;
+import frc.robot.Constants;
 
 import java.io.File;
 import java.io.FileWriter;   // Import the FileWriter class
@@ -87,7 +88,7 @@ public class SubStation extends CommandBase {
     }
 
     public double currentPivotPosition(){
-        return(cranePivot.getEncoderPosition() + 15000);
+        return(cranePivot.getEncoderPosition() + Constants.Crane.POSITION_FROM_ZERO);
     }
     public double currentExtenderPosition(){
         return(craneExtender.getEncoderPosition());
