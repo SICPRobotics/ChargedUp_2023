@@ -12,7 +12,6 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MDriveTrain;
 
 public class OldAutoCommand extends CommandBase{
-    private final MDriveTrain mDriveTrain;
     private final CraneExtender craneExtender; 
     private CranePivot cranePivot;
     private Timer timer;
@@ -27,15 +26,14 @@ public class OldAutoCommand extends CommandBase{
    *
    * @param subsystem The subsystem used by this command.
    */
-  public OldAutoCommand(MDriveTrain mDriveTrain, CraneExtender craneExtender, CranePivot cranePivot, int verison, double waitTime){
-    this.mDriveTrain = mDriveTrain;
+  public OldAutoCommand(CraneExtender craneExtender, CranePivot cranePivot, int verison, double waitTime){
     this.craneExtender = craneExtender;
     this.cranePivot = cranePivot;
     this.timer = new Timer();
     this.version = verison;
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(mDriveTrain, craneExtender, cranePivot);
+    addRequirements(craneExtender, cranePivot);
     initialYaw = pigeon2.getYaw();
   }
 
@@ -49,6 +47,7 @@ public class OldAutoCommand extends CommandBase{
   @Override
   public void execute() {
         float time = System.nanoTime()/1000000000 - starttime;
+        /* 
         if(version == 0){
             if(time <2.3652434&& time > 1.044906){ 
                     this.mDriveTrain.driveBackwardsFast(); 
@@ -94,6 +93,7 @@ public class OldAutoCommand extends CommandBase{
 
             
         }
+        */
     
   }
 
@@ -103,7 +103,7 @@ public class OldAutoCommand extends CommandBase{
   public void end(boolean interrupted) {
       this.timer.reset();
       this.cranePivot.turnOff();
-      this.mDriveTrain.stop();
+      //this.mDriveTrain.stop();
       this.craneExtender.turnOff();
   }
 

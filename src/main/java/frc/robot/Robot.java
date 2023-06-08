@@ -44,6 +44,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 public class Robot extends TimedRobot {
+  public static CTREConfigs ctreConfigs;
   private Command autonomousCommand;
   private RobotContainer robotContainer;
   double initialPitch;
@@ -74,7 +75,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
+    
     System.out.print("initailizzing");
+    ctreConfigs = new CTREConfigs();
     robotContainer = new RobotContainer();
     System.out.print("intialized");
     //SmartDashboardValues.clear();

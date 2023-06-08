@@ -48,11 +48,9 @@ import frc.robot.commands.auto.OldAutoCommand;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.arm.UpArmCommand;
 import frc.robot.commands.rumble.Rumbler;
-import frc.robot.controllers.joystick.Joystick;
 import frc.robot.controllers.operator.OperatorController;
 import frc.robot.subsystems.CargoArm;
 import frc.robot.commands.MotorCommand;
-import frc.robot.controllers.joystick.Joystick;
 import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.CraneExtender;
 import frc.robot.subsystems.Pinchy;
@@ -67,6 +65,12 @@ import frc.robot.Constants;
 import frc.robot.Constants.Crane;
 import frc.robot.Constants.Gryo;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -77,9 +81,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
  */
 public final class RobotContainer {
     public static final Gson gson = new Gson();
-    public final Joystick joystick;
+    
     //public final DriveTrain driveTrain;
-    public final MDriveTrain mDriveTrain;
     private final DoubleSolenoid doubleSolenoid;
     private final DoubleSolenoid doubleSolenoid2;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
@@ -94,23 +97,43 @@ public final class RobotContainer {
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final CranePivot cranePivot;
-    public final BrakeMode brakeMode;
-    public final AutoBalence autoBalence;
     public final ADIS16470_IMU adis16470_IMU;
-    
+
+    private final Joystick joystick  = new Joystick(0);
+
+    /* Drive Controls */
+    private final int translationAxis = XboxController.Axis.kLeftY.value;
+    private final int strafeAxis = XboxController.Axis.kLeftX.value;
+    private final int rotationAxis = XboxController.Axis.kRightX.value;
+
+    /* Driver Buttons */
+    private final JoystickButton zeroGyro = new JoystickButton(joystick, XboxController.Button.kY.value);
+    private final JoystickButton robotCentric = new JoystickButton(joystick, XboxController.Button.kLeftBumper.value);
+
+    /* Subsystems */
+    private final Swerve s_Swerve = new Swerve();
  
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+
+        s_Swerve.setDefaultCommand(
+            new TeleopSwerve(
+                s_Swerve, 
+                () -> -joystick.getRawAxis(translationAxis), 
+                () -> -joystick.getRawAxis(strafeAxis), 
+                () -> -joystick.getRawAxis(rotationAxis), 
+                () -> robotCentric.getAsBoolean()
+            )
+        );
+        
         CameraServer.startAutomaticCapture();
         Rumbler.setOperator(operator);
 //        driveTrain = new DriveTrain();
         //driveTrain =null;
-        mDriveTrain = new MDriveTrain();
         doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
-        joystick = new Joystick(0);
         gsonSaver = new GsonSaver();
         cargoArm = new CargoArm();
         cargoIntake = new CargoIntake();
@@ -123,9 +146,7 @@ public final class RobotContainer {
         pinchy2 = new Pinchy(doubleSolenoid2);
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
-        brakeMode = new BrakeMode(mDriveTrain);
         adis16470_IMU = new ADIS16470_IMU();
-        autoBalence = new AutoBalence(mDriveTrain);
 
 
         //final MechinumDrive mechdrive = new MechinumDrive(mDriveTrain, () -> getX(), () -> getY(), () -> joystick.getZ());
@@ -185,6 +206,9 @@ public final class RobotContainer {
         //the top ball (CraneBT) is a total guess right now gear box broke before testing the angles
         operator.buttons.B.whileTrue(new CraneBT(cranePivot, craneExtender));
 
+        /* Driver Buttons */
+        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
 
         //a botton cone
         //y substation (top cone to unreliable)
@@ -197,13 +221,6 @@ public final class RobotContainer {
         operator.buttons.X.whileTrue(new MotorCommand(cranePivot, .2));
         operator.buttons.B.whileTrue(new MotorCommand(cranePivot, -.2));
         */
-
-        mDriveTrain.setDefaultCommand(new MechinumDrive(mDriveTrain, () -> getJY(), () -> getJX(), () -> getJZ()));
-        operator.buttons.dPad.up.whileTrue(new MechinumDrive(mDriveTrain, () -> .8, () -> 0.0, () -> 0.0));
-        operator.buttons.dPad.down.whileTrue(new MechinumDrive(mDriveTrain, () -> -.8, () -> 0.0, () -> 0.0));
-        operator.buttons.dPad.left.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> -.8, () -> 0.0));
-        operator.buttons.dPad.right.whileTrue(new MechinumDrive(mDriveTrain, () -> 0.0, () -> .8, () -> 0.0));
-        operator.buttons.back.whileTrue(new AutoBalence(mDriveTrain));
 
         //operator.buttons.start.whileTrue(new BrakeMode(mDriveTrain));
     }
@@ -251,7 +268,7 @@ public final class RobotContainer {
     // }
     // * @return the command to run in autonomous
     public Command getAutonomousCommand() {
-        return new OldAutoCommand(mDriveTrain, craneExtender, cranePivot,  this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
+        return new OldAutoCommand(craneExtender, cranePivot,  this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
     }
     
 }
