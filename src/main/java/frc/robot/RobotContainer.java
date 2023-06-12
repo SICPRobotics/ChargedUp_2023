@@ -189,22 +189,7 @@ public final class RobotContainer {
    private void configureButtonBindings() {
         //joystick.thumb.toggleWhenPressed(
         //    new DriveWithJoystick(driveTrain, this::getY, this::getX, joystick::getScale, true));
-       
-
-
-        operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kForward));
-        operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy, Value.kReverse));
-        operator.buttons.RB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kForward));
-        operator.buttons.LB.whileTrue(new DoubleSolenoidCommand(pinchy2, Value.kReverse));
-
-        cranePivot.setDefaultCommand(new RunCommand(() -> cranePivot.setMotor(operator.sticks.left.getY() * -0.2), cranePivot));
-        craneExtender.setDefaultCommand(new RunCommand(() -> craneExtender.setMotor(-operator.sticks.right.getY()), craneExtender));
-        operator.buttons.back.whileTrue(new CraneUp(cranePivot, craneExtender));
-        operator.buttons.A.whileTrue(new CraneCM(cranePivot, craneExtender));
-        operator.buttons.Y.whileTrue(new SubStation(cranePivot, craneExtender));
-        operator.buttons.X.whileTrue(new CraneBM(cranePivot, craneExtender));
-        //the top ball (CraneBT) is a total guess right now gear box broke before testing the angles
-        operator.buttons.B.whileTrue(new CraneBT(cranePivot, craneExtender));
+    
 
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));

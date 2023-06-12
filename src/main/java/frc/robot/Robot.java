@@ -44,8 +44,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 public class Robot extends TimedRobot {
-  public static CTREConfigs ctreConfigs;
   private Command autonomousCommand;
+  public static CTREConfigs ctreConfigs;
   private RobotContainer robotContainer;
   double initialPitch;
   double initialRoll;
@@ -72,12 +72,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
-    
     System.out.print("initailizzing");
-    ctreConfigs = new CTREConfigs();
     robotContainer = new RobotContainer();
     System.out.print("intialized");
     //SmartDashboardValues.clear();
@@ -153,7 +152,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //robotContainer.generateTrajectory(true);
-    autonomousCommand = robotContainer.getAutonomousCommand();
+    //autonomousCommand = robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
@@ -171,7 +170,7 @@ public class Robot extends TimedRobot {
   @Override
   public final void teleopInit() {
 
-    pcmCompressor.enableDigital();
+    pcmCompressor.enableDigital(); 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
