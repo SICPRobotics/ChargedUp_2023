@@ -24,7 +24,7 @@ public class MDriveTrain extends SubsystemBase {
     public WPI_TalonFX frontRightMotor, rearRightMotor;
     public WPI_TalonFX rearLeftMotor, frontLeftMotor;
     frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
-    private Pigeon2 pigeon2 = new Pigeon2(0);
+    private Pigeon2 pigeon2 = new Pigeon2(999);
     private MecanumDrive mDrive;
     boolean lastMoveForwards = true;
     int TimeInDeadZone = 0;

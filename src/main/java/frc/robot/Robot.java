@@ -37,6 +37,7 @@ import frc.robot.subsystems.CranePivot;
 import frc.robot.subsystems.MDriveTrain;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.Joystick;
 
 
 
@@ -67,7 +68,7 @@ public class Robot extends TimedRobot {
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
 
-  Pigeon2 pigeon = new Pigeon2(0);
+  Pigeon2 pigeon = new Pigeon2(999);
 
 
   @Override
