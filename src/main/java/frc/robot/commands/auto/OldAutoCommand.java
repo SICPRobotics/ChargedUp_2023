@@ -12,8 +12,6 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MDriveTrain;
 
 public class OldAutoCommand extends CommandBase{
-    private final CraneExtender craneExtender; 
-    private CranePivot cranePivot;
     private Timer timer;
     private final int version;
     private final double waitTime;
@@ -26,14 +24,12 @@ public class OldAutoCommand extends CommandBase{
    *
    * @param subsystem The subsystem used by this command.
    */
-  public OldAutoCommand(CraneExtender craneExtender, CranePivot cranePivot, int verison, double waitTime){
-    this.craneExtender = craneExtender;
-    this.cranePivot = cranePivot;
+  public OldAutoCommand(int verison, double waitTime){
     this.timer = new Timer();
     this.version = verison;
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(craneExtender, cranePivot);
+    addRequirements();
     initialYaw = pigeon2.getYaw();
   }
 
@@ -102,9 +98,6 @@ public class OldAutoCommand extends CommandBase{
   @Override
   public void end(boolean interrupted) {
       this.timer.reset();
-      this.cranePivot.turnOff();
-      //this.mDriveTrain.stop();
-      this.craneExtender.turnOff();
   }
 
   // Returns true when the command should end.

@@ -83,20 +83,12 @@ public final class RobotContainer {
     public static final Gson gson = new Gson();
     
     //public final DriveTrain driveTrain;
-    private final DoubleSolenoid doubleSolenoid;
-    private final DoubleSolenoid doubleSolenoid2;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
     public final GsonSaver gsonSaver;
     public final OperatorController operator = new OperatorController(1);
-    public final CargoArm cargoArm;
-    public final CargoIntake cargoIntake;
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
-    public final CraneExtender craneExtender;
-    public final Pinchy pinchy;
-    public final Pinchy pinchy2;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
-    public final CranePivot cranePivot;
     public final ADIS16470_IMU adis16470_IMU;
 
     private final Joystick joystick  = new Joystick(0);
@@ -123,7 +115,7 @@ public final class RobotContainer {
                 s_Swerve, 
                 () -> joystick.getRawAxis(translationAxis), 
                 () -> joystick.getRawAxis(strafeAxis), 
-                () -> -joystick.getRawAxis(rotationAxis), 
+                () -> joystick.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
         );
@@ -132,18 +124,10 @@ public final class RobotContainer {
         Rumbler.setOperator(operator);
 //        driveTrain = new DriveTrain();
         //driveTrain =null;
-        doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-        doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
         gsonSaver = new GsonSaver();
-        cargoArm = new CargoArm();
-        cargoIntake = new CargoIntake();
         autoVersion = new SmartDashBoardClass<Double>("autoVersion", 0.0);
         autoDelay = new SmartDashBoardClass<Double>("autoDelay", 0.0);
         //trajectoryGeneration.addGson(gsonSaver);
-        craneExtender = new CraneExtender();
-        cranePivot = new CranePivot();
-        pinchy = new Pinchy(doubleSolenoid);
-        pinchy2 = new Pinchy(doubleSolenoid2);
         pidgey = new Pidgey();
         pigeon2 = new Pigeon2(Gryo.PIDGEY_ID);
         adis16470_IMU = new ADIS16470_IMU();
@@ -253,7 +237,7 @@ public final class RobotContainer {
     // }
     // * @return the command to run in autonomous
     public Command getAutonomousCommand() {
-        return new OldAutoCommand(craneExtender, cranePivot,  this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
+        return new OldAutoCommand(this.autoVersion.getValue().intValue(), this.autoDelay.getValue().doubleValue());
     }
     
 }
