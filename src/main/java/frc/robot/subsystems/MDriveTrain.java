@@ -21,6 +21,7 @@ import frc.robot.Constants;
 import frc.robot.controllers.joystick.Joystick;
 
 public class MDriveTrain extends SubsystemBase {
+    public double adjustedScale;
     public WPI_TalonFX frontRightMotor, rearRightMotor;
     public WPI_TalonFX rearLeftMotor, frontLeftMotor;
     frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
@@ -81,25 +82,28 @@ public class MDriveTrain extends SubsystemBase {
   
     
     public void driveCartesian(double xSpeed, double ySpeed, double zRotation){
+      
       xSpeed = MathUtil.applyDeadband(xSpeed, Constants.DriveTrain.SPEED_DEADBAND);
       ySpeed = MathUtil.applyDeadband(ySpeed, Constants.DriveTrain.SPEED_DEADBAND);
       zRotation = MathUtil.applyDeadband(zRotation, Constants.DriveTrain.ROTATION_DEADBAND);
 
-
-      
-      xSpeed = xSpeed * sliderMin(joystick.getScale());
+      xSpeed = xSpeed * scaleToModifier(joystick.getScale());
       xSpeed = xSpeed * Math.abs(xSpeed);
-      ySpeed = ySpeed * sliderMin(joystick.getScale());
+      ySpeed = ySpeed * scaleToModifier(joystick.getScale());
       ySpeed = ySpeed *Math.abs(ySpeed);
-      zRotation = zRotation * sliderMin(joystick.getScale());
+      zRotation = zRotation * scaleToModifier(joystick.getScale());
       zRotation = zRotation *Math.abs(zRotation) * .5;
 
   
       mDrive.driveCartesian(xSpeed, ySpeed, zRotation);
     }
 
-    public double sliderMin(double scale){
-      return(scale);
+    public double scaleToModifier(double scale){
+      adjustedScale = scale;
+      if(adjustedScale == 0){
+        adjustedScale = .40;
+      }
+      return(adjustedScale);
     }
     double initalX;
     double initalYaw;
