@@ -36,7 +36,7 @@ public class OldAutoCommand extends CommandBase{
     this.waitTime = waitTime;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(mDriveTrain, craneExtender, cranePivot);
-    initialYaw = pigeon2.getYaw();
+    
   }
 
   // Called when the command is initially scheduled.
@@ -50,10 +50,15 @@ public class OldAutoCommand extends CommandBase{
   public void execute() {
         float time = System.nanoTime()/1000000000 - starttime;
         if(version == 0){
+          System.out.println(getDeltaYaw());
+          if(time < .25){
+            initialYaw = pigeon2.getYaw();
+          }
             if(time <2.3652434&& time > 1.044906){ 
                     this.mDriveTrain.driveBackwardsFast(); 
             } 
-            if(time < 15 && time > 2.35){
+            //if(time < 15 && time > 2.35){
+              /* 
               if(getDeltaYaw() > 7){
                 this.mDriveTrain.turnLeft(.3);
               }
@@ -66,10 +71,12 @@ public class OldAutoCommand extends CommandBase{
               else if(getDeltaYaw() < -3){
                 this.mDriveTrain.turnRight(.05);
               }
-            }
-            if(time <5.75444136&& time > 3.6581893){ 
-              this.mDriveTrain.driveForwardsFast(); 
-            } 
+              */
+              if(time <5.75444136&& time > 3.6581893){ 
+                this.mDriveTrain.driveForwardsFast(); 
+              
+              } 
+            //}
                  
             if(time >7.5444136&& time < 99.0 ){ 
               this.mDriveTrain.stop(); 
@@ -85,10 +92,10 @@ public class OldAutoCommand extends CommandBase{
           if(time < 1.50 && time > 0.75){ 
               this.mDriveTrain.driveBackwardsFast(); 
             } 
-          if(time > 1.5 && time < 3.22){ 
+          if(time > 1.5 && time < 3.0){ 
               this.mDriveTrain.driveForwardsFast(); 
             } 
-          if(time < 999 && time > 3.22){ 
+          if(time < 999 && time > 3.0){ 
               this.mDriveTrain.autoLevel(initialYaw);
             } 
 
