@@ -115,7 +115,7 @@ public final class RobotContainer {
                 s_Swerve, 
                 () -> joystick.getRawAxis(translationAxis), 
                 () -> joystick.getRawAxis(strafeAxis), 
-                () -> joystick.getTwist(), 
+                () -> joystick.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
         );

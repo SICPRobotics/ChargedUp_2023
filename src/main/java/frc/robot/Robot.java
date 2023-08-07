@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
 
-  Pigeon2 pigeon = new Pigeon2(999);
+  Pigeon2 pigeon = new Pigeon2(0);
 
 
   @Override
@@ -191,7 +191,7 @@ public class Robot extends TimedRobot {
 
     //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
     //System.out.println("pitch " + pigeon.getPitch());
-
+    System.out.println(pigeon.getYaw());
     logger.CheckInputs();
 
     /* 
