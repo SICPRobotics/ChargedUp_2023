@@ -38,6 +38,11 @@ import frc.robot.subsystems.MDriveTrain;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+//limelight net tale imports
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 
@@ -48,10 +53,25 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   public static CTREConfigs ctreConfigs;
   private RobotContainer robotContainer;
+  SmartDashBoardClass smart;
+
   double initialPitch;
   double initialRoll;
   double initialYaw;
   double initialX;
+
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = table.getEntry("tx");
+  NetworkTableEntry ty = table.getEntry("ty");
+  NetworkTableEntry ta = table.getEntry("ta");
+
+  //read values periodically
+  double x = tx.getDouble(0.0);
+  double y = ty.getDouble(0.0);
+  double area = ta.getDouble(0.0);
+
+  //post to smart dashboard periodically
+  
 
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
@@ -193,6 +213,13 @@ public class Robot extends TimedRobot {
     //System.out.println("pitch " + pigeon.getPitch());
     System.out.println(pigeon.getYaw());
     logger.CheckInputs();
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+    System.out.println("x value: " + tx);
+    System.out.println("y value: " + ty);
+    System.out.println("a value: " + ta);
+    System.out.println("Test");
 
     /* 
     if(xboxController.getPOV() == -1){
