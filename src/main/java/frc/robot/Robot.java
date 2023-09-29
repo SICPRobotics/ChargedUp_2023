@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   public static CTREConfigs ctreConfigs;
   private RobotContainer robotContainer;
-  SmartDashBoardClass smart;
+  SmartDashBoardClass statusLights;
 
   double initialPitch;
   double initialRoll;
@@ -220,6 +220,11 @@ public class Robot extends TimedRobot {
     System.out.println("y value: " + ty);
     System.out.println("a value: " + ta);
     System.out.println("Test");
+
+    //make this check if the motor has communication
+    if(true){
+    statusLights = new SmartDashBoardClass<Boolean>("motor 1", false);
+    }
 
     /* 
     if(xboxController.getPOV() == -1){

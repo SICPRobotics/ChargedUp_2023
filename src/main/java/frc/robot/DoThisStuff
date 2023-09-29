@@ -1,0 +1,13 @@
+Thigns to cleanup:
+1. add indicator lights in SmartDashboard for all motors
+    a. try to make dropdown menu in SmartDashboard
+2. configure the lights to motor names that can be changed in constants
+3. just cleanup everything in the constants class
+3. reorginize commands and subsystems
+    a. find some way to make the left side of the screen as scary
+4. docs
+    a. put blocky code example next to normal code for Lego Lauge people
+    b. problem list: liteally every problem that we have had to fix and how to fix it
+    c.
+5. 
+    
