@@ -33,6 +33,11 @@ public class Conversions {
      * @param degrees Degrees of rotation of Mechanism
      * @param gearRatio Gear Ratio between Falcon and Mechanism
      * @return Falcon Position Counts
+     * think of it as: degrees/360  * gearRatio * 2048
+     *                 degrees/360 = fraction of rotation
+     *                 fraction of rotation at the mechnism needs to be multiplied by gearRatio to figure out how much the motor had to spin
+     *                 
+     * degree
      */
     public static double degreesToFalcon(double degrees, double gearRatio) {
         return degrees / (360.0 / (gearRatio * 2048.0));
