@@ -1,9 +1,9 @@
-package frc.robot.commands;
+package frc.robot.commands.basecommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.rumble.Rumbler;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.commands.other.rumble.Rumbler;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class MotorCommand extends CommandBase {
     private final MotorSubsystem motorSubsystem;

@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.components;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.Constants;
 import frc.robot.SubsystemBaseWrapper;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class CargoArm extends SubsystemBaseWrapper implements MotorSubsystem{
 

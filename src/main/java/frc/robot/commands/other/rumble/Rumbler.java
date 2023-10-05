@@ -1,4 +1,4 @@
-package frc.robot.commands.rumble;
+package frc.robot.commands.other.rumble;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.controllers.operator.OperatorController;

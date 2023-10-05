@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DoubleSolenoidSubsystem;
-import frc.robot.subsystems.MDriveTrain;
+import frc.robot.subsystems.basesubsytems.DoubleSolenoidSubsystem;
+import frc.robot.subsystems.drivetrains.MechDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class AutoBalence extends CommandBase {
-    private MDriveTrain mDriveTrain;
+    private MechDrive mDriveTrain;
     private ADIS16470_IMU adis16470_IMU;
     public static boolean broked = false;
     double initialPitch;
@@ -26,7 +26,7 @@ public class AutoBalence extends CommandBase {
     private Pigeon2 pigeon = new Pigeon2(0);
 
     XboxController xboxController = new XboxController(1);
-    public AutoBalence(MDriveTrain mDriveTrain) {
+    public AutoBalence(MechDrive mDriveTrain) {
         this.mDriveTrain = mDriveTrain;
         initialX = pigeon.getPitch();
     }

@@ -1,4 +1,4 @@
-package frc.robot.Logging;
+package frc.robot.robotutils.logging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,7 +113,7 @@ public class Logger {
                     pressing = false;
                 }
             }
-          }
+        }
       }
     
     //can be called to access logs

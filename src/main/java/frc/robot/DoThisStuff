@@ -6,8 +6,9 @@ Thigns to cleanup:
 3. reorginize commands and subsystems
     a. find some way to make the left side of the screen as scary
 4. docs
-    a. put blocky code example next to normal code for Lego Lauge people
+    a. put blocky code example next to normal code for Lego leage people
     b. problem list: liteally every problem that we have had to fix and how to fix it
     c.
-5. 
+5. make more example commands and subsystems for motors and pnuematics\
+6. make an easy to use PID command class
     

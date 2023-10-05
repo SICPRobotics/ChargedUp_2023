@@ -1,4 +1,4 @@
-package frc.robot.commands.rumble;
+package frc.robot.commands.other.rumble;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;

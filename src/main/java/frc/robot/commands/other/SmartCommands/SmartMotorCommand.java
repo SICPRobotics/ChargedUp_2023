@@ -1,10 +1,10 @@
-package frc.robot.commands.SmartCommands;
+package frc.robot.commands.other.SmartCommands;
 
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public abstract class SmartMotorCommand extends CommandBase {
     public final DoubleSupplier input;

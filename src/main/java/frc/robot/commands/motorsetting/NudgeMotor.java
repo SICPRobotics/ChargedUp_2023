@@ -1,8 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 /**
  * Sets the motor of the subsystem to the nudgeAmount for one tick.

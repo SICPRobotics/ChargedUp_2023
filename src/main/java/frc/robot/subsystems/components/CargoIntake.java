@@ -1,9 +1,10 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.components;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class CargoIntake extends SubsystemBase implements MotorSubsystem{
 

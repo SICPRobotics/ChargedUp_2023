@@ -1,8 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.ToggleSubsystem;
+import frc.robot.subsystems.basesubsytems.ToggleSubsystem;
 
 /**
  * Toggles a ToggleSubsystem to ON while the command is running.

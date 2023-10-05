@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.components;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
 import frc.robot.SubsystemBaseWrapper;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class CraneExtender extends SubsystemBaseWrapper implements MotorSubsystem, EncoderSubsystem {
     

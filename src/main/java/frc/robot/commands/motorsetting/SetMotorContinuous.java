@@ -1,10 +1,10 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public final class SetMotorContinuous extends CommandBase {
     private final MotorSubsystem subsystem;

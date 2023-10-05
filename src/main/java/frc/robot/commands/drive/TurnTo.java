@@ -4,18 +4,18 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Pidgey;
+import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.drivetrains.TankDrive;
 
 public class TurnTo extends CommandBase{
     
-    private final DriveTrain driveTrain;
+    private final TankDrive driveTrain;
     private final Pidgey pidgey;
     private final double target, speed, direction;
     private final PIDController pidController = new PIDController(0.05, 0, 0.006);
     private final Timer timer = new Timer();
 
-    public TurnTo(DriveTrain driveTrain, Pidgey pidgey, double target){
+    public TurnTo(TankDrive driveTrain, Pidgey pidgey, double target){
         this.driveTrain = driveTrain;
         this.pidgey = pidgey;
         this.target = target;

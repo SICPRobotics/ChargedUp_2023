@@ -1,8 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.basecommands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DoubleSolenoidSubsystem;
+import frc.robot.subsystems.basesubsytems.DoubleSolenoidSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class DoubleSolenoidCommand extends CommandBase {

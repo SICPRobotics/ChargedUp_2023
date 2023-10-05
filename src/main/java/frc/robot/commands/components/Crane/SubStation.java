@@ -1,4 +1,4 @@
-package frc.robot.commands.Crane;
+package frc.robot.commands.components.Crane;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,13 +9,13 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.commands.MotorCommand;
-import frc.robot.commands.TurnUntilStop;
-import frc.robot.commands.TurnUntilValue;
-import frc.robot.subsystems.CraneExtender;
-import frc.robot.subsystems.CranePivot;
-import frc.robot.subsystems.EncoderSubsystem;
-import frc.robot.subsystems.Pidgey;
+import frc.robot.commands.basecommands.MotorCommand;
+import frc.robot.commands.motorsetting.TurnUntilStop;
+import frc.robot.commands.motorsetting.TurnUntilValue;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.components.CraneExtender;
+import frc.robot.subsystems.components.CranePivot;
 import frc.robot.Constants;
 
 import java.io.File;

@@ -2,13 +2,13 @@ package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.drivetrains.TankDrive;
 
 public class DriveDistance extends CommandBase {
-    private final DriveTrain driveTrain;
+    private final TankDrive driveTrain;
     private final double distance, speed;
     private double startLeft, startRight;
-    public DriveDistance(DriveTrain driveTrain, double distance, double speed) {
+    public DriveDistance(TankDrive driveTrain, double distance, double speed) {
         this.driveTrain = driveTrain;
         this.distance = distance;
         this.speed = speed;

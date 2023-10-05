@@ -1,9 +1,9 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.components.arm;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CargoArm;
-import frc.robot.subsystems.Pidgey;
+import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.components.CargoArm;
 
 public abstract class SmartArmCommand extends CommandBase {
     public final Pidgey pidgey;

@@ -1,8 +1,8 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.components.arm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CargoArm;
+import frc.robot.subsystems.components.CargoArm;
 
 public class SimpleArmCommand extends CommandBase {
     private final CargoArm arm;

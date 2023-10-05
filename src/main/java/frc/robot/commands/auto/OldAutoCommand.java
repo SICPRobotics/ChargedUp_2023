@@ -4,12 +4,12 @@ import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CargoArm;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CraneExtender;
-import frc.robot.subsystems.CranePivot;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.MDriveTrain;
+import frc.robot.subsystems.components.CargoArm;
+import frc.robot.subsystems.components.CargoIntake;
+import frc.robot.subsystems.components.CraneExtender;
+import frc.robot.subsystems.components.CranePivot;
+import frc.robot.subsystems.drivetrains.TankDrive;
+import frc.robot.subsystems.drivetrains.MechDrive;
 
 public class OldAutoCommand extends CommandBase{
     private Timer timer;

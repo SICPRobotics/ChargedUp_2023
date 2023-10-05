@@ -1,6 +1,7 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.components;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.basesubsytems.DoubleSolenoidSubsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 

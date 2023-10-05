@@ -1,7 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.commands.basecommands.MotorCommand;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class SmartDashboardMotorCommand extends MotorCommand{
 

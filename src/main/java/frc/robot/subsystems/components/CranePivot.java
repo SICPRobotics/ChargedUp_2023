@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.components;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -10,6 +10,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import frc.robot.Constants;
 import frc.robot.SubsystemBaseWrapper;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class CranePivot extends SubsystemBaseWrapper implements MotorSubsystem, EncoderSubsystem {
 

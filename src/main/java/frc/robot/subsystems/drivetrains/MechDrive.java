@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivetrains;
 
 import static frc.robot.Constants.*;
 
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.controllers.joystick.Joystick;
 
-public class MDriveTrain extends SubsystemBase {
+public class MechDrive extends SubsystemBase {
     public WPI_TalonFX frontRightMotor, rearRightMotor;
     public WPI_TalonFX rearLeftMotor, frontLeftMotor;
     frc.robot.controllers.joystick.Joystick joystick = new Joystick(0);
@@ -31,7 +31,7 @@ public class MDriveTrain extends SubsystemBase {
     boolean inDeadZoneLastTime = true;
 
   
-    public MDriveTrain() {
+    public MechDrive() {
       //Mecanum Drive motors
       frontLeftMotor = new WPI_TalonFX(Constants.DriveTrain.FRONT_RIGHT_MOTOR_ID);
       rearLeftMotor = new WPI_TalonFX(Constants.DriveTrain.REAR_RIGHT_MOTOR_ID);

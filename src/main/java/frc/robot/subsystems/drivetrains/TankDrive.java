@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.drivetrains;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -27,12 +27,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.SubsystemBaseWrapper;
 import frc.robot.WillowMath;
-import frc.robot.commands.rumble.Rumbler;
+import frc.robot.commands.other.rumble.Rumbler;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 /**
  * the DriveTrain, aka the thing that moves the robot
  */
-public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsystem{
+public final class TankDrive extends SubsystemBaseWrapper implements MotorSubsystem{
     private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(new Rotation2d(), 0, 0);
     
     public final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(21.5));
@@ -46,7 +47,7 @@ public final class DriveTrain extends SubsystemBaseWrapper implements MotorSubsy
     private final DifferentialDrive robotDrive = new DifferentialDrive(left, right);
     private Pose2d savedPose = new Pose2d();
     
-    public DriveTrain() {
+    public TankDrive() {
         super();
         right.setInverted(true); 
         // Motors

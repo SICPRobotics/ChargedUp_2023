@@ -1,7 +1,7 @@
-package frc.robot.commands.arm;
+package frc.robot.commands.components.arm;
 
-import frc.robot.subsystems.CargoArm;
-import frc.robot.subsystems.Pidgey;
+import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.components.CargoArm;
 
 public class UpArmCommand extends SmartArmCommand {
 

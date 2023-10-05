@@ -1,8 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.EncoderSubsystem;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
 
 public class TurnUntilValue<TSubsystem extends MotorSubsystem & EncoderSubsystem> extends CommandBase {
     public final TSubsystem subsystem;

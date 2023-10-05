@@ -27,39 +27,25 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.commands.drive.BrakeMode;
 import frc.robot.commands.drive.DriveWithJoystick;
 import frc.robot.commands.drive.MechinumDrive;
-import frc.robot.commands.MotorCommand;
-import frc.robot.commands.BrakeMode;
-import frc.robot.commands.DoubleSolenoidCommand;
-import frc.robot.commands.ResetClimber;
-import frc.robot.commands.ResetEncoder;
-import frc.robot.commands.TurnUntilStop;
-import frc.robot.commands.Crane.CraneBM;
-import frc.robot.commands.Crane.CraneBT;
-import frc.robot.commands.Crane.CraneCM;
-import frc.robot.commands.Crane.CraneUp;
-import frc.robot.commands.Crane.SubStation;
-import frc.robot.commands.arm.DownArmCommand;
-import frc.robot.commands.arm.SimpleArmCommand;
+import frc.robot.commands.drive.TeleopSwerve;
+import frc.robot.commands.other.rumble.Rumbler;
 import frc.robot.commands.auto.AutoBalence;
 import frc.robot.commands.auto.CustomAuto;
 import frc.robot.commands.auto.OldAutoCommand;
+import frc.robot.commands.components.Crane.CraneBM;
+import frc.robot.commands.components.Crane.CraneBT;
+import frc.robot.commands.components.Crane.CraneCM;
+import frc.robot.commands.components.Crane.CraneUp;
+import frc.robot.commands.components.Crane.SubStation;
+import frc.robot.commands.components.arm.DownArmCommand;
+import frc.robot.commands.components.arm.SimpleArmCommand;
+import frc.robot.commands.components.arm.UpArmCommand;
 import frc.robot.commands.drive.DriveWithJoystick;
-import frc.robot.commands.arm.UpArmCommand;
-import frc.robot.commands.rumble.Rumbler;
 import frc.robot.controllers.operator.OperatorController;
-import frc.robot.subsystems.CargoArm;
-import frc.robot.commands.MotorCommand;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.CraneExtender;
-import frc.robot.subsystems.Pinchy;
-import frc.robot.subsystems.CranePivot;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.MDriveTrain;
-import frc.robot.subsystems.DoubleSolenoidSubsystem;
-import frc.robot.subsystems.MotorSubsystem;
-import frc.robot.subsystems.Pidgey;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 import frc.robot.Constants;
 import frc.robot.Constants.Crane;
@@ -71,6 +57,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.drivetrains.TankDrive;
+import frc.robot.subsystems.drivetrains.SwerveDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -103,7 +92,7 @@ public final class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(joystick, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    private final SwerveDrive s_Swerve = new SwerveDrive();
  
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.MDriveTrain;
+import frc.robot.subsystems.drivetrains.MechDrive;
 
 
 public class MechinumDrive extends CommandBase {
@@ -20,11 +20,11 @@ public class MechinumDrive extends CommandBase {
    * Creates a new DriveMecanum.
    */
 
-  private MDriveTrain driveTrain;
+  private MechDrive driveTrain;
   private Supplier<Double>  x, y, z;
   private XboxController xboxController = new XboxController(1);
 
-  public MechinumDrive(MDriveTrain drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation) {
+  public MechinumDrive(MechDrive drivetrain, Supplier<Double> forward, Supplier<Double> strafe, Supplier<Double> zRotation) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
     this.driveTrain = drivetrain;

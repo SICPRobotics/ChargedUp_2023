@@ -1,4 +1,4 @@
-package = frc.robot.subsystems.other;
+package frc.robot.subsystems.basesubsytems;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.Pigeon2.AxisDirection;

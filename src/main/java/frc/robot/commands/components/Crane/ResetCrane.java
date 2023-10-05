@@ -1,14 +1,14 @@
-package frc.robot.commands;
+package frc.robot.commands.components.Crane;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.rumble.Rumbler;
-import frc.robot.subsystems.CraneExtender;
+import frc.robot.commands.other.rumble.Rumbler;
+import frc.robot.subsystems.components.CraneExtender;
 
-public class ResetClimber extends CommandBase {
+public class ResetCrane extends CommandBase {
     private Timer timer = new Timer();
     private final CraneExtender climber;
-    public ResetClimber(CraneExtender climber) {
+    public ResetCrane(CraneExtender climber) {
         this.climber = climber;
         addRequirements(climber);
     }

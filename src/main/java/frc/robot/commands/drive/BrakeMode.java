@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -6,15 +6,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DoubleSolenoidSubsystem;
-import frc.robot.subsystems.MDriveTrain;
+import frc.robot.subsystems.basesubsytems.DoubleSolenoidSubsystem;
+import frc.robot.subsystems.drivetrains.MechDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class BrakeMode extends CommandBase {
     private WPI_TalonFX frontRightMotor, rearRightMotor;
     private WPI_TalonFX rearLeftMotor, frontLeftMotor;
     public static boolean broked = true;
-    public BrakeMode(MDriveTrain mDriveTrain) {
+    public BrakeMode(MechDrive mDriveTrain) {
         System.out.println("brakemode contstructed");
         frontLeftMotor = mDriveTrain.frontLeftMotor;
         rearLeftMotor = mDriveTrain.rearLeftMotor;

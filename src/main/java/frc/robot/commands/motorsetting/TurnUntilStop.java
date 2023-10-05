@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.motorsetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import java.util.function.Function;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.commands.rumble.Rumbler;
-import frc.robot.subsystems.CraneExtender;
-import frc.robot.subsystems.EncoderSubsystem;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.commands.other.rumble.Rumbler;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.MotorSubsystem;
+import frc.robot.subsystems.components.CraneExtender;
 
 public class TurnUntilStop<TSubsystem extends MotorSubsystem & EncoderSubsystem & Subsystem> extends CommandBase {
     private Timer timer = new Timer();

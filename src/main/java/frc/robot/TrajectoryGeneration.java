@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.drivetrains.TankDrive;
 import edu.wpi.first.math.geometry.Translation2d;
 
 public class TrajectoryGeneration extends SubsystemBase{
@@ -51,7 +51,7 @@ public class TrajectoryGeneration extends SubsystemBase{
         System.out.println(trajectoryName);
         System.out.println(this.getTrajectory(trajectoryName).toString());
     }
-    public Command getTrajectoryCommand(DriveTrain driveTrain, String trajectoryName){
+    public Command getTrajectoryCommand(TankDrive driveTrain, String trajectoryName){
         System.out.println(trajectoryName);
         System.out.println(this.getTrajectory(trajectoryName).getStates());
         return new RamseteCommand(this.getTrajectory(trajectoryName), 

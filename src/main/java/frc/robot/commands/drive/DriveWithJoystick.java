@@ -3,10 +3,10 @@ package frc.robot.commands.drive;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.drivetrains.TankDrive;
 
 public final class DriveWithJoystick extends CommandBase {
-    private final DriveTrain driveTrain;
+    private final TankDrive driveTrain;
     private final DoubleSupplier moveValueGetter;
     private final DoubleSupplier rotateValueGetter;
     private final DoubleSupplier adjustValueGetter;
@@ -17,7 +17,7 @@ public final class DriveWithJoystick extends CommandBase {
     //     this(driveTrain, moveValueGetter, rotateValueGetter, adjustValueGetter, false);    
     // }
 
-    public DriveWithJoystick(final DriveTrain driveTrain, final DoubleSupplier moveValueGetter, final DoubleSupplier rotateValueGetter, final DoubleSupplier scaleValueGetter, final boolean isInverted) {
+    public DriveWithJoystick(final TankDrive driveTrain, final DoubleSupplier moveValueGetter, final DoubleSupplier rotateValueGetter, final DoubleSupplier scaleValueGetter, final boolean isInverted) {
         this.driveTrain = driveTrain;
         this.moveValueGetter = moveValueGetter;
         this.rotateValueGetter = rotateValueGetter;

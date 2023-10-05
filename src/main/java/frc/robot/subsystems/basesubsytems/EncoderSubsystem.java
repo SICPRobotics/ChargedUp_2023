@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.basesubsytems;
 
 public interface EncoderSubsystem {
     public int getEncoderPosition();

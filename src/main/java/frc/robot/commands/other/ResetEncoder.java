@@ -1,7 +1,7 @@
-package frc.robot.commands;
+package frc.robot.commands.other;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.EncoderSubsystem;
+import frc.robot.subsystems.basesubsytems.EncoderSubsystem;
 
 public class ResetEncoder extends CommandBase {
     EncoderSubsystem subsystem;
