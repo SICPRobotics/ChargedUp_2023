@@ -55,8 +55,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
 import frc.robot.subsystems.basesubsytems.Pidgey;
 import frc.robot.subsystems.drivetrains.TankDrive;
 import frc.robot.subsystems.drivetrains.SwerveDrive;
