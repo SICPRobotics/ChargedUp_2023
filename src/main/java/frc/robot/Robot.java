@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+  double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("<tid>").getDoubleArray(new double[6]);
 
   //read values periodically
   double x = tx.getDouble(0.0);
@@ -85,6 +86,7 @@ public class Robot extends TimedRobot {
   List<Float> timeOInput = new ArrayList<Float>();
 
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
+  
 
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
@@ -214,13 +216,7 @@ public class Robot extends TimedRobot {
     //System.out.println("pitch " + pigeon.getPitch());
     System.out.println(pigeon.getYaw());
     logger.CheckInputs();
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
-    System.out.println("x value: " + tx);
-    System.out.println("y value: " + ty);
-    System.out.println("a value: " + ta);
-    System.out.println("Test");
+    System.out.println(aTags[0]);
 
     //make this check if the motor has communication
     if(true){
