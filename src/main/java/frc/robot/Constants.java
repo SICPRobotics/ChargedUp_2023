@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -27,41 +29,13 @@ import frc.lib.util.SwerveModuleConstants;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
+
 public final class Constants {
     public static final class CheesyDrive {
         public static final double X_AXIS_DEADZONE_RANGE = 0.005;
         public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
         public static final double X_AXIS_DEADZONE_Y_MIN = 0.1;
-    }
-
-    public final class DriveTrain {
-        public static final int FRONT_RIGHT_MOTOR_ID = 999;
-        public static final int FRONT_LEFT_MOTOR_ID = 999;
-        public static final int REAR_RIGHT_MOTOR_ID = 999;
-        public static final int REAR_LEFT_MOTOR_ID = 999;
-        public static final int WHEEL_Diameter_INCHES = 6;
-        public static final double COUNTS_PER_ROTAION = 4096;
-        public static final double X_AXIS_DEADZONE_RANGE = 0.005;
-        public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
-        public static final double X_AXIS_DEADZONE_Y_MIN = 0.1; 
-
-        public static final double ROTATION_DEADBAND = .2;
-        public static final double STRAFING_DEADBAND = .2;
-        public static final double SPEED_DEADBAND = .2;
-        
-        public final class ControlSystems{
-            public static final int ARCADE_DRIVE_STANDARD = 0;
-            public static final int TANK_DRIVE_TEST = 1;
-            public static final int TANK_DRIVE_WITH_VOLTS = 2;
-        }
-        public final class kinematics{
-            public static final double S = 0.85586; // static voltage constant ks THIS VALUE IS FOR 2022 Robot
-            public static final double V = 3.0598; // velocity voltage constant kv THIS VALUE IS FOR 2022 Robot
-            public static final double A = 0.86192; // acceloration voltage constant ka THIS VALUE IS FOR 2022 Robot
-            public static final double P = 2.5115; // Proportionality gain for the drive train THIS VALUE IS FOR 2022 Robot
-            public static final double I = 0; // Interal gain for the drive train 
-            public static final double D = 0; // Derivative gain for the drive train 
-        }
     }
     public final class Joystick{
         public static final int X_AXIS = 0;
@@ -92,10 +66,15 @@ public final class Constants {
     }
 
     public static class Gryo{
+        
         public static final int PIDGEY_ID = 4;
         public static final int PIDGEY2_ID = 99;
     }
+
+
     public static final double stickDeadband = 0.1;
+
+
     public static final class Swerve {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
@@ -177,7 +156,7 @@ public final class Constants {
             public static final int driveMotorID =  1;
             public static final int angleMotorID =  2;
             public static final int canCoderID = 9;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(177.539063);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(174.6);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -187,27 +166,27 @@ public final class Constants {
             public static final int driveMotorID =  3;
             public static final int angleMotorID =  4;
             public static final int canCoderID = 10;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(246.093750);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(246.1);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
         
         /* Back right Module - Module 2 */
         public static final class Mod2 { //TODO: This must be tuned to specific robot
-            public static final int driveMotorID = 7;
-            public static final int angleMotorID = 8;
-            public static final int canCoderID = 12;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(74.79);
+            public static final int driveMotorID = 5;
+            public static final int angleMotorID = 6;
+            public static final int canCoderID = 11;
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(71.9);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
         /* Back left Module - Module 3 */
         public static final class Mod3 { //TODO: This must be tuned to specific robot
-            public static final int driveMotorID =  5;
-            public static final int angleMotorID =  6;
-            public static final int canCoderID = 11;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(71.78);
+            public static final int driveMotorID =  7;
+            public static final int angleMotorID =  8;
+            public static final int canCoderID = 12;
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(86.6);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -229,4 +208,54 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
+    public static final Map getComponentIDList(){
+        Map<String, Integer> motorIDList = new HashMap<>();
+
+        //Swerve drivetrain motor IDs 
+        motorIDList.put("FLD", Swerve.Mod0.driveMotorID); //front left drive
+        motorIDList.put("FLT", Swerve.Mod0.angleMotorID); //front left turn 
+        motorIDList.put("FRD", Swerve.Mod1.driveMotorID); //front right drive 
+        motorIDList.put("FRT", Swerve.Mod1.angleMotorID); // front right turn
+        motorIDList.put("BRD", Swerve.Mod2.driveMotorID);
+        motorIDList.put("BRT", Swerve.Mod2.angleMotorID);
+        motorIDList.put("BLD", Swerve.Mod3.driveMotorID);
+        motorIDList.put("BLT", Swerve.Mod3.angleMotorID);
+
+        //Other components
+        motorIDList.put("arm", 999);
+        motorIDList.put("crane", 10);
+
+        return motorIDList;
+    }
+    
+    public final class DriveTrain {
+        public static final int FRONT_RIGHT_MOTOR_ID = 999;
+        public static final int FRONT_LEFT_MOTOR_ID = 999;
+        public static final int REAR_RIGHT_MOTOR_ID = 999;
+        public static final int REAR_LEFT_MOTOR_ID = 999;
+        public static final int WHEEL_Diameter_INCHES = 6;
+        public static final double COUNTS_PER_ROTAION = 4096;
+        public static final double X_AXIS_DEADZONE_RANGE = 0.005;
+        public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
+        public static final double X_AXIS_DEADZONE_Y_MIN = 0.1; 
+
+        public static final double ROTATION_DEADBAND = .2;
+        public static final double STRAFING_DEADBAND = .2;
+        public static final double SPEED_DEADBAND = .2;
+        
+        public final class ControlSystems{
+            public static final int ARCADE_DRIVE_STANDARD = 0;
+            public static final int TANK_DRIVE_TEST = 1;
+            public static final int TANK_DRIVE_WITH_VOLTS = 2;
+        }
+        public final class kinematics{
+            public static final double S = 0.85586; // static voltage constant ks THIS VALUE IS FOR 2022 Robot
+            public static final double V = 3.0598; // velocity voltage constant kv THIS VALUE IS FOR 2022 Robot
+            public static final double A = 0.86192; // acceloration voltage constant ka THIS VALUE IS FOR 2022 Robot
+            public static final double P = 2.5115; // Proportionality gain for the drive train THIS VALUE IS FOR 2022 Robot
+            public static final double I = 0; // Interal gain for the drive train 
+            public static final double D = 0; // Derivative gain for the drive train 
+        }
+    } 
 }
+
