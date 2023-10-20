@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.auto.AutoBalence;
 import frc.robot.controllers.operator.OperatorController;
 import frc.robot.robotutils.AutoConverter;
+import frc.robot.robotutils.StatusCheck;
 import frc.robot.robotutils.logging.Logger;
 import frc.robot.subsystems.components.CraneExtender;
 import frc.robot.subsystems.components.CranePivot;
@@ -61,11 +62,13 @@ public class Robot extends TimedRobot {
   double initialYaw;
   double initialX;
 
+  SmartDashBoardClass justATest = new SmartDashBoardClass<Double>("just a test", 4.4);
+
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
-  double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("<tid>").getDoubleArray(new double[6]);
+  double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
 
   //read values periodically
   double x = tx.getDouble(0.0);
@@ -85,8 +88,9 @@ public class Robot extends TimedRobot {
   List<Float> inputDurations = new ArrayList<Float>();
   List<Float> timeOInput = new ArrayList<Float>();
 
+  //utiliies
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
-  
+  StatusCheck checker = new StatusCheck();
 
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
@@ -211,46 +215,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-
-    //System.out.println("Encoder position " + craneExtender.getEncoderPosition());
-    //System.out.println("pitch " + pigeon.getPitch());
-    System.out.println(pigeon.getYaw());
-    logger.CheckInputs();
+    double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+    System.out.println("test here");
     System.out.println(aTags[0]);
+    logger.CheckInputs();
 
     //make this check if the motor has communication
     if(true){
     statusLights = new SmartDashBoardClass<Boolean>("motor 1", false);
     }
-
-    /* 
-    if(xboxController.getPOV() == -1){
-      mDriveTrain.stop();
-    }
-    if(xboxController.getPOV() == 0){
-      mDriveTrain.driveForwardsFast();
-    }
-    if(xboxController.getPOV() == 90){
-      mDriveTrain.driveRightFast();
-    }
-    if(xboxController.getPOV() == 180){
-      mDriveTrain.driveBackwardsFast();
-    }
-    if(xboxController.getPOV() == 270){
-      mDriveTrain.driveLeftFast();
-    }
-    */
-    
 }
-
-
-    
-
-    
-    
-    
-
-  
 
   @Override
   public final void testInit() {
@@ -268,34 +242,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    
-    System.out.println(deltaPitch());
-
-
-
-    /* 
-    double currentPitch = deltaPitch();
-    if(currentPitch <4.5 && currentPitch >-4.5){
-      mDriveTrain.driveCartesian(0,0,0);
-    }
-    else if(currentPitch > -4.5){
-      mDriveTrain.driveCartesian(0,.15,0);
-    }
-    else if(currentPitch < 4.5){
-      mDriveTrain.driveCartesian(0,-.15,0);
-    }
-    // may have to use value other than pitch based on how pidgey is mounted
-    */
-  }
-  private double deltaPitch(){
-    return (pigeon.getPitch() - initialPitch);
-  }
-  
-  private double deltaRoll(){
-    return (pigeon.getRoll() - initialRoll);
-  }
-  
-  private double deltaYaw(){
-    return (pigeon.getYaw() - initialYaw);
+    System.out.println(aTags[0]);
   }
 }

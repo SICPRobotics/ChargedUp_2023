@@ -21,23 +21,29 @@ public class StatusCheck {
 
         ArrayList<String> keyList = new ArrayList<String>();
         ArrayList<Integer> idList = new ArrayList<Integer>();
+        Map<String, SmartDashBoardClass<Double>> smartDashBoardClasses = new HashMap<String, SmartDashBoardClass<Double>>();
+
+        for (int i = 0; i < keyList.size(); i ++){
+            //smartdashboard list is broken I hate it
+            //smartDashBoardClasses.add(keyList.get(i), new SmartDashBoardClass<Double>("autoVersion", 0.0));
+        }
 
         keyList.addAll(motorIDList.keySet());
         idList.addAll(motorIDList.values());
 
-        update();
+        update(keyList, idList);
     }
 
 
-    void update(){
-        checkPower();
-        checkCan();
+    void update(ArrayList<String> keyList, ArrayList<Integer> idList){
+        checkPowerList(keyList, idList);
+        checkCanList();
     }
 
-    void checkPowerList(ArrayList keyList, ArrayList idList){
+    void checkPowerList(ArrayList<String> keyList, ArrayList<Integer> idList){
         for (int i = 0; i < keyList.size(); i ++){
             if(checkPower() == false){
-                SmartDashboard.putBoolean((String) keyList.get(i) , (Boolean) idList.get(i));
+                
             }
         }
     }
