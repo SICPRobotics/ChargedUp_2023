@@ -32,6 +32,31 @@ import frc.lib.util.SwerveModuleConstants;
 
 
 public final class Constants {
+    //update this with a name for every component start of year
+    //to update add a new motorIDList.put("NAME OF COMPONENT", componts id location in constants)
+    //this method will display the name and status of every component
+    //it will display in the form of the component name followed by either a red or green inidcator light
+    //it will have both CAN and power indicators
+    public static final Map getComponentIDList(){
+        Map<String, Integer> motorIDList = new HashMap<>();
+
+        //Swerve drivetrain motor IDs 
+        motorIDList.put("FLD", Swerve.Mod0.driveMotorID); //front left drive
+        motorIDList.put("FLT", Swerve.Mod0.angleMotorID); //front left turn 
+        motorIDList.put("FRD", Swerve.Mod1.driveMotorID); //front right drive 
+        motorIDList.put("FRT", Swerve.Mod1.angleMotorID); // front right turn
+        motorIDList.put("BRD", Swerve.Mod2.driveMotorID);
+        motorIDList.put("BRT", Swerve.Mod2.angleMotorID);
+        motorIDList.put("BLD", Swerve.Mod3.driveMotorID);
+        motorIDList.put("BLT", Swerve.Mod3.angleMotorID);
+
+        //Other components
+        motorIDList.put("arm", 999);
+        motorIDList.put("crane", 10);
+
+        return motorIDList;
+    }
+
     public static final class CheesyDrive {
         public static final double X_AXIS_DEADZONE_RANGE = 0.005;
         public static final double Y_AXIS_DEADZONE_RANGE = 0.005;
@@ -206,26 +231,6 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
-    }
-
-    public static final Map getComponentIDList(){
-        Map<String, Integer> motorIDList = new HashMap<>();
-
-        //Swerve drivetrain motor IDs 
-        motorIDList.put("FLD", Swerve.Mod0.driveMotorID); //front left drive
-        motorIDList.put("FLT", Swerve.Mod0.angleMotorID); //front left turn 
-        motorIDList.put("FRD", Swerve.Mod1.driveMotorID); //front right drive 
-        motorIDList.put("FRT", Swerve.Mod1.angleMotorID); // front right turn
-        motorIDList.put("BRD", Swerve.Mod2.driveMotorID);
-        motorIDList.put("BRT", Swerve.Mod2.angleMotorID);
-        motorIDList.put("BLD", Swerve.Mod3.driveMotorID);
-        motorIDList.put("BLT", Swerve.Mod3.angleMotorID);
-
-        //Other components
-        motorIDList.put("arm", 999);
-        motorIDList.put("crane", 10);
-
-        return motorIDList;
     }
     
     public final class DriveTrain {

@@ -2,7 +2,6 @@ package frc.robot.robotutils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,13 +14,18 @@ import frc.robot.Constants;
 
 public class StatusCheck {
     // add a name for each motor in constatnts
-    Map<String, Integer> motorIDList = new HashMap<>();
-    Map<String, Boolean> motorPower = new HashMap<>();
-    Map<String, Boolean> motorCan = new HashMap<>();
 
-    public void StatusCheck(Map<String, Integer> motorIDList){
-        this.motorIDList = Constants.getComponentIDList();
+    public void StatusCheck(Map<String, Integer> motorIDStorage){
+        Map<String, Integer> motorIDList = new HashMap<>();
+        motorIDList = Constants.getComponentIDList();
 
+        ArrayList<String> keyList = new ArrayList<String>();
+        ArrayList<Integer> idList = new ArrayList<Integer>();
+
+        keyList.addAll(motorIDList.keySet());
+        idList.addAll(motorIDList.values());
+
+        update();
     }
 
 
@@ -30,11 +34,23 @@ public class StatusCheck {
         checkCan();
     }
 
-    void checkPower(){
-        for (int i = 0; i < motorIDList.size(); i ++){
-            SmartDashboard.putBoolean("test 1", false);
+    void checkPowerList(ArrayList keyList, ArrayList idList){
+        for (int i = 0; i < keyList.size(); i ++){
+            if(checkPower() == false){
+                SmartDashboard.putBoolean((String) keyList.get(i) , (Boolean) idList.get(i));
+            }
         }
     }
+
+    boolean checkPower(){
+        //find a way to check power here
+        return false;
+    }
+
+    void checkCanList(){
+        
+    }
+
     void checkCan(){
         
     }
