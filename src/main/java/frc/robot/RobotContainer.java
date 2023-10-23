@@ -34,6 +34,7 @@ import frc.robot.commands.drive.TeleopSwerve;
 import frc.robot.commands.other.rumble.Rumbler;
 import frc.robot.commands.auto.AutoBalence;
 import frc.robot.commands.auto.CustomAuto;
+import frc.robot.commands.auto.LimeLightPositioning;
 import frc.robot.commands.auto.OldAutoCommand;
 import frc.robot.commands.components.Crane.CraneBM;
 import frc.robot.commands.components.Crane.CraneBT;
@@ -72,7 +73,7 @@ public final class RobotContainer {
     //public final DriveTrain driveTrain;
     //public final TrajectoryGeneration trajectoryGeneration = new TrajectoryGeneration();
     public final GsonSaver gsonSaver;
-    public final OperatorController operator = new OperatorController(1);
+    public final OperatorController operator = new OperatorController(0);
     public SmartDashBoardClass<Double> autoVersion, autoDelay;
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
@@ -104,7 +105,7 @@ public final class RobotContainer {
                 () -> joystick.getRawAxis(translationAxis), 
                 () -> joystick.getRawAxis(strafeAxis), 
                 () -> joystick.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                () -> false
 
                 /* 
                 () -> joystick.getRawAxis(translationAxis), 
@@ -172,6 +173,7 @@ public final class RobotContainer {
 
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        operator.buttons.A.whileTrue(new LimeLightPositioning(s_Swerve, null, null, null, robotCentric));
 
 
         //a botton cone

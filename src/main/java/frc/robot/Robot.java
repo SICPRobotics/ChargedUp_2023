@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
 
-  Pigeon2 pigeon = new Pigeon2(0);
+  Pigeon2 pigeon = new Pigeon2(13);
 
 
   @Override
