@@ -37,7 +37,7 @@ public class LimeLightPositioning extends CommandBase {
         /* Get Values, Deadband*/
         double valueX = aTags[0];
         
-        while(valueX > -5.5){
+        while(valueX > -5 || valueX == 0){
             double translationVal = -.3;
             double strafeVal = 0;
             double rotationVal = 0;
@@ -50,5 +50,13 @@ public class LimeLightPositioning extends CommandBase {
                 true
             );
         }
+
+        s_Swerve.drive(
+                new Translation2d(0, 0).times(Constants.Swerve.maxSpeed), 
+                0 * Constants.Swerve.maxAngularVelocity, 
+                !robotCentricSup.getAsBoolean(), 
+                true
+        );
+
     }
 }

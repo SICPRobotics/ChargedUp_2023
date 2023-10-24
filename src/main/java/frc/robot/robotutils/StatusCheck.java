@@ -43,7 +43,6 @@ public class StatusCheck {
     void checkPowerList(ArrayList<String> keyList, ArrayList<Integer> idList){
         for (int i = 0; i < keyList.size(); i ++){
             if(checkPower() == false){
-                
             }
         }
     }
