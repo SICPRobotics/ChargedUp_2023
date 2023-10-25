@@ -41,14 +41,14 @@ public final class Constants {
         Map<String, Integer> motorIDList = new HashMap<>();
 
         //Swerve drivetrain motor IDs 
-        motorIDList.put("FLD", Swerve.Mod0.driveMotorID); //front left drive
-        motorIDList.put("FLT", Swerve.Mod0.angleMotorID); //front left turn 
-        motorIDList.put("FRD", Swerve.Mod1.driveMotorID); //front right drive 
-        motorIDList.put("FRT", Swerve.Mod1.angleMotorID); // front right turn
-        motorIDList.put("BRD", Swerve.Mod2.driveMotorID);
-        motorIDList.put("BRT", Swerve.Mod2.angleMotorID);
-        motorIDList.put("BLD", Swerve.Mod3.driveMotorID);
-        motorIDList.put("BLT", Swerve.Mod3.angleMotorID);
+        motorIDList.put("Front Left Drive", Swerve.Mod0.driveMotorID); //front left drive
+        motorIDList.put("Front Left Turn", Swerve.Mod0.angleMotorID); //front left turn 
+        motorIDList.put("Front Right Drive", Swerve.Mod1.driveMotorID); //front right drive 
+        motorIDList.put("Front Right Turn", Swerve.Mod1.angleMotorID); // front right turn
+        motorIDList.put("Back Right Drive", Swerve.Mod2.driveMotorID);
+        motorIDList.put("Back Right Turn", Swerve.Mod2.angleMotorID);
+        motorIDList.put("Back Left Drive", Swerve.Mod3.driveMotorID);
+        motorIDList.put("Back Left Turn", Swerve.Mod3.angleMotorID);
 
         //Other components
         motorIDList.put("arm", 999);

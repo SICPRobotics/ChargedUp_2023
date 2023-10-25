@@ -14,41 +14,39 @@ import frc.robot.Constants;
 
 public class StatusCheck {
     // add a name for each motor in constatnts
+    Map<String, Integer> motorIDList = new HashMap<>();
+    ArrayList<String> keyList = new ArrayList<String>();
+    ArrayList<Integer> idList = new ArrayList<Integer>();
+    ArrayList<SmartDashBoardClass<Boolean>> smartDashBoardClasses = new ArrayList<SmartDashBoardClass<Boolean>>();
 
     public void StatusCheck(Map<String, Integer> motorIDStorage){
-        Map<String, Integer> motorIDList = new HashMap<>();
         motorIDList = Constants.getComponentIDList();
-
-        ArrayList<String> keyList = new ArrayList<String>();
-        ArrayList<Integer> idList = new ArrayList<Integer>();
-        Map<String, SmartDashBoardClass<Double>> smartDashBoardClasses = new HashMap<String, SmartDashBoardClass<Double>>();
-
-        for (int i = 0; i < keyList.size(); i ++){
-            //smartdashboard list is broken I hate it
-            //smartDashBoardClasses.add(keyList.get(i), new SmartDashBoardClass<Double>("autoVersion", 0.0));
-        }
 
         keyList.addAll(motorIDList.keySet());
         idList.addAll(motorIDList.values());
 
-        update(keyList, idList);
+        update();
     }
 
 
-    void update(ArrayList<String> keyList, ArrayList<Integer> idList){
-        checkPowerList(keyList, idList);
+    public void update(){
+        checkPowerList();
         checkCanList();
     }
 
-    void checkPowerList(ArrayList<String> keyList, ArrayList<Integer> idList){
+    void checkPowerList(){
         for (int i = 0; i < keyList.size(); i ++){
-            if(checkPower() == false){
+            if(checkPower() == true){
+                SmartDashboard.putBoolean(keyList.get(i) + " ID:" + motorIDList.get(keyList.get(i)), true);
+            }
+            else{
+                SmartDashboard.putBoolean(keyList.get(i) + " ID:" + motorIDList.get(keyList.get(i)), false);
             }
         }
     }
 
     boolean checkPower(){
-        //find a way to check power here
+        
         return false;
     }
 

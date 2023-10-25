@@ -55,14 +55,11 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   public static CTREConfigs ctreConfigs;
   private RobotContainer robotContainer;
-  SmartDashBoardClass statusLights;
 
   double initialPitch;
   double initialRoll;
   double initialYaw;
   double initialX;
-
-  SmartDashBoardClass justATest = new SmartDashBoardClass<Double>("just a test", 4.4);
 
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
@@ -70,32 +67,21 @@ public class Robot extends TimedRobot {
   NetworkTableEntry ta = table.getEntry("ta");
   double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
 
-  //read values periodically
-  double x = tx.getDouble(0.0);
-  double y = ty.getDouble(0.0);
-  double area = ta.getDouble(0.0);
-
-  //post to smart dashboard periodically
-  
-
-  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
   XboxController xboxController = new XboxController(1);
+
+  //utiliies
   Logger logger = new Logger(xboxController);
-
-  
-
   List<String> inputs = new ArrayList<String>();
   List<Float> inputDurations = new ArrayList<Float>();
   List<Float> timeOInput = new ArrayList<Float>();
-
-  //utiliies
   AutoConverter converter = new AutoConverter(inputs, inputDurations, timeOInput);
   StatusCheck checker = new StatusCheck();
 
+  //components
   CraneExtender craneExtender = new CraneExtender();
   CranePivot cranePivot = new CranePivot();
-
   Pigeon2 pigeon = new Pigeon2(13);
+  Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
 
 
   @Override
@@ -145,7 +131,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
 
-    
     System.out.print("Inputs:");
     System.out.println(logger.getInputs());
     inputs = logger.getInputs();
@@ -197,8 +182,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public final void teleopInit() {
-
-    pcmCompressor.enableDigital(); 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -220,17 +203,12 @@ public class Robot extends TimedRobot {
     System.out.println(aTags[0]);
     logger.CheckInputs();
 
-    //make this check if the motor has communication
-    if(true){
-    statusLights = new SmartDashBoardClass<Boolean>("motor 1", false);
-    }
+    checker.update();
 }
 
   @Override
   public final void testInit() {
     // Cancels all running commands at the , of test mode.
-    cranePivot.resetEncoder();
-    craneExtender.resetEncoder();
     initialPitch = pigeon.getPitch();
     initialRoll = pigeon.getRoll();
     initialYaw = pigeon.getYaw();
@@ -242,6 +220,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    System.out.println(aTags[0]);
+
   }
 }
