@@ -19,22 +19,21 @@ public class StatusCheck {
     ArrayList<Integer> idList = new ArrayList<Integer>();
     ArrayList<SmartDashBoardClass<Boolean>> smartDashBoardClasses = new ArrayList<SmartDashBoardClass<Boolean>>();
 
-    public void StatusCheck(Map<String, Integer> motorIDStorage){
-        motorIDList = Constants.getComponentIDList();
-
-        keyList.addAll(motorIDList.keySet());
-        idList.addAll(motorIDList.values());
-
-        update();
+    public void StatusCheck(){
     }
 
+    public void getConstants(){
+        motorIDList.putAll(Constants.getComponentIDList());
+        keyList.addAll(motorIDList.keySet());
+        idList.addAll(motorIDList.values());
+    }
 
     public void update(){
         checkPowerList();
         checkCanList();
     }
 
-    void checkPowerList(){
+    public void checkPowerList(){
         for (int i = 0; i < keyList.size(); i ++){
             if(checkPower() == true){
                 SmartDashboard.putBoolean(keyList.get(i) + " ID:" + motorIDList.get(keyList.get(i)), true);
@@ -45,17 +44,18 @@ public class StatusCheck {
         }
     }
 
-    boolean checkPower(){
-        
-        return false;
+    public boolean checkPower(){
+        //find a way to tell if motors are on
+        return true;
     }
 
-    void checkCanList(){
+    public void checkCanList(){
         
     }
 
-    void checkCan(){
-        
+    public boolean checkCan(){
+        //check to see if can frames are being received
+        return true;
     }
 }
 
