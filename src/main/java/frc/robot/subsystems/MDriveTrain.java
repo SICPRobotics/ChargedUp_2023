@@ -108,23 +108,26 @@ public class MDriveTrain extends SubsystemBase {
     double initalX;
     double initalYaw;
 
-    private double deltaX(){
-      return (pigeon2.getPitch() - initalX);
+    private double deltaX(double startX){
+      return (pigeon2.getPitch());
     }
 
     boolean once = false;
-    public void autoLevel(double initalYaw){
+    public void autoLevel(double startX, double initalYaw){
       this.initalYaw = initalYaw;
       if(once = false){
-        initalX = pigeon2.getPitch();
+        initalX = startX;
         once = true;
       }
-        double currentPitch = deltaX();
+        double currentPitch = deltaX(startX);
 
-        System.out.println("DeltaX" + deltaX() + "DeltaYaw " + getDeltaYaw(initalYaw));
+        System.out.println("initalx" + initalX);
+        System.out.println("actaul pitch" + pigeon2.getPitch());
+        //System.out.println("DeltaX" + deltaX(startX) + "DeltaYaw " + getDeltaYaw(initalYaw));
         double turn = 0;
         
 
+        /* 
         if(getDeltaYaw(initalYaw) > 7){
           turn = -.1;
         }
@@ -137,8 +140,10 @@ public class MDriveTrain extends SubsystemBase {
         else if(getDeltaYaw(initalYaw) < -3){
           turn = .05;
         }
+        */
          
-        if(currentPitch < -8.5){
+        if(currentPitch < -4.5){
+          System.out.println("correcting one way");
           mDrive.driveCartesian(-.12, 0, turn);
           inDeadZoneLastTime = false;
           lastMoveForwards = false;
@@ -147,7 +152,8 @@ public class MDriveTrain extends SubsystemBase {
           //System.out.print("leveling forwards turn:"+turn);
           
         }
-        else if(currentPitch > 8.5){
+        else if(currentPitch > 4.5){
+          System.out.println("correcting other way");
           mDrive.driveCartesian(.12, 0, turn);
           inDeadZoneLastTime = false;
           lastMoveForwards = true;
@@ -156,6 +162,7 @@ public class MDriveTrain extends SubsystemBase {
         }
         
         else{
+          //System.out.println("this is the else");
           if (inDeadZoneLastTime == false){
             TimeInDeadZone = 0;
           }
