@@ -86,8 +86,8 @@ public final class Constants {
     }
 
     public static class Auto{
-        public static final double DIST_DRIVE_ACCEPTED_ERROR = 2000;
-        public static final double TURN_ACCEPTED_ERROR = 1000;
+        public static final double DRIVE_ERROR_MARGIN = .1;
+        public static final double TURN_ERROR_MARGIN = 5;
     }
 
     public static class Gryo{
