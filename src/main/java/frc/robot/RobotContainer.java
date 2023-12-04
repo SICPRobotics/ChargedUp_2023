@@ -36,6 +36,7 @@ import frc.robot.commands.auto.AutoBalence;
 import frc.robot.commands.auto.CustomAuto;
 import frc.robot.commands.auto.LimeLightPositioning;
 import frc.robot.commands.auto.OldAutoCommand;
+import frc.robot.commands.basecommands.MotorCommand;
 import frc.robot.commands.components.Crane.CraneBM;
 import frc.robot.commands.components.Crane.CraneBT;
 import frc.robot.commands.components.Crane.CraneCM;
@@ -57,6 +58,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.basesubsytems.Pidgey;
+import frc.robot.subsystems.components.Mouth;
 import frc.robot.subsystems.drivetrains.TankDrive;
 import frc.robot.subsystems.drivetrains.SwerveDrive;
 
@@ -78,6 +80,7 @@ public final class RobotContainer {
     public final Pidgey pidgey;
     public final Pigeon2 pigeon2;
     public final ADIS16470_IMU adis16470_IMU;
+    public final Mouth mouth = new Mouth();
 
     private final Joystick joystick  = new Joystick(0);
 
@@ -173,6 +176,8 @@ public final class RobotContainer {
 
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        operator.buttons.X.whileTrue(new MotorCommand(mouth, -.3));
+        operator.buttons.B.whileTrue(new MotorCommand(mouth, .3));
         operator.buttons.A.whileTrue(new LimeLightPositioning(s_Swerve, null, null, null, robotCentric));
 
 

@@ -16,6 +16,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
@@ -55,6 +57,8 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   public static CTREConfigs ctreConfigs;
   private RobotContainer robotContainer;
+  AddressableLED mLed;
+  AddressableLEDBuffer mLedBuffer;
 
   double initialPitch;
   double initialRoll;
@@ -86,6 +90,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
+    mLed = new AddressableLED(9);
+    mLedBuffer = new AddressableLEDBuffer(48);
+    mLed.setLength(mLedBuffer.getLength());
+
+    mLed.setData(mLedBuffer);
+    mLed.start();
+
     checker.getConstants();
     ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -156,7 +167,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    
+    for(int i = 0; i < mLedBuffer.getLength(); i++){
+      // mLedBuffer.setRGB(i, 255, 0, 0);
+      mLedBuffer.setRGB(i, 3*i, 0, 0);
+    }
+
+    mLed.setData(mLedBuffer);
   }
 
   /**
@@ -197,11 +213,64 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically durting operator control.
    */
+    int colorOfTheTick = 0;
+    int colorOfTheTick2 = 0;
+    int colorOfTheTick3 = 255;
+    int test = 0;
   @Override
   public void teleopPeriodic() {
+    
     double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
-    System.out.println("test here");
-    System.out.println(aTags[0]);
+    
+    
+    if(colorOfTheTick > 256){
+      colorOfTheTick = colorOfTheTick - 256;
+    }
+    if(colorOfTheTick2 > 256){
+      colorOfTheTick = colorOfTheTick - 256;
+    }
+    if(colorOfTheTick3 > 256){
+      colorOfTheTick = colorOfTheTick - 256;
+    }
+    
+
+    
+    if(test == 0){
+      for(int i = 0; i < mLedBuffer.getLength(); i++){
+        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
+      }
+      colorOfTheTick3--;
+      colorOfTheTick++;
+      if(colorOfTheTick >= 255){
+        test = 1;
+      }
+    }
+    if(test == 1){
+      for(int i = 0; i < mLedBuffer.getLength(); i++){
+        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
+      }
+      colorOfTheTick --;
+      colorOfTheTick2 ++;
+      if(colorOfTheTick2 >= 255){
+        test = 2;
+      }
+    }
+    if(test == 2){
+      for(int i = 0; i < mLedBuffer.getLength(); i++){
+        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
+      }
+      colorOfTheTick2 --;
+      colorOfTheTick3 ++;
+      if(colorOfTheTick3 >= 255){
+        test = 0;
+      }
+    }
+
+    mLed.setData(mLedBuffer);
+    
+
+    //rainbow();
+    
     logger.CheckInputs();
 
     checker.update();
@@ -221,6 +290,36 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
+  }
+
+  int m_rainbowFirstPixelHue = 3;
+
+  private void rainbow() {
+
+    // For every pixel
+
+    for (var i = 0; i < mLedBuffer.getLength(); i++) {
+
+      // Calculate the hue - hue is easier for rainbows because the color
+
+      // shape is a circle so only one value needs to precess
+
+      final var hue = (m_rainbowFirstPixelHue + (i * 180 / mLedBuffer.getLength())) % 180;
+
+      // Set the value
+
+      mLedBuffer.setHSV(i, hue, 255, 128);
+
+    }
+
+    // Increase by to make the rainbow "move"
+
+    m_rainbowFirstPixelHue += 3;
+
+    // Check bounds
+
+    m_rainbowFirstPixelHue %= 180;
 
   }
 }
