@@ -30,10 +30,10 @@ public class DriveDistance extends CommandBase {
     }
     @Override
     public void execute() {
-        if(getRight() - getLeft() > Constants.Auto.DIST_DRIVE_ACCEPTED_ERROR){
+        if(getRight() - getLeft() > Constants.Auto.DRIVE_ERROR_MARGIN){
             this.driveTrain.diffDrive(speed + 0.1, speed - 0.1);
         }
-        else if(getRight() - getLeft() < -Constants.Auto.DIST_DRIVE_ACCEPTED_ERROR){
+        else if(getRight() - getLeft() < -Constants.Auto.DRIVE_ERROR_MARGIN){
             this.driveTrain.diffDrive(speed - 0.1, speed + 0.1);
         }
         else{
