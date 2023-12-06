@@ -54,7 +54,9 @@ public class StatusCheck {
     }
 
     public boolean checkPower(TalonFX checkingFalcon){
-        //find a way to tell if motors are on
+        if(checkingFalcon.getBusVoltage() == 0){
+            return false;
+        }
         return true;
     }
 

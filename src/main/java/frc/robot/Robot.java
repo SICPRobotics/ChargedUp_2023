@@ -38,6 +38,7 @@ import frc.robot.robotutils.StatusCheck;
 import frc.robot.robotutils.logging.Logger;
 import frc.robot.subsystems.components.CraneExtender;
 import frc.robot.subsystems.components.CranePivot;
+import frc.robot.subsystems.components.Lights;
 import frc.robot.subsystems.drivetrains.MechDrive;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -86,6 +87,7 @@ public class Robot extends TimedRobot {
   CranePivot cranePivot = new CranePivot();
   Pigeon2 pigeon = new Pigeon2(13);
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+  Lights strip1 = new Lights(9, 48);
 
 
   @Override
@@ -167,12 +169,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    for(int i = 0; i < mLedBuffer.getLength(); i++){
-      // mLedBuffer.setRGB(i, 255, 0, 0);
-      mLedBuffer.setRGB(i, 3*i, 0, 0);
-    }
-
-    mLed.setData(mLedBuffer);
+    strip1.setColor(255,0,0);
   }
 
   /**
@@ -213,66 +210,16 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically durting operator control.
    */
-    int colorOfTheTick = 0;
-    int colorOfTheTick2 = 0;
-    int colorOfTheTick3 = 255;
-    int test = 0;
   @Override
   public void teleopPeriodic() {
     
     double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
     
     
-    if(colorOfTheTick > 256){
-      colorOfTheTick = colorOfTheTick - 256;
-    }
-    if(colorOfTheTick2 > 256){
-      colorOfTheTick = colorOfTheTick - 256;
-    }
-    if(colorOfTheTick3 > 256){
-      colorOfTheTick = colorOfTheTick - 256;
-    }
+    strip1.rainbow();
     
-
-    
-    if(test == 0){
-      for(int i = 0; i < mLedBuffer.getLength(); i++){
-        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
-      }
-      colorOfTheTick3--;
-      colorOfTheTick++;
-      if(colorOfTheTick >= 255){
-        test = 1;
-      }
-    }
-    if(test == 1){
-      for(int i = 0; i < mLedBuffer.getLength(); i++){
-        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
-      }
-      colorOfTheTick --;
-      colorOfTheTick2 ++;
-      if(colorOfTheTick2 >= 255){
-        test = 2;
-      }
-    }
-    if(test == 2){
-      for(int i = 0; i < mLedBuffer.getLength(); i++){
-        mLedBuffer.setRGB(i, colorOfTheTick, colorOfTheTick2, colorOfTheTick3);
-      }
-      colorOfTheTick2 --;
-      colorOfTheTick3 ++;
-      if(colorOfTheTick3 >= 255){
-        test = 0;
-      }
-    }
-
-    mLed.setData(mLedBuffer);
-    
-
-    //rainbow();
     
     logger.CheckInputs();
-
     checker.update();
 }
 
@@ -290,36 +237,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-
-  }
-
-  int m_rainbowFirstPixelHue = 3;
-
-  private void rainbow() {
-
-    // For every pixel
-
-    for (var i = 0; i < mLedBuffer.getLength(); i++) {
-
-      // Calculate the hue - hue is easier for rainbows because the color
-
-      // shape is a circle so only one value needs to precess
-
-      final var hue = (m_rainbowFirstPixelHue + (i * 180 / mLedBuffer.getLength())) % 180;
-
-      // Set the value
-
-      mLedBuffer.setHSV(i, hue, 255, 128);
-
-    }
-
-    // Increase by to make the rainbow "move"
-
-    m_rainbowFirstPixelHue += 3;
-
-    // Check bounds
-
-    m_rainbowFirstPixelHue %= 180;
 
   }
 }

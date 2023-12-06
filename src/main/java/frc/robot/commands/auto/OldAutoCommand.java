@@ -82,7 +82,7 @@ public class OldAutoCommand extends CommandBase{
             } 
           if(time > 1.5 && time < 3.22){ 
               this.mDriveTrain.driveForwardsFast(); 
-            } 
+            }
           if(time < 999 && time > 3.22){ 
               this.mDriveTrain.autoLevel(initialYaw);
             } 
