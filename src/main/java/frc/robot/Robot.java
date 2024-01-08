@@ -35,7 +35,7 @@ import frc.robot.commands.auto.AutoBalence;
 import frc.robot.controllers.operator.OperatorController;
 import frc.robot.robotutils.AutoConverter;
 import frc.robot.robotutils.StatusCheck;
-import frc.robot.robotutils.logging.Logger;
+import frc.robot.robotutils.Logging.Logger;
 import frc.robot.subsystems.components.CraneExtender;
 import frc.robot.subsystems.components.CranePivot;
 import frc.robot.subsystems.components.Lights;
@@ -87,18 +87,20 @@ public class Robot extends TimedRobot {
   CranePivot cranePivot = new CranePivot();
   Pigeon2 pigeon = new Pigeon2(13);
   Compressor pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-  Lights strip1 = new Lights(9, 48);
+  //Lights strip1 = new Lights(7, 48);
+  Lights strip2 = new Lights(9, 100);
 
 
   @Override
   public void robotInit() {
+    /* 
     mLed = new AddressableLED(9);
     mLedBuffer = new AddressableLEDBuffer(48);
     mLed.setLength(mLedBuffer.getLength());
 
     mLed.setData(mLedBuffer);
     mLed.start();
-
+  */
     checker.getConstants();
     ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -144,6 +146,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    strip2.setColor(255, 0, 0);
 
     System.out.print("Inputs:");
     System.out.println(logger.getInputs());
@@ -169,7 +172,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    strip1.setColor(255,0,0);
+    //strip1.setColor(255,0,0);
   }
 
   /**
@@ -196,6 +199,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public final void teleopInit() {
+    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -210,13 +214,31 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically durting operator control.
    */
+  public boolean blank = true;
   @Override
   public void teleopPeriodic() {
+    
+    /* 
+    if(blank){
+      strip2.setColor(150, 0, 0);
+      blank = false;
+      System.out.println("test");
+    }
+    else{
+      System.out.print("other");
+      strip2.setColor(0, 20, 0);
+      blank = true;
+    }
+    */
+    //mLedBuffer.setRGB(1, 254, 0, 0);
+    strip2.rainbowLine();
+    //strip2.setColor(100, 100, 100);
+    //strip1.setColor(0, 255, 0);
     
     double aTags[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
     
     
-    strip1.rainbow();
+    //strip1.rainbow();
     
     
     logger.CheckInputs();
@@ -237,6 +259,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-
+      strip2.setColor(126, 75, 38);
   }
 }

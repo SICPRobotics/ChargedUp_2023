@@ -1,4 +1,4 @@
-package frc.robot.robotutils.logging;
+package frc.robot.robotutils.Logging;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
